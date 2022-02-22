@@ -3,13 +3,7 @@ import { ref } from 'vue'
 
 defineProps<{ msg: string }>()
 
-console.log(21211)
-
-
-
-
-
-
+console.log(8888)
 
 
 
