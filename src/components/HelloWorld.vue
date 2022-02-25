@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { a } from '@/components/1.js'
 
 defineProps<{ msg: string }>()
 
-console.log(8888, a)
+console.log(8888)
 
 const count = ref(0)
 </script>
