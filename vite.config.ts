@@ -2,9 +2,27 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { resolve } from 'path'
 import Pages from 'vite-plugin-pages'
+import Layouts from 'vite-plugin-vue-layouts'
+import OptimizationPersist from 'vite-plugin-optimize-persist'
+import PkgConfig from 'vite-plugin-package-config'
+import vueJsx from '@vitejs/plugin-vue-jsx'
+import viteCompression from 'vite-plugin-compression'
+import Markdown from 'vite-plugin-md'
+import Prism from 'markdown-it-prism' // 代码块高亮
+// import LinkAttributes from 'markdown-it-link-attributes' // 传递链接属性
+import Windicss from 'vite-plugin-windicss'
+import Inspect from 'vite-plugin-inspect'
+
+const markdownWrapperClasses =
+  'prose md:prose-lg lg:prose-lg dark:prose-invert text-left p-10 prose-slate prose-img:rounded-xl prose-headings:underline prose-a:text-blue-600'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
+    // 将包信息文件作为 vite 的配置文件之一，为 vite-plugin-optimize-persist 所用
+    PkgConfig(),
+    // 依赖预构建分析，提高大型项目性能
+    OptimizationPersist(),
+    // vue 官方插件，用来解析 sfc
     vue({
       include: [/\.vue$/, /\.md$/],
     }),
@@ -12,6 +30,26 @@ export default defineConfig({
     Pages({
       extensions: ['vue', 'md', 'tsx'],
     }),
+    // markdown 编译插件
+    Markdown({
+      wrapperClasses: markdownWrapperClasses,
+      markdownItSetup(md) {
+        md.use(Prism)
+      },
+    }),
+    // windicss 插件
+    Windicss({
+      safelist: markdownWrapperClasses,
+    }),
+    // 布局系统
+    Layouts(),
+
+    // 调试工具
+    Inspect(),
+    // tsx 支持
+    vueJsx(),
+    // 生产环境资源压缩
+    viteCompression(),
   ],
   server: {
     port: 5000,
@@ -20,5 +58,17 @@ export default defineConfig({
     alias: {
       '~/': `${resolve(__dirname, 'src')}/`,
     },
+  },
+  //使用此选项可强制预构建链接的包
+  optimizeDeps: {
+    include: [
+      'nprogress',
+      'pinia',
+      'vue',
+      'vue-i18n',
+      'vue-router',
+      '@vueuse/head',
+      '@vueuse/core',
+    ],
   },
 })
