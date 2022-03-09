@@ -1,6 +1,7 @@
+// https://cn.windicss.org/integrations/vite.html
 import 'virtual:windi-base.css'
 import 'virtual:windi-components.css'
-// 你自定义的 css
+// 自定义的 css
 import './styles/main.css'
 
 import 'virtual:windi-utilities.css'
