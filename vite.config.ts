@@ -39,7 +39,7 @@ export default defineConfig({
     }),
     // windicss 插件
     Windicss({
-      safelist: markdownWrapperClasses,
+      safelist: markdownWrapperClasses, // 白名单 不会扫描 按需生成的css样式
     }),
     // 布局系统
     Layouts(),
@@ -56,7 +56,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '~/': `${resolve(__dirname, 'src')}/`,
+      '~/': `${resolve(__dirname, 'src')}/`, // 查找~项目更目录
     },
   },
   //使用此选项可强制预构建链接的包

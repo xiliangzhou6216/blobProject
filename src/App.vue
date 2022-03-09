@@ -6,7 +6,7 @@ import About from '~/pages/about.md'
 </script>
 
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
+  <!-- <img alt="Vue logo" src="./assets/logo.png" /> -->
   <HelloWorld msg="Hello Vue 3 + TypeScript + Vite+123" />
   <About />
 </template>
