@@ -3,10 +3,10 @@ import { App } from 'vue'
 import NProgress from 'nprogress'
 
 export default (app: App) => {
-	router.beforeEach(() => {
-		NProgress.start()
-	})
-	router.afterEach(() => {
-		NProgress.done()
-	})
+  router.beforeEach(() => {
+    NProgress.start()
+  })
+  router.afterEach(() => {
+    NProgress.done()
+  })
 }

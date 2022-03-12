@@ -7,7 +7,7 @@ not-found: Notfound
 languages:
   - Ruby
   - Perl
-  - Python 
+  - Python
 
 nesting:
   sir: man

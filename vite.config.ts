@@ -18,13 +18,12 @@ import VueI18n from '@intlify/vite-plugin-vue-i18n'
 import IconsResolver from 'unplugin-icons/resolver'
 
 import {
-	ArcoResolver,
-	NaiveUiResolver,
-	AntDesignVueResolver,
-	ElementPlusResolver,
-	VueUseComponentsResolver
+  ArcoResolver,
+  NaiveUiResolver,
+  AntDesignVueResolver,
+  ElementPlusResolver,
+  VueUseComponentsResolver,
 } from 'unplugin-vue-components/resolvers'
-
 
 const markdownWrapperClasses =
   'prose md:prose-lg lg:prose-lg dark:prose-invert text-left p-10 prose-slate prose-img:rounded-xl prose-headings:underline prose-a:text-blue-600'
@@ -58,29 +57,23 @@ export default defineConfig({
     Layouts(),
     // api 自动按需引入
     AutoImport({
-      imports: [
-        'vue',
-        'vue-router',
-        'vue-i18n',
-        '@vueuse/head',
-        '@vueuse/core',
-      ],
+      imports: ['vue', 'vue-router', 'vue-i18n', '@vueuse/head', '@vueuse/core'],
       dts: 'src/auto-imports.d.ts',
     }),
     // 组件自动按需引入
-		Components({
-			extensions: ['vue', 'md', 'tsx'],
-			include: [/\.md$/, /\.vue$/, /\.tsx$/],
-			dts: resolve(__dirname, 'src/components.d.ts'),
-			resolvers: [
-				ArcoResolver(),
-				IconsResolver(),
-				NaiveUiResolver(),
-				ElementPlusResolver(),
-				AntDesignVueResolver(),
-				VueUseComponentsResolver()
-			]
-		}),
+    Components({
+      extensions: ['vue', 'md', 'tsx'],
+      include: [/\.md$/, /\.vue$/, /\.tsx$/],
+      dts: resolve(__dirname, 'src/components.d.ts'),
+      resolvers: [
+        ArcoResolver(),
+        IconsResolver(),
+        NaiveUiResolver(),
+        ElementPlusResolver(),
+        AntDesignVueResolver(),
+        VueUseComponentsResolver(),
+      ],
+    }),
     VueI18n({
       runtimeOnly: true,
       compositionOnly: true,

@@ -7,7 +7,7 @@ not-found: 未找到页面
 languages:
   - Ruby
   - Perl
-  - Python 
+  - Python
 nesting:
   sir: 男人
   lady: 女士
