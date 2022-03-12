@@ -1,9 +1,14 @@
 # 中文
-
+# yml文件 专门写配置文件的语言
 index: 主页
 about: 关于
 not-found: 未找到页面
 
+languages:
+  - Ruby
+  - Perl
+  - Python 
 nesting:
   sir: 男人
   lady: 女士
+  hi: 你好，{name}

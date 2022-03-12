@@ -4,6 +4,12 @@ index: index
 about: about
 not-found: Notfound
 
+languages:
+  - Ruby
+  - Perl
+  - Python 
+
 nesting:
   sir: man
   lady: lady
+  hi: hello，{name}
