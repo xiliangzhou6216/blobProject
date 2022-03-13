@@ -11,7 +11,6 @@ const theme = computed(() => (isDark.value ? '黑色' : '白色'))
 const language = computed(() => (locale.value === 'zh-CN' ? '中文' : 'English'))
 const toggleLocal = () => {
   locale.value = locale.value === 'en' ? 'zh-CN' : 'en'
-  console.log(t('languages'))
 }
 const name = ref('xiliang')
 </script>
@@ -24,15 +23,11 @@ const name = ref('xiliang')
     <div>语言{{ language }}</div>
     <div>base: {{ t('about') }}</div>
     <div>{{ t('nesting.sir') }}</div>
-    <div>
-      {{ t('nesting.hi', { name: name }) }}
-    </div>
-    <div>
-      {{ t('languages') }}
-    </div>
+    <div>{{ t('nesting.hi', { name: name }) }}</div>
+    <div>{{ t('languages') }}</div>
     <!-- <div  v-for="(item, index) in t('localArr')" :key="index">
         {{}}
-    </div> -->
+    </div>-->
   </div>
 </template>
 
