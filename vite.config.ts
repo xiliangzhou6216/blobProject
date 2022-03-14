@@ -11,7 +11,7 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import viteCompression from 'vite-plugin-compression'
 import Markdown from 'vite-plugin-md'
 import Prism from 'markdown-it-prism' // 代码块高亮
-// import LinkAttributes from 'markdown-it-link-attributes' // 传递链接属性
+import LinkAttributes from 'markdown-it-link-attributes' // 传递链接属性
 import Windicss from 'vite-plugin-windicss'
 import Inspect from 'vite-plugin-inspect'
 import VueI18n from '@intlify/vite-plugin-vue-i18n'
@@ -45,8 +45,17 @@ export default defineConfig({
     // markdown 编译插件
     Markdown({
       wrapperClasses: markdownWrapperClasses,
+      headEnabled: true,
       markdownItSetup(md) {
+        // https://prismjs.com/
         md.use(Prism)
+        md.use(LinkAttributes, {
+          matcher: (link: string) => /^https?:\/\//.test(link),
+          attrs: {
+            target: '_blank',
+            rel: 'noopener',
+          },
+        })
       },
     }),
     // windicss 插件
