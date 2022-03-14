@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import useDarks from '~/composables/useDarks'
+import i18n from '~/modules/i18n'
 const { isDark, toggleDark } = useDarks()
 const { locale, t, availableLocales } = useI18n()
 
-defineProps<{ msg: string }>()
+// defineProps<{ msg: string }>()
 
 const count = ref(0)
 const theme = computed(() => (isDark.value ? '黑色' : '白色'))
@@ -13,10 +14,11 @@ const toggleLocal = () => {
   locale.value = locale.value === 'en' ? 'zh-CN' : 'en'
 }
 const name = ref('xiliang')
+console.log(i18n)
 </script>
 
 <template>
-  <h1>{{ msg }}</h1>
+  <!-- <h1>{{ msg }}</h1> -->
   <button type="button" @click="count++">count is: {{ count }}</button>
   <div class="cursor-pointer m-6" @click="toggleDark()">theme: {{ theme }}</div>
   <div class="cursor-pointer m-6" @click="toggleLocal()">
