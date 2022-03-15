@@ -16,6 +16,7 @@ import Windicss from 'vite-plugin-windicss'
 import Inspect from 'vite-plugin-inspect'
 import VueI18n from '@intlify/vite-plugin-vue-i18n'
 import IconsResolver from 'unplugin-icons/resolver'
+import Legacy from '@vitejs/plugin-legacy'
 
 import {
   ArcoResolver,
@@ -37,6 +38,9 @@ export default defineConfig({
     // vue 官方插件，用来解析 sfc
     vue({
       include: [/\.vue$/, /\.md$/],
+    }),
+    Legacy({
+      targets: ['defaults', 'not IE 11'],
     }),
     // 文件路由
     Pages({
