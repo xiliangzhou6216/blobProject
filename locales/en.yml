@@ -4,7 +4,7 @@ index: index
 about: about
 not-found: Notfound
 
-languages:
+arr:
   - Ruby
   - Perl
   - Python

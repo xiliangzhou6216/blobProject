@@ -14,7 +14,6 @@ const toggleLocal = () => {
   locale.value = locale.value === 'en' ? 'zh-CN' : 'en'
 }
 const name = ref('xiliang')
-console.log(i18n)
 </script>
 
 <template>
@@ -26,10 +25,6 @@ console.log(i18n)
     <div>base: {{ t('about') }}</div>
     <div>{{ t('nesting.sir') }}</div>
     <div>{{ t('nesting.hi', { name: name }) }}</div>
-    <div>{{ t('languages') }}</div>
-    <!-- <div  v-for="(item, index) in t('localArr')" :key="index">
-        {{}}
-    </div>-->
   </div>
 </template>
 
