@@ -17,6 +17,7 @@ import Inspect from 'vite-plugin-inspect'
 import VueI18n from '@intlify/vite-plugin-vue-i18n'
 import IconsResolver from 'unplugin-icons/resolver'
 import Legacy from '@vitejs/plugin-legacy'
+import Icons from 'unplugin-icons/vite' //自动按需引入icons
 
 import {
   ArcoResolver,
@@ -66,6 +67,10 @@ export default defineConfig({
     Windicss({
       safelist: markdownWrapperClasses, // 白名单 不会扫描 按需生成的css样式
     }),
+    // https://icones.netlify.app/
+		Icons({
+			autoInstall: true
+		}),
     // 布局系统
     Layouts(),
     // api 自动按需引入
