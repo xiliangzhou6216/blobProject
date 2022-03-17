@@ -65,7 +65,7 @@ export default defineConfig({
     }),
     // windicss 插件
     Windicss({
-      safelist: markdownWrapperClasses, // 白名单 不会扫描 按需生成的css样式
+      safelist: markdownWrapperClasses, // 白名单 不会扫描 
     }),
     // https://icones.netlify.app/
 		Icons({

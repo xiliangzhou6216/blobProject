@@ -25,11 +25,19 @@ const name = ref('xiliang')
     <div>base: {{ t('about') }}</div>
     <div>{{ t('nesting.sir') }}</div>
     <div>{{ t('nesting.hi', { name: name }) }}</div>
+
+
+     <router-link to="/xxx/xxx">
+      not exists
+    </router-link> |
+    <router-link to="/about">
+      about
+    </router-link> 
   </div>
 </template>
 
 <style scoped>
-a {
+/* a {
   color: #42b983;
 }
 
@@ -43,5 +51,5 @@ code {
   padding: 2px 4px;
   border-radius: 4px;
   color: #304455;
-}
+} */
 </style>
