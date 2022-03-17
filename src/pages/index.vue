@@ -25,9 +25,7 @@ const name = ref('xiliang')
     <div>base: {{ t('about') }}</div>
     <div>{{ t('nesting.sir') }}</div>
     <div>{{ t('nesting.hi', { name: name }) }}</div>
-
-
-     <router-link to="/xxx/xxx">
+     <router-link to="/xxx">
       not exists
     </router-link> |
     <router-link to="/about">

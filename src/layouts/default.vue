@@ -1,8 +1,9 @@
 <template>
-  <router-view />
+  <main class="px-4 py-10 text-center text-gray-700 dark:text-gray-200">
+    <router-view />
+    <Footer />
+    <div class="mt-5 mx-auto text-center  text-sm">
+      Default Layout
+    </div>
+  </main>
 </template>
-
-<route lang="yml">
-meta:
-  lang: yml
-</route>
