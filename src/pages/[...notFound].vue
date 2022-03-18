@@ -2,7 +2,11 @@
 import { init } from 'ityped'
 const content = ref<null | Element>(null)
 onMounted(() => {
-  init(content.value as Element, { showCursor: false, disableBackTyping: true, strings: [' is not found!'] });
+  init(content.value as Element, {
+    showCursor: false,
+    disableBackTyping: true,
+    strings: [' is not found!'],
+  })
 })
 const router = useRouter()
 const back = () => router.push('/')
@@ -12,14 +16,15 @@ const back = () => router.push('/')
   <div class="flex flex-wrap h-screen text-center justify-around items-center">
     <div class="font-blod desc">
       <div class="text-7xl code">404</div>
-      <div class="text-3xl content" ref="content">The Page</div>
-      <button @click="back" active="scale-90 transform" class="rounded-lg transition btn">👉 Go Home</button>
+      <div ref="content" class="text-3xl content">The Page</div>
+      <button active="scale-90 transform" class="rounded-lg transition btn" @click="back">
+        👉 Go Home
+      </button>
     </div>
 
     <img src="/notFound/1.svg" class="cover" alt="page not found" />
   </div>
 </template>
-
 
 <style>
 .code {

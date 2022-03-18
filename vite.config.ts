@@ -65,12 +65,12 @@ export default defineConfig({
     }),
     // windicss 插件
     Windicss({
-      safelist: markdownWrapperClasses, // 白名单 不会扫描 
+      safelist: markdownWrapperClasses, // 白名单 不会扫描
     }),
     // https://icones.netlify.app/
-		Icons({
-			autoInstall: true
-		}),
+    Icons({
+      autoInstall: true,
+    }),
     // 布局系统
     Layouts(),
     // api 自动按需引入

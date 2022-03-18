@@ -10,16 +10,16 @@ import NProgress from 'nprogress'
  */
 
 export default (app: App) => {
-  router.beforeEach((to,from) => {
-  console.log('全局路由前置守卫：to,from\n', to, from);
-  // 设置页面标题
-  document.title = (to.meta.title as string) || import.meta.env.VITE_APP_TITLE;
+  router.beforeEach((to, from) => {
+    console.log('全局路由前置守卫：to,from\n', to, from)
+    // 设置页面标题
+    document.title = (to.meta.title as string) || import.meta.env.VITE_APP_TITLE
     if (!NProgress.isStarted()) {
-      NProgress.start();
+      NProgress.start()
     }
   })
   router.afterEach((to, from) => {
-    console.log('全局路由后置守卫：to,from\n', to, from);
+    console.log('全局路由后置守卫：to,from\n', to, from)
     NProgress.done()
   })
 }
