@@ -15,6 +15,7 @@ const back = () => router.push('/')
 <template>
   <div class="flex flex-wrap h-screen text-center justify-around items-center">
     <div class="font-blod desc">
+      
       <div class="text-7xl code">404</div>
       <div ref="content" class="text-3xl content">The Page</div>
       <button active="scale-90 transform" class="rounded-lg transition btn" @click="back">
