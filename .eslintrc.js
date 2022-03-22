@@ -7,7 +7,7 @@ module.exports = {
   },
   parser: 'vue-eslint-parser',
   extends: [
-    'eslint:recommended',
+    //'eslint:recommended', // 变量漏写、参数名漏写、未定义
     'plugin:vue/vue3-recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
@@ -25,6 +25,7 @@ module.exports = {
   // eslint-plugin-vue @typescript-eslint/eslint-plugin eslint-plugin-prettier的缩写
   plugins: ['vue', '@typescript-eslint', 'prettier'],
   rules: {
+    'vue/multi-word-component-names': 0,
     '@typescript-eslint/ban-ts-ignore': 'off',
     '@typescript-eslint/no-unused-vars': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
