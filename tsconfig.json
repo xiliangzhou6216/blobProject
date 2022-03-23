@@ -15,11 +15,12 @@
 //   "references": [{ "path": "./tsconfig.node.json" }]
 // }
 
+// https://lq782655835.github.io/blogs/project/ts-tsconfig.html
 {
   "compilerOptions": {
     "strict": true,
     "jsx": "preserve",
-    "target": "esnext",
+    "target": "esnext", // 编译的目标版本 es最新的特性
     "module": "esnext",
     "sourceMap": true,
     "skipLibCheck": true,
