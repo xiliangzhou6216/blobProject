@@ -19,13 +19,7 @@ import IconsResolver from 'unplugin-icons/resolver'
 import Legacy from '@vitejs/plugin-legacy'
 import Icons from 'unplugin-icons/vite' //自动按需引入icons
 
-import {
-  ArcoResolver,
-  NaiveUiResolver,
-  AntDesignVueResolver,
-  ElementPlusResolver,
-  VueUseComponentsResolver,
-} from 'unplugin-vue-components/resolvers'
+import { AntDesignVueResolver, VueUseComponentsResolver } from 'unplugin-vue-components/resolvers'
 
 const markdownWrapperClasses =
   'prose md:prose-lg lg:prose-lg dark:prose-invert text-left p-10 prose-slate prose-img:rounded-xl prose-headings:underline prose-a:text-blue-600'
@@ -83,14 +77,7 @@ export default defineConfig({
       extensions: ['vue', 'md', 'tsx'],
       include: [/\.md$/, /\.vue$/, /\.tsx$/],
       dts: resolve(__dirname, 'src/components.d.ts'),
-      resolvers: [
-        ArcoResolver(),
-        IconsResolver(),
-        NaiveUiResolver(),
-        ElementPlusResolver(),
-        AntDesignVueResolver(),
-        VueUseComponentsResolver(),
-      ],
+      resolvers: [IconsResolver(), AntDesignVueResolver(), VueUseComponentsResolver()],
     }),
     VueI18n({
       runtimeOnly: true,
