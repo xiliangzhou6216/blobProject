@@ -5,6 +5,7 @@ import i18n from '~/modules/i18n'
 const { isDark, toggleDark } = useDarks()
 const { locale, t, availableLocales } = useI18n()
 
+console.log(availableLocales, i18n)
 // defineProps<{ msg: string }>()
 
 const count = ref(0)

@@ -1,6 +1,6 @@
 /*
  * @Description: commit-msg提交信息格式规范
- *
+ * // --no-verify 跳过代码检查
  * commit-msg格式: <type>(scope?): <subject>
  *  - type: 用于表明我们这次提交的改动类型，是新增了功能？还是修改了测试代码？又或者是更新了文档？
  *    - build: 编译相关的修改，例如发布版本、对项目构建或者依赖的改动

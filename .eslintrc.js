@@ -20,9 +20,10 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'prettier',
     'plugin:prettier/recommended',
-    'plugin:jest/recommended',
+    // 'plugin:jest/recommended',
   ],
   rules: {
+    'vue/multi-word-component-names': 'off', // 关闭找不到视图单词
     'vue/script-setup-uses-vars': 'error',
     '@typescript-eslint/ban-ts-ignore': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
