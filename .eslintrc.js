@@ -85,7 +85,6 @@ module.exports = {
 //   },
 //   parser: 'vue-eslint-parser',
 //   extends: [
-//     //'eslint:recommended', // 变量漏写、参数名漏写、未定义
 //     'plugin:vue/vue3-recommended',
 //     'plugin:@typescript-eslint/recommended',
 //     'plugin:prettier/recommended',
