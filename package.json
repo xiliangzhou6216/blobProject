@@ -18,6 +18,8 @@
     "analysis": "windicss-analysis"
   },
   "dependencies": {
+    "@ant-design/icons-vue": "^6.1.0",
+    "ant-design-vue": "^2.2.8",
     "pinia": "^2.0.11",
     "prism-theme-vars": "^0.2.2",
     "vue": "^3.2.25"
@@ -42,6 +44,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-vue": "^8.4.1",
     "ityped": "^1.0.3",
+    "less": "^4.1.2",
     "markdown-it-link-attributes": "^4.0.0",
     "markdown-it-prism": "^2.2.3",
     "mockjs": "^1.1.0",
@@ -88,6 +91,9 @@
   "pnpm": {
     "peerDependencyRules": {
       "ignoreMissing": [
+        "unplugin-icons",
+        "vite-plugin-pages",
+        "ant-design-vue",
         "rollup",
         "markdown-it",
         "@types/markdown-it"
@@ -97,6 +103,9 @@
   "vite": {
     "optimizeDeps": {
       "include": [
+        "ant-design-vue/es",
+        "ant-design-vue/es/button/style/css",
+        "ant-design-vue/es/layout/style/css",
         "ityped"
       ]
     }

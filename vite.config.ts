@@ -57,6 +57,7 @@ export default defineConfig({
         })
       },
     }),
+
     // windicss 插件
     Windicss({
       safelist: markdownWrapperClasses, // 白名单 不会扫描
@@ -77,6 +78,7 @@ export default defineConfig({
       extensions: ['vue', 'md', 'tsx'],
       include: [/\.md$/, /\.vue$/, /\.tsx$/],
       dts: resolve(__dirname, 'src/components.d.ts'),
+      // ant-design-vue 按需导入
       resolvers: [IconsResolver(), AntDesignVueResolver(), VueUseComponentsResolver()],
     }),
     VueI18n({
@@ -91,6 +93,14 @@ export default defineConfig({
     // 生产环境资源压缩
     viteCompression(),
   ],
+  // CSS 预处理器  支持 less 样式
+  css: {
+    preprocessorOptions: {
+      less: {
+        javascriptEnabled: true,
+      },
+    },
+  },
   server: {
     port: 5000,
   },

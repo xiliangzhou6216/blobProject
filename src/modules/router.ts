@@ -1,11 +1,12 @@
 import { App } from 'vue'
-import generatedRoutes from 'virtual:generated-pages' // pages下自动生成的路由数据
+// import generatedRoutes from 'virtual:generated-pages' // pages下自动生成的路由数据
 import { setupLayouts } from 'virtual:generated-layouts'
 import { createRouter, createWebHistory } from 'vue-router'
+import constantRoutes from '~/router/router.config'
 
-const routes = setupLayouts(generatedRoutes)
-console.log(import.meta.env)
+const routes = setupLayouts(constantRoutes)
 
+console.log(constantRoutes, routes)
 export const router = createRouter({
   routes,
   // 解决 二级路径存在时，路径地址路由不匹配的问题
