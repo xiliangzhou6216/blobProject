@@ -79,7 +79,11 @@ export default defineConfig({
       include: [/\.md$/, /\.vue$/, /\.tsx$/],
       dts: resolve(__dirname, 'src/components.d.ts'),
       // ant-design-vue 按需导入
-      resolvers: [IconsResolver(), AntDesignVueResolver(), VueUseComponentsResolver()],
+      resolvers: [
+        IconsResolver(),
+        AntDesignVueResolver({ importStyle: 'less' }),
+        VueUseComponentsResolver(),
+      ],
     }),
     VueI18n({
       runtimeOnly: true,
