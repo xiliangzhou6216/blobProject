@@ -103,9 +103,12 @@
   "vite": {
     "optimizeDeps": {
       "include": [
+        "@ant-design/icons-vue",
         "ant-design-vue/es",
+        "ant-design-vue/es/breadcrumb/style/css",
         "ant-design-vue/es/button/style/css",
         "ant-design-vue/es/layout/style/css",
+        "ant-design-vue/es/menu/style/css",
         "ityped"
       ]
     }
