@@ -1,3 +1,4 @@
+// 客户端类型
 /// <reference types="vite/client" />
 /// <reference types="vite-plugin-pages/client" />
 /// <reference types="vite-plugin-vue-layouts/client" />
