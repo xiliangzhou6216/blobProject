@@ -10,7 +10,7 @@
  * 加这一段是是告诉 ts，vue 文件是这种类型的。
  *
  */
-
+// 只有在声明文件中使用 export 导出，然后在使用方 import 导入后，才会应用到这些类型声明
 declare module '*.vue' {
   import type { DefineComponent } from 'vue'
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/ban-types
