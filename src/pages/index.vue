@@ -12,7 +12,8 @@
       </a-layout-header>
       <a-layout>
         <a-layout-sider width="200" style="background: #fff">
-          <a-menu
+          <SideMenu />
+          <!-- <a-menu
             v-model:selectedKeys="selectedKeys2"
             v-model:openKeys="openKeys"
             mode="inline"
@@ -27,8 +28,6 @@
               </template>
               <a-menu-item key="1">option1</a-menu-item>
               <a-menu-item key="2">option2</a-menu-item>
-              <a-menu-item key="3">option3</a-menu-item>
-              <a-menu-item key="4">option4</a-menu-item>
             </a-sub-menu>
             <a-sub-menu key="sub2">
               <template #title>
@@ -39,10 +38,8 @@
               </template>
               <a-menu-item key="5">option5</a-menu-item>
               <a-menu-item key="6">option6</a-menu-item>
-              <a-menu-item key="7">option7</a-menu-item>
-              <a-menu-item key="8">option8</a-menu-item>
             </a-sub-menu>
-          </a-menu>
+          </a-menu> -->
         </a-layout-sider>
         <a-layout style="padding: 0 24px 24px">
           <a-breadcrumb style="margin: 16px 0">
@@ -61,8 +58,10 @@
   </div>
 </template>
 <script setup lang="ts">
+// 子组件 sfc interface 定义 emits  props
 import { UserOutlined, LaptopOutlined } from '@ant-design/icons-vue'
 import avatar from '~/assets/avatar.png'
+import SideMenu from './SideMenu'
 
 const selectedKeys2 = ref<string[]>(['1'])
 const openKeys = ref<string[]>(['sub1'])

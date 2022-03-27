@@ -104,6 +104,7 @@
     "optimizeDeps": {
       "include": [
         "@ant-design/icons-vue",
+        "ant-design-vue",
         "ant-design-vue/es",
         "ant-design-vue/es/breadcrumb/style",
         "ant-design-vue/es/breadcrumb/style/css",
