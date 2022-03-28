@@ -14,6 +14,7 @@ declare module 'vue' {
     AMenuItem: typeof import('ant-design-vue/es')['MenuItem']
     ASubMenu: typeof import('ant-design-vue/es')['SubMenu']
     Footer: typeof import('./components/Footer.vue')['default']
+    Icon: typeof import('./components/Icon/index.tsx')['default']
   }
 }
 

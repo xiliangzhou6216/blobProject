@@ -11,9 +11,9 @@
         <div class="sys-setting">aafaf</div>
       </a-layout-header>
       <a-layout>
-        <a-layout-sider width="200" style="background: #fff">
-          <SideMenu />
-          <!-- <a-menu
+        <SideMenu />
+        <!-- <a-layout-sider width="200" style="background: #fff">
+          <a-menu
             v-model:selectedKeys="selectedKeys2"
             v-model:openKeys="openKeys"
             mode="inline"
@@ -39,8 +39,8 @@
               <a-menu-item key="5">option5</a-menu-item>
               <a-menu-item key="6">option6</a-menu-item>
             </a-sub-menu>
-          </a-menu> -->
-        </a-layout-sider>
+          </a-menu>
+        </a-layout-sider> -->
         <a-layout style="padding: 0 24px 24px">
           <a-breadcrumb style="margin: 16px 0">
             <a-breadcrumb-item>Home</a-breadcrumb-item>
@@ -59,12 +59,12 @@
 </template>
 <script setup lang="ts">
 // 子组件 sfc interface 定义 emits  props
-import { UserOutlined, LaptopOutlined } from '@ant-design/icons-vue'
+// import { UserOutlined, LaptopOutlined } from '@ant-design/icons-vue'
 import avatar from '~/assets/avatar.png'
 import SideMenu from './SideMenu'
 
-const selectedKeys2 = ref<string[]>(['1'])
-const openKeys = ref<string[]>(['sub1'])
+// const selectedKeys2 = ref<string[]>(['1'])
+// const openKeys = ref<string[]>(['sub1'])
 </script>
 <style scoped lang="less">
 .components-layout-demo {

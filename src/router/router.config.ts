@@ -1,4 +1,6 @@
 import type { RouteRecordRaw } from 'vue-router'
+// import { h } from 'vue'
+// const RouteView = h('router-view')
 const constantRoutes: RouteRecordRaw[] = [
   {
     path: '/',
