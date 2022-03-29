@@ -1,8 +1,7 @@
-
-import { createFromIconfontCN } from '@ant-design/icons-vue';
+import { createFromIconfontCN } from '@ant-design/icons-vue'
 const MyIcon = createFromIconfontCN({
   scriptUrl: '//at.alicdn.com/t/font_8d5l8fzk5b87iudi.js', // 在 iconfont.cn 上生成
-});
+})
 export default defineComponent({
   props: {
     type: {
@@ -23,6 +22,6 @@ export default defineComponent({
     },
   },
   setup(props) {
-    return () => <MyIcon type="icon-dianzan" />;
+    return () => <MyIcon type='icon-dianzan' />
   },
-});
+})

@@ -6,7 +6,7 @@
 <script lang="ts" setup>
 const router = useRouter()
 const denglu = () => {
-  console.log(router.getRoutes(), 6666)
-  router.replace('/app')
+  console.log(router.getRoutes(), router)
+  router.push('/app/home')
 }
 </script>
