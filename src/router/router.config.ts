@@ -1,13 +1,15 @@
 import type { RouteRecordRaw } from 'vue-router'
+import BasicLayout from '~/layouts/BasicLayout/index.vue'
+
 // import { h } from 'vue'
 // const RouteView = h('router-view')
-const constantRoutes: RouteRecordRaw[] = [
+export const accessRoutes: RouteRecordRaw[] = [
   {
-    path: '/',
-    component: () => import('~/pages/index.vue'),
-    name: 'index',
+    path: '/app',
+    component: BasicLayout,
+    name: 'app',
+    redirect: '/app/home',
     meta: { title: 'vue平台' },
-    props: true,
     children: [
       {
         path: '/app/home',
@@ -45,6 +47,45 @@ const constantRoutes: RouteRecordRaw[] = [
         ],
       },
     ],
+  },
+  // ...accessRoutes,
+]
+
+export const publicRoutes = [
+  {
+    path: '/redirect',
+    component: () => import('~/pages/BlankLayout.vue'),
+    children: [
+      {
+        path: '/redirect/:path(.*)',
+        component: () => import('~/pages/404.vue'),
+      },
+    ],
+  },
+  {
+    path: '/:pathMatch(.*)',
+    redirect: '/404',
+  },
+  {
+    path: '/404',
+    component: () => import('~/pages/404.vue'),
+  },
+]
+
+const constantRoutes: RouteRecordRaw[] = [
+  {
+    path: '/login',
+    component: () => import('~/pages/login/index.vue'),
+    name: 'login',
+    meta: { title: '登录' },
+  },
+  {
+    path: '/',
+    name: 'Root',
+    redirect: '/app',
+    meta: {
+      title: 'Root',
+    },
   },
   // ...accessRoutes,
 ]

@@ -32,7 +32,7 @@
 // 子组件 sfc interface 定义 emits  props
 // import { UserOutlined, LaptopOutlined } from '@ant-design/icons-vue'
 import avatar from '~/assets/avatar.png'
-import SideMenu from '../layouts/BasicLayout/SideMenu'
+import SideMenu from '~/layouts/BasicLayout/SideMenu'
 
 // const selectedKeys2 = ref<string[]>(['1'])
 // const openKeys = ref<string[]>(['sub1'])

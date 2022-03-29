@@ -9,6 +9,7 @@ import 'virtual:windi-devtools'
 
 import { createApp } from 'vue'
 import App from './App.vue'
+import './router/permission'
 // 插件自动加载
 // 从文件中导入多个模块
 const modules = import.meta.globEager('./modules/*.ts')
