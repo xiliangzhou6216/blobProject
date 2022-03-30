@@ -1,12 +1,11 @@
 <template>
   <div>
-    <a-button type="primary" @click="denglu">login</a-button>
+    <a-button type="primary" @click="() => router.push('/app/home')">login</a-button>
+    <span>{{ store.count }}</span>
   </div>
 </template>
 <script lang="ts" setup>
+import { useUserStore } from '~/store/modules/user'
 const router = useRouter()
-const denglu = () => {
-  console.log(router.getRoutes(), router)
-  router.push('/app/home')
-}
+const store = useUserStore()
 </script>
