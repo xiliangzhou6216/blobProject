@@ -82,14 +82,17 @@ export default defineComponent({
         >
           {/* {getMenuTree(router)} */}
 
-          <a-sub-menu key="sub1" title={
-          <>
-            <span>sdhfjhsfdjsd</span>
-          </>
-        }>
-          <a-menu-item key="1">option1</a-menu-item>
-          <a-menu-item key="2">option2</a-menu-item>
-        </a-sub-menu>
+          <a-sub-menu
+            key='sub1'
+            title={
+              <>
+                <span>sdhfjhsfdjsd</span>
+              </>
+            }
+          >
+            <a-menu-item key='1'>option1</a-menu-item>
+            <a-menu-item key='2'>option2</a-menu-item>
+          </a-sub-menu>
         </a-menu>
       </a-layout-sider>
     )
