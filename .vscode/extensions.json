@@ -1,3 +1,9 @@
 {
-  "recommendations": ["johnsoncodehk.volar", "antfu.iconify", "mikestead.dotenv", "redhat.vscode-yaml", "lokalise.i18n-ally"]
+  "recommendations": [
+    "johnsoncodehk.volar",
+    "antfu.iconify",
+    "mikestead.dotenv",
+    "redhat.vscode-yaml",
+    "lokalise.i18n-ally"
+  ]
 }
