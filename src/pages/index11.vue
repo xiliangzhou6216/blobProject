@@ -18,7 +18,7 @@ const name = ref('xiliang')
 </script>
 
 <template>
-  <!-- <h1>{{ msg }}</h1> -->
+  <!-- <h1>{{ msg }}</h1> --> 测试
   <button type="button" @click="count++">count is: {{ count }}</button>
   <div class="cursor-pointer m-6" @click="toggleDark()">theme: {{ theme }}</div>
   <div class="cursor-pointer m-6" @click="toggleLocal()">
