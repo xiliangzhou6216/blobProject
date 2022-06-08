@@ -86,7 +86,7 @@ export default defineComponent({
             key='sub1'
             title={
               <>
-                <span>sdhfjhsfdjsd</span>
+                <span>菜单</span>
               </>
             }
           >

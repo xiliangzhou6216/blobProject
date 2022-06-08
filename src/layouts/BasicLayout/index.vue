@@ -1,18 +1,18 @@
 <template>
   <div>
-    <a-layout class="components-layout-demo">
+    <a-layout class="basicLayout-wrap">
       <a-layout-header class="header">
         <div class="layout-logo-box">
           <div class="layout-logo">
             <img :src="avatar" class="logo" alt="logo" />
-            <div class="title">vite+ts+vue3</div>
+            <div class="title">vue3-admin</div>
           </div>
         </div>
-        <div class="sys-setting">aafaf</div>
+        <div class="sys-setting">系统设置</div>
       </a-layout-header>
       <a-layout>
         <SideMenu />
-        <a-layout style="padding: 0 24px 24px">
+        <a-layout class="basicLayout-content">
           <a-breadcrumb style="margin: 16px 0">
             <a-breadcrumb-item>Home</a-breadcrumb-item>
             <a-breadcrumb-item>List</a-breadcrumb-item>
@@ -21,7 +21,72 @@
           <a-layout-content
             :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '280px' }"
           >
-            Content
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
+            <div>dddd</div>
           </a-layout-content>
         </a-layout>
       </a-layout>
@@ -38,21 +103,10 @@ import SideMenu from '~/layouts/BasicLayout/SideMenu'
 // const openKeys = ref<string[]>(['sub1'])
 </script>
 <style scoped lang="less">
-.components-layout-demo {
-  .layout-logo-box {
-    height: 100%;
-    .layout-logo {
-      display: flex;
-      .logo {
-        width: 50px;
-        height: 50px;
-      }
-      .title {
-        font-size: 20px;
-        color: black;
-        padding: 0 10px;
-      }
-    }
+.basicLayout-wrap {
+  height: 100vh;
+  overflow: hidden;
+  .basicLayout-content {
   }
   .ant-layout-header {
     display: flex;
@@ -61,6 +115,32 @@ import SideMenu from '~/layouts/BasicLayout/SideMenu'
     background: #fff;
     align-items: center;
     padding: 0 16px;
+    box-shadow: 0 1px 4px #00152914;
+    z-index: 1;
+    .layout-logo-box {
+      height: 100%;
+      .layout-logo {
+        display: flex;
+        .logo {
+          width: 50px;
+          height: 50px;
+        }
+        .title {
+          font-size: 20px;
+          color: black;
+          padding: 0 10px;
+        }
+      }
+    }
+    .sys-setting {
+      color: black;
+    }
+  }
+  .basicLayout-content {
+    height: calc(100vh - 64px);
+    overflow-y: auto;
+    margin: 0;
+    padding: 24px;
   }
 }
 
