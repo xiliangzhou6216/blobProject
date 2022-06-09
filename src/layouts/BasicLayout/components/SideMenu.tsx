@@ -1,18 +1,32 @@
 // tsx TSX（defineComponent） 中 components、props、emits 等的声明是省不了的
 // 定义
 
-import router from '~/router/router.config'
+// import router from '~/router/router.config'
 import Icon from '~/components/Icon/index'
+import { PropType } from 'vue'
+import { MenuItemData } from '../utils/types'
+import { clearMenuItem, filterRoutes } from '../utils/index'
 interface Props {
   name?: string
   age?: number
 }
 
-// const a:Props={name:111}
 export default defineComponent({
-  // props:{
-
-  // },
+  name: 'BaseMenu',
+  props: {
+    theme: {
+      type: String,
+      default: 'light',
+    },
+    menuWidth: {
+      type: Number,
+      default: 208,
+    },
+    menuData: {
+      type: Array as PropType<MenuItemData[]>,
+      default: () => [],
+    },
+  },
   setup(props, ctx) {
     // 定义菜单数据
     const state = reactive<any>({
@@ -26,15 +40,14 @@ export default defineComponent({
       console.log(e)
     }
 
-    const routerData = router.filter((item) => item)
-
-    const urouter = useRouter()
-    console.log(urouter.getRoutes())
+    const data = clearMenuItem(useRouter().getRoutes()).filter(({ path }) =>
+      path.startsWith('/app/')
+    )
+    console.log(filterRoutes(data), data)
 
     // icon
     const getIcon = (type: string) => (type ? <Icon type={type} /> : null)
 
-    console.log(router, 1111)
     // 获取菜单树
     const getMenuTree = (data: []) => {
       return data.map((item) => {
@@ -63,7 +76,7 @@ export default defineComponent({
       <a-layout-sider
         width={208}
         collapsedWidth={54}
-        class='sideMenu-sider'
+        class='sideMenu'
         theme='light'
         trigger={null}
         collapsible={true}

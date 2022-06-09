@@ -18,75 +18,22 @@
             <a-breadcrumb-item>List</a-breadcrumb-item>
             <a-breadcrumb-item>App</a-breadcrumb-item>
           </a-breadcrumb>
-          <a-layout-content
-            :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '280px' }"
-          >
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
-            <div>dddd</div>
+          <a-layout-content>
+            <a-card>
+              <div>dddd</div>
+              <div>dddd</div>
+              <div>dddd</div>
+              <div>dddd</div>
+              <div>dddd</div>
+              <div>dddd</div>
+              <div>dddd</div>
+              <div>dddd</div>
+              <div>dddd</div>
+              <div>dddd</div>
+              <div>dddd</div>
+              <div>dddd</div>
+              <div>dddd</div>
+            </a-card>
           </a-layout-content>
         </a-layout>
       </a-layout>
@@ -97,7 +44,7 @@
 // 子组件 sfc interface 定义 emits  props
 // import { UserOutlined, LaptopOutlined } from '@ant-design/icons-vue'
 import avatar from '~/assets/avatar.png'
-import SideMenu from '~/layouts/BasicLayout/SideMenu'
+import SideMenu from '../BasicLayout/components/SideMenu'
 
 // const selectedKeys2 = ref<string[]>(['1'])
 // const openKeys = ref<string[]>(['sub1'])
