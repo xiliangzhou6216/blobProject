@@ -40,38 +40,34 @@ export default defineComponent({
       console.log(e)
     }
 
-    const data = clearMenuItem(useRouter().getRoutes()).filter(({ path }) =>
+    const mdata = clearMenuItem(useRouter().getRoutes()).filter(({ path }) =>
       path.startsWith('/app/')
     )
-    console.log(filterRoutes(data), data)
+    // menuData
+    const menuData = filterRoutes(mdata)
+    console.log(menuData)
 
     // icon
     const getIcon = (type: string) => (type ? <Icon type={type} /> : null)
 
     // 获取菜单树
-    const getMenuTree = (data: []) => {
+    const getMenuTree = (data: MenuDataItem[]) => {
       return data.map((item) => {
         if (item.children) {
-          console.log(item.children)
-          // return (
-          //   <a-sub-menu key={item.path} >
-          //     {
-          //       console.log(item,1111)
-          //     }
-          //     {/* {getMenuTree(item.children)} */}
-          //   </a-sub-menu>
-          // )
+          console.log(item, 66)
+          return <a-sub-menu key={item.path}></a-sub-menu>
         }
-        return (
-          <>
-            <a-menu-item key={item.path}>
-              {getIcon(item.meta?.icon as string)}
-              <span>{item.meta?.title}</span>
-            </a-menu-item>
-          </>
-        )
+        // return (
+        //   <>
+        //     <a-menu-item key={item.path}>
+        //       {getIcon(item.meta?.icon as string)}
+        //       <span>{item.meta?.title}</span>
+        //     </a-menu-item>
+        //   </>
+        // )
       })
     }
+    // console.log(getMenuTree(menuData))
     return () => (
       <a-layout-sider
         width={208}
@@ -93,9 +89,9 @@ export default defineComponent({
           onOpenChange={(openKeys: string[]) => (state.openKeys = openKeys)}
           onSelect={onSelect}
         >
-          {/* {getMenuTree(router)} */}
+          {getMenuTree(menuData)}
 
-          <a-sub-menu
+          {/* <a-sub-menu
             key='sub1'
             title={
               <>
@@ -105,7 +101,7 @@ export default defineComponent({
           >
             <a-menu-item key='1'>option1</a-menu-item>
             <a-menu-item key='2'>option2</a-menu-item>
-          </a-sub-menu>
+          </a-sub-menu> */}
         </a-menu>
       </a-layout-sider>
     )
