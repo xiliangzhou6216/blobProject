@@ -19,21 +19,7 @@
             <a-breadcrumb-item>App</a-breadcrumb-item>
           </a-breadcrumb>
           <a-layout-content>
-            <a-card>
-              <div>dddd</div>
-              <div>dddd</div>
-              <div>dddd</div>
-              <div>dddd</div>
-              <div>dddd</div>
-              <div>dddd</div>
-              <div>dddd</div>
-              <div>dddd</div>
-              <div>dddd</div>
-              <div>dddd</div>
-              <div>dddd</div>
-              <div>dddd</div>
-              <div>dddd</div>
-            </a-card>
+            <a-card> <router-view /> </a-card>
           </a-layout-content>
         </a-layout>
       </a-layout>

@@ -6,7 +6,7 @@ import constantRoutes, { accessRoutes, publicRoutes } from '~/router/router.conf
 
 const routes = [...constantRoutes, ...accessRoutes, ...publicRoutes]
 
-console.log(routes)
+// console.log(routes)
 export const router = createRouter({
   routes,
   // 解决 二级路径存在时，路径地址路由不匹配的问题

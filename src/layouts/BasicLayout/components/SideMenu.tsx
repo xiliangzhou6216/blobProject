@@ -1,11 +1,13 @@
 // tsx TSX（defineComponent） 中 components、props、emits 等的声明是省不了的
 // 定义
-
-// import router from '~/router/router.config'
 import Icon from '~/components/Icon/index'
 import { PropType } from 'vue'
 import { MenuItemData } from '../utils/types'
 import { clearMenuItem, filterRoutes } from '../utils/index'
+import { createWebHashHistory } from 'vue-router'
+import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons-vue'
+import './style.less'
+import { router } from '~/modules/router'
 interface Props {
   name?: string
   age?: number
@@ -32,42 +34,53 @@ export default defineComponent({
     const state = reactive<any>({
       collapsed: true, // default value
       openKeys: [],
-      selectedKeys: [],
+      selectedKeys: [], // 菜单选中
     })
+    // const router = useRouter()
 
     // 菜单选中
-    const onSelect = (e: {}) => {
-      console.log(e)
+    const onSelect = (e: { key: string }) => {
+      console.log(e.key)
+      router.push(e.key)
     }
 
-    const mdata = clearMenuItem(useRouter().getRoutes()).filter(({ path }) =>
-      path.startsWith('/app/')
-    )
+    const mdata = clearMenuItem(router.getRoutes()).filter(({ path }) => path.startsWith('/app/'))
     // menuData
     const menuData = filterRoutes(mdata)
-    console.log(menuData)
+    // console.log(menuData)
 
     // icon
     const getIcon = (type: string) => (type ? <Icon type={type} /> : null)
-
-    // 获取菜单树
-    const getMenuTree = (data: MenuDataItem[]) => {
+    // 菜单树
+    const getMenuTree = (data: MenuItemData[]) => {
       return data.map((item) => {
         if (item.children) {
-          console.log(item, 66)
-          return <a-sub-menu key={item.path}></a-sub-menu>
+          return (
+            <>
+              <a-sub-menu
+                key={item.path}
+                title={
+                  <>
+                    {getIcon(item.meta?.icon as string)}
+                    <span>{item.meta?.title}</span>
+                  </>
+                }
+              >
+                {getMenuTree(item.children)}
+              </a-sub-menu>
+            </>
+          )
         }
-        // return (
-        //   <>
-        //     <a-menu-item key={item.path}>
-        //       {getIcon(item.meta?.icon as string)}
-        //       <span>{item.meta?.title}</span>
-        //     </a-menu-item>
-        //   </>
-        // )
+        return (
+          <>
+            <a-menu-item key={item.path}>
+              {getIcon(item.meta?.icon as string)}
+              <span>{item.meta?.title}</span>
+            </a-menu-item>
+          </>
+        )
       })
     }
-    // console.log(getMenuTree(menuData))
     return () => (
       <a-layout-sider
         width={208}
@@ -75,33 +88,30 @@ export default defineComponent({
         class='sideMenu'
         theme='light'
         trigger={null}
-        collapsible={true}
+        collapsible
         collapsed={state.collapsed}
         breakpoint='lg'
-        onBreakpoint={(val: boolean) => (state.collapsed = val)}
+        onBreakpoint={(val: boolean) => {
+          state.collapsed = val
+        }}
       >
         <a-menu
           selectedKeys={state.selectedKeys}
           mode='inline'
           theme='light'
-          {...(state.collapsed ? {} : { openKeys: state.openKeys })}
-          class='sideMenu-sider_menu'
+          {...(state.collapsed ? {} : { openKeys: state.openKeys })} // 当前展开的 SubMenu 菜单项 key 数组
+          class='sideMenu-menu'
           onOpenChange={(openKeys: string[]) => (state.openKeys = openKeys)}
           onSelect={onSelect}
         >
           {getMenuTree(menuData)}
-
-          {/* <a-sub-menu
-            key='sub1'
-            title={
-              <>
-                <span>菜单</span>
-              </>
-            }
-          >
-            <a-menu-item key='1'>option1</a-menu-item>
-            <a-menu-item key='2'>option2</a-menu-item>
-          </a-sub-menu> */}
+          <div class='sideMenu-footer'>
+            {h(state.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
+              class: 'trigger',
+              style: { fontSize: 16 },
+              onClick: () => (state.collapsed = !state.collapsed),
+            })}
+          </div>
         </a-menu>
       </a-layout-sider>
     )
