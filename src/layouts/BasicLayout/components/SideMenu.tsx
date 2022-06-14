@@ -33,21 +33,30 @@ export default defineComponent({
     // 定义菜单数据
     const state = reactive<any>({
       collapsed: true, // default value
-      openKeys: [],
-      selectedKeys: [], // 菜单选中
+      openKeys: [], // 当前展开的 SubMenu 菜单项 key 数组
+      selectedKeys: ['/app'], // 当前选中的菜单项 key 数组
     })
     // const router = useRouter()
 
     // 菜单选中
     const onSelect = (e: { key: string }) => {
-      console.log(e.key)
       router.push(e.key)
     }
 
     const mdata = clearMenuItem(router.getRoutes()).filter(({ path }) => path.startsWith('/app/'))
     // menuData
     const menuData = filterRoutes(mdata)
-    // console.log(menuData)
+    // 立即执行 追踪响应式 触发回调 默认pre
+    watchEffect(() => {
+      if (router.currentRoute) {
+        // 标准化的路由记录数组 从上到下 ['/app', '/app/others', '/app/others/child']
+        const matched = router.currentRoute.value.matched.slice()
+        state.selectedKeys = matched.filter((r) => r.name !== 'index').map((r) => r.path)
+        state.openKeys = matched
+          .filter((r) => r.path !== router.currentRoute.value.path)
+          .map((r) => r.path)
+      }
+    })
 
     // icon
     const getIcon = (type: string) => (type ? <Icon type={type} /> : null)
@@ -99,7 +108,7 @@ export default defineComponent({
           selectedKeys={state.selectedKeys}
           mode='inline'
           theme='light'
-          {...(state.collapsed ? {} : { openKeys: state.openKeys })} // 当前展开的 SubMenu 菜单项 key 数组
+          {...(state.collapsed ? {} : { openKeys: state.openKeys })}
           class='sideMenu-menu'
           onOpenChange={(openKeys: string[]) => (state.openKeys = openKeys)}
           onSelect={onSelect}

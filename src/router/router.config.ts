@@ -27,8 +27,7 @@ export const accessRoutes: RouteRecordRaw[] = [
         component: () => import('~/pages/BlankLayout.vue'),
         redirect: '/app/others/about',
         meta: {
-          title: '其他菜单',
-          icon: 'xitongrizhi',
+          title: '二级菜单',
           auth: ['others'],
         },
         children: [
@@ -43,6 +42,24 @@ export const accessRoutes: RouteRecordRaw[] = [
             name: 'antdv',
             component: () => import('~/pages/others/antdv/index.vue'),
             meta: { title: '组件', keepAlive: true, breadcrumb: true },
+          },
+          {
+            path: '/app/others/child',
+            name: 'otherschild',
+            component: () => import('~/pages/BlankLayout.vue'),
+            redirect: '/app/others/child/aboutc',
+            meta: {
+              title: '三级菜单',
+              auth: ['qqq'],
+            },
+            children: [
+              {
+                path: '/app/others/child/aboutc',
+                name: 'aboutc',
+                component: () => import('~/pages/others/about/aboutc/index.vue'),
+                meta: { title: '组件c' },
+              },
+            ],
           },
         ],
       },

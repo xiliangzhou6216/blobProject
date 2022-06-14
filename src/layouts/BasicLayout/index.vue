@@ -13,13 +13,34 @@
       <a-layout>
         <SideMenu />
         <a-layout class="basicLayout-content">
-          <a-breadcrumb style="margin: 16px 0">
-            <a-breadcrumb-item>Home</a-breadcrumb-item>
-            <a-breadcrumb-item>List</a-breadcrumb-item>
-            <a-breadcrumb-item>App</a-breadcrumb-item>
+          <a-breadcrumb :routes="routes">
+            <template #itemRender="{ route, routes, paths }">
+              <!-- {{ route }} -->
+              <span v-if="routes.indexOf(route) === routes.length - 1">
+                {{ route.name }}
+              </span>
+              <router-link v-else :to="paths.join('/')"> {{ route.name }} </router-link>
+            </template>
           </a-breadcrumb>
           <a-layout-content>
-            <a-card> <router-view /> </a-card>
+            <a-card>
+              <router-view v-slot="{ Component, route }">
+                <!-- https://www.jianshu.com/p/399667ec9ef8  -->
+                <transition name="fade-slide" mode="out-in" appear>
+                  <div :key="route.name">
+                    <component :is="Component" />
+                  </div>
+                </transition>
+                <!-- <transition name="fade-slide" mode="out-in" appear>
+                  <suspense>
+                    <template #default>
+                      <component :is="Component" :key="route.name" />
+                    </template>
+                    <template #fallback> Loading... </template>
+                  </suspense>
+                </transition> -->
+              </router-view>
+            </a-card>
           </a-layout-content>
         </a-layout>
       </a-layout>
@@ -31,7 +52,39 @@
 // import { UserOutlined, LaptopOutlined } from '@ant-design/icons-vue'
 import avatar from '~/assets/avatar.png'
 import SideMenu from '../BasicLayout/components/SideMenu'
-
+// const routes = ref([
+//   {
+//     path: 'index',
+//     breadcrumbName: 'home',
+//   },
+//   {
+//     path: 'first',
+//     breadcrumbName: 'first',
+//     children: [
+//       {
+//         path: '/general',
+//         breadcrumbName: 'General',
+//       },
+//       {
+//         path: '/layout',
+//         breadcrumbName: 'Layout',
+//       },
+//       {
+//         path: '/navigation',
+//         breadcrumbName: 'Navigation',
+//       },
+//     ],
+//   },
+//   {
+//     path: 'second',
+//     breadcrumbName: 'second',
+//   },
+// ])
+const { currentRoute } = useRouter()
+const routeMatched = currentRoute.value.matched.filter((item) => !['/', '/app'].includes(item.path))
+const routes = computed(() => routeMatched)
+const cur = routeMatched.at(-1)
+console.log(cur, routeMatched, currentRoute)
 // const selectedKeys2 = ref<string[]>(['1'])
 // const openKeys = ref<string[]>(['sub1'])
 </script>
