@@ -28,6 +28,7 @@ export const accessRoutes: RouteRecordRaw[] = [
         redirect: '/app/others/about',
         meta: {
           title: '二级菜单',
+          icon: 'liulanqi',
           auth: ['others'],
         },
         children: [
@@ -57,7 +58,7 @@ export const accessRoutes: RouteRecordRaw[] = [
                 path: '/app/others/child/aboutc',
                 name: 'aboutc',
                 component: () => import('~/pages/others/about/aboutc/index.vue'),
-                meta: { title: '组件c' },
+                meta: { title: '组件c', hideInMenu: true },
               },
             ],
           },

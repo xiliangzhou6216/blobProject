@@ -5,24 +5,27 @@
         <div class="layout-logo-box">
           <div class="layout-logo">
             <img :src="avatar" class="logo" alt="logo" />
-            <div class="title">vue3-admin</div>
+            <div class="title">admin</div>
           </div>
         </div>
         <div class="sys-setting">系统设置</div>
       </a-layout-header>
       <a-layout>
         <SideMenu />
-        <a-layout class="basicLayout-content">
-          <a-breadcrumb :routes="routes">
-            <template #itemRender="{ route, routes, paths }">
-              <!-- {{ route }} -->
-              <span v-if="routes.indexOf(route) === routes.length - 1">
-                {{ route.name }}
-              </span>
-              <router-link v-else :to="paths.join('/')"> {{ route.name }} </router-link>
-            </template>
-          </a-breadcrumb>
-          <a-layout-content>
+        <a-layout class="basicLayout-section">
+          <div class="basicLayout-breadcrumb">
+            <a-breadcrumb :routes="routes">
+              <template #itemRender="{ route, routes, paths }">
+                <span v-if="routes.indexOf(route) === routes.length - 1">
+                  {{ route.meta.title }}
+                </span>
+                <router-link v-else to="" @click="handleClick(route, paths, $event)">
+                  {{ route.meta.title }}
+                </router-link>
+              </template>
+            </a-breadcrumb>
+          </div>
+          <a-layout-content class="basicLayout-main">
             <a-card>
               <router-view v-slot="{ Component, route }">
                 <!-- https://www.jianshu.com/p/399667ec9ef8  -->
@@ -50,41 +53,38 @@
 <script setup lang="ts">
 // 子组件 sfc interface 定义 emits  props
 // import { UserOutlined, LaptopOutlined } from '@ant-design/icons-vue'
+import type { RouteLocationMatched } from 'vue-router'
 import avatar from '~/assets/avatar.png'
 import SideMenu from '../BasicLayout/components/SideMenu'
-// const routes = ref([
-//   {
-//     path: 'index',
-//     breadcrumbName: 'home',
-//   },
-//   {
-//     path: 'first',
-//     breadcrumbName: 'first',
-//     children: [
-//       {
-//         path: '/general',
-//         breadcrumbName: 'General',
-//       },
-//       {
-//         path: '/layout',
-//         breadcrumbName: 'Layout',
-//       },
-//       {
-//         path: '/navigation',
-//         breadcrumbName: 'Navigation',
-//       },
-//     ],
-//   },
-//   {
-//     path: 'second',
-//     breadcrumbName: 'second',
-//   },
-// ])
-const { currentRoute } = useRouter()
-const routeMatched = currentRoute.value.matched.filter((item) => !['/', '/app'].includes(item.path))
-const routes = computed(() => routeMatched)
-const cur = routeMatched.at(-1)
-console.log(cur, routeMatched, currentRoute)
+export interface routeType {
+  path: string
+  name?: string
+  redirect?: string
+}
+const { currentRoute, push } = useRouter()
+const routes = ref<RouteLocationMatched[]>([])
+
+watchEffect(() => {
+  console.log(444444)
+  // 过滤路由
+  const routeMatched = currentRoute.value.matched.filter(
+    (item) => !['/', '/app'].includes(item.path)
+  )
+  routes.value = routeMatched
+})
+
+const handleClick = (route: RouteLocationMatched, paths: string[], e: Event) => {
+  e.preventDefault()
+  const { path, redirect } = route
+  // 有动态参数需要再单独处理
+  const goPath = /^\//.test(path) ? path : `/${path}`
+  if (redirect) {
+    push(redirect as string)
+  } else {
+    push(goPath)
+  }
+}
+
 // const selectedKeys2 = ref<string[]>(['1'])
 // const openKeys = ref<string[]>(['sub1'])
 </script>
@@ -122,11 +122,18 @@ console.log(cur, routeMatched, currentRoute)
       color: black;
     }
   }
-  .basicLayout-content {
+  .basicLayout-section {
     height: calc(100vh - 64px);
     overflow-y: auto;
     margin: 0;
-    padding: 24px;
+    // padding: 24px;
+  }
+  .basicLayout-main {
+    padding: 12px;
+  }
+  .basicLayout-breadcrumb {
+    padding: 12px;
+    background-color: #fff;
   }
 }
 
