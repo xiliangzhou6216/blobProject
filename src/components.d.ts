@@ -13,8 +13,12 @@ declare module 'vue' {
     AMenu: typeof import('ant-design-vue/es')['Menu']
     AMenuItem: typeof import('ant-design-vue/es')['MenuItem']
     ASubMenu: typeof import('ant-design-vue/es')['SubMenu']
+    Breadcrumb: typeof import('./components/Breadcrumb/src/Breadcrumb.vue')['default']
+    Ceshi: typeof import('./components/ceshi.vue')['default']
     Footer: typeof import('./components/Footer.vue')['default']
     Icon: typeof import('./components/Icon/index.tsx')['default']
+    Qwer: typeof import('./components/qwer.tsx')['default']
+    Src: typeof import('./components/Button/src/index.vue')['default']
   }
 }
 

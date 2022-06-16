@@ -58,7 +58,7 @@ export const accessRoutes: RouteRecordRaw[] = [
                 path: '/app/others/child/aboutc',
                 name: 'aboutc',
                 component: () => import('~/pages/others/about/aboutc/index.vue'),
-                meta: { title: '组件c', hideInMenu: true },
+                meta: { title: '组件c' },
               },
             ],
           },

@@ -2,12 +2,11 @@
 // 定义
 import Icon from '~/components/Icon/index'
 import { PropType } from 'vue'
-import { MenuItemData } from '../utils/types'
-import { clearMenuItem, filterRoutes } from '../utils/index'
+import { MenuItemData } from '../../../utils/types'
+
 import { createWebHashHistory } from 'vue-router'
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons-vue'
 import './style.less'
-import { router } from '~/modules/router'
 interface Props {
   name?: string
   age?: number
@@ -16,6 +15,9 @@ interface Props {
 export default defineComponent({
   name: 'BaseMenu',
   props: {
+    uid: {
+      type: Number,
+    },
     theme: {
       type: String,
       default: 'light',
@@ -29,23 +31,23 @@ export default defineComponent({
       default: () => [],
     },
   },
+  emits: ['update-age', 'update:userName'], // 接收 emits 这里加了个s  接受emits时可以做一些校验
   setup(props, ctx) {
     // 定义菜单数据
     const state = reactive<any>({
       collapsed: true, // default value
       openKeys: [], // 当前展开的 SubMenu 菜单项 key 数组
-      selectedKeys: ['/app'], // 当前选中的菜单项 key 数组
+      selectedKeys: [], // 当前选中的菜单项 key 数组
     })
-    // const router = useRouter()
+    const router = useRouter()
+    const { menuOther } = toRefs(ctx.attrs)
 
     // 菜单选中
     const onSelect = (e: { key: string }) => {
       router.push(e.key)
+      ctx.emit('update-age', menuOther + 1)
     }
 
-    const mdata = clearMenuItem(router.getRoutes()).filter(({ path }) => path.startsWith('/app/'))
-    // menuData
-    const menuData = filterRoutes(mdata)
     // 立即执行 追踪响应式 触发回调 默认pre
     watchEffect(() => {
       if (router.currentRoute) {
@@ -113,7 +115,7 @@ export default defineComponent({
           onOpenChange={(openKeys: string[]) => (state.openKeys = openKeys)}
           onSelect={onSelect}
         >
-          {getMenuTree(menuData)}
+          {getMenuTree(props.menuData)}
           <div class='sideMenu-footer'>
             {h(state.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
               class: 'trigger',

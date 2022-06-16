@@ -8,22 +8,13 @@
             <div class="title">admin</div>
           </div>
         </div>
-        <div class="sys-setting">系统设置</div>
+        <div class="sys-setting">系统设置 {{ layoutConf.uid }}</div>
       </a-layout-header>
       <a-layout>
-        <SideMenu />
+        <SideMenu v-bind="layoutConf" @update-age="updateAge" />
         <a-layout class="basicLayout-section">
           <div class="basicLayout-breadcrumb">
-            <a-breadcrumb :routes="routes">
-              <template #itemRender="{ route, routes, paths }">
-                <span v-if="routes.indexOf(route) === routes.length - 1">
-                  {{ route.meta.title }}
-                </span>
-                <router-link v-else to="" @click="handleClick(route, paths, $event)">
-                  {{ route.meta.title }}
-                </router-link>
-              </template>
-            </a-breadcrumb>
+            <Breadcrumb />
           </div>
           <a-layout-content class="basicLayout-main">
             <a-card>
@@ -52,41 +43,17 @@
 </template>
 <script setup lang="ts">
 // 子组件 sfc interface 定义 emits  props
-// import { UserOutlined, LaptopOutlined } from '@ant-design/icons-vue'
-import type { RouteLocationMatched } from 'vue-router'
 import avatar from '~/assets/avatar.png'
-import SideMenu from '../BasicLayout/components/SideMenu'
-export interface routeType {
-  path: string
-  name?: string
-  redirect?: string
+import SideMenu from './components/SiderMenu/src/SideMenu'
+import { clearMenuItem, filterRoutes } from './utils/index'
+const router = useRouter()
+const mdata = clearMenuItem(router.getRoutes()).filter(({ path }) => path.startsWith('/app/'))
+const menuData = filterRoutes(mdata)
+const menuOther = ref(1)
+const layoutConf = reactive({ menuWidth: 208, theme: 'light', menuData, menuOther, uid: 123 })
+const updateAge = (data: number): void => {
+  console.log(data)
 }
-const { currentRoute, push } = useRouter()
-const routes = ref<RouteLocationMatched[]>([])
-
-watchEffect(() => {
-  console.log(444444)
-  // 过滤路由
-  const routeMatched = currentRoute.value.matched.filter(
-    (item) => !['/', '/app'].includes(item.path)
-  )
-  routes.value = routeMatched
-})
-
-const handleClick = (route: RouteLocationMatched, paths: string[], e: Event) => {
-  e.preventDefault()
-  const { path, redirect } = route
-  // 有动态参数需要再单独处理
-  const goPath = /^\//.test(path) ? path : `/${path}`
-  if (redirect) {
-    push(redirect as string)
-  } else {
-    push(goPath)
-  }
-}
-
-// const selectedKeys2 = ref<string[]>(['1'])
-// const openKeys = ref<string[]>(['sub1'])
 </script>
 <style scoped lang="less">
 .basicLayout-wrap {

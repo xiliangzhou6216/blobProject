@@ -77,6 +77,8 @@ export default defineConfig({
     Components({
       extensions: ['vue', 'md', 'tsx'],
       include: [/\.md$/, /\.vue$/, /\.tsx$/],
+      // 指定组件位置，默认是src/components
+      // dirs: ['src/components'],
       dts: resolve(__dirname, 'src/components.d.ts'),
       // ant-design-vue 按需导入
       resolvers: [
