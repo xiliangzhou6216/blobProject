@@ -8,10 +8,10 @@
             <div class="title">admin</div>
           </div>
         </div>
-        <div class="sys-setting">系统设置 {{ layoutConf.uid }}</div>
+        <div class="sys-setting">系统设置</div>
       </a-layout-header>
       <a-layout>
-        <SideMenu v-bind="layoutConf" @update-age="updateAge" />
+        <SideMenu v-bind="layoutConf" />
         <a-layout class="basicLayout-section">
           <div class="basicLayout-breadcrumb">
             <Breadcrumb />
@@ -49,11 +49,7 @@ import { clearMenuItem, filterRoutes } from './utils/index'
 const router = useRouter()
 const mdata = clearMenuItem(router.getRoutes()).filter(({ path }) => path.startsWith('/app/'))
 const menuData = filterRoutes(mdata)
-const menuOther = ref(1)
-const layoutConf = reactive({ menuWidth: 208, theme: 'light', menuData, menuOther, uid: 123 })
-const updateAge = (data: number): void => {
-  console.log(data)
-}
+const layoutConf = reactive({ menuWidth: 208, theme: 'light', menuData })
 </script>
 <style scoped lang="less">
 .basicLayout-wrap {

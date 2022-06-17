@@ -3,7 +3,6 @@
 import Icon from '~/components/Icon/index'
 import { PropType } from 'vue'
 import { MenuItemData } from '../../../utils/types'
-
 import { createWebHashHistory } from 'vue-router'
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons-vue'
 import './style.less'
@@ -15,9 +14,6 @@ interface Props {
 export default defineComponent({
   name: 'BaseMenu',
   props: {
-    uid: {
-      type: Number,
-    },
     theme: {
       type: String,
       default: 'light',
@@ -31,8 +27,7 @@ export default defineComponent({
       default: () => [],
     },
   },
-  emits: ['update-age', 'update:userName'], // 接收 emits 这里加了个s  接受emits时可以做一些校验
-  setup(props, ctx) {
+  setup(props, { emit }) {
     // 定义菜单数据
     const state = reactive<any>({
       collapsed: true, // default value
@@ -40,12 +35,10 @@ export default defineComponent({
       selectedKeys: [], // 当前选中的菜单项 key 数组
     })
     const router = useRouter()
-    const { menuOther } = toRefs(ctx.attrs)
-
+    const { proxy }: any = getCurrentInstance()
     // 菜单选中
     const onSelect = (e: { key: string }) => {
       router.push(e.key)
-      ctx.emit('update-age', menuOther + 1)
     }
 
     // 立即执行 追踪响应式 触发回调 默认pre
@@ -94,10 +87,10 @@ export default defineComponent({
     }
     return () => (
       <a-layout-sider
-        width={208}
+        width={props.menuWidth}
         collapsedWidth={54}
         class='sideMenu'
-        theme='light'
+        theme={props.theme}
         trigger={null}
         collapsible
         collapsed={state.collapsed}
@@ -109,7 +102,7 @@ export default defineComponent({
         <a-menu
           selectedKeys={state.selectedKeys}
           mode='inline'
-          theme='light'
+          theme={props.theme}
           {...(state.collapsed ? {} : { openKeys: state.openKeys })}
           class='sideMenu-menu'
           onOpenChange={(openKeys: string[]) => (state.openKeys = openKeys)}
