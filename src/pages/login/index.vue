@@ -60,5 +60,10 @@ import LoginForm from './form.vue'
     padding: 204px 0 223px;
     height: 100%;
   }
+  &-login {
+    min-width: 260px;
+    width: 368px;
+    margin: 0 auto;
+  }
 }
 </style>
