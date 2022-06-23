@@ -1,8 +1,16 @@
 import { defineStore } from 'pinia'
 import { store } from '~/store/index'
-import { setToken } from '~/utils/auth'
+import { getToken, setToken, removeToken } from '~/utils/auth'
+import fetchApi from '~/api/user'
+interface UserState {
+  count: number
+  token: string
+  auths: string[]
+}
+const router = useRouter()
+
 export const useUserStore = defineStore('app-user', {
-  state: () => ({
+  state: (): UserState => ({
     count: 1,
     token: '',
     auths: [],
@@ -10,6 +18,9 @@ export const useUserStore = defineStore('app-user', {
   getters: {
     getCount(): number {
       return this.count
+    },
+    getToken(): string {
+      return this.token || getToken()
     },
   },
   actions: {
@@ -27,10 +38,29 @@ export const useUserStore = defineStore('app-user', {
     countPlusOne() {
       this.count++
     },
+    /**
+     * @description: login
+     * @param params {}
+     * @returns promise
+     */
     async login(params: any) {
       const res = await Promise.resolve(params)
-      this.setToken(res)
+      if (res) {
+        this.setToken(res.token)
+      }
       return res
+    },
+    /**
+     * @description logout
+     * @param
+     * @return void
+     */
+    async logout() {
+      this.resetState()
+      removeToken()
+      router.replace('/login')
+      // 重新加载
+      location.reload()
     },
   },
 })

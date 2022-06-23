@@ -114,6 +114,7 @@
         "ant-design-vue/es/button/style/css",
         "ant-design-vue/es/card/style",
         "ant-design-vue/es/checkbox/style",
+        "ant-design-vue/es/col/style",
         "ant-design-vue/es/divider/style",
         "ant-design-vue/es/form/style",
         "ant-design-vue/es/input/style",
@@ -121,6 +122,7 @@
         "ant-design-vue/es/layout/style/css",
         "ant-design-vue/es/menu/style",
         "ant-design-vue/es/menu/style/css",
+        "ant-design-vue/es/row/style",
         "ant-design-vue/es/select/style",
         "ityped"
       ]

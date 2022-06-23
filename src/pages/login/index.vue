@@ -33,6 +33,7 @@ import LoginForm from './form.vue'
   }
   &-left-img {
     height: 100vh;
+    min-height: 100%;
     background: url(~/assets/login/plate.svg) no-repeat center;
     background-size: cover;
   }
