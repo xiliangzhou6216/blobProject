@@ -30,9 +30,11 @@
     "resolveJsonModule": true,
     "moduleResolution": "node",
     "useDefineForClassFields": true,
+    "typeRoots": ["./node_modules/@types/", "./types"], //默认所有可见的"@types"包会在编译过程中被包含进来。如果指定了typeRoots，只有typeRoots下面的包才会被包含进来。如果指定了types，只有被列出来的npm包才会被包含进来
     "baseUrl": ".",
     "paths": {
-      "~/*": ["src/*"]
+      "~/*": ["src/*"],
+      "#/*": ["types/*"]
       // "/src/*": ["src/*"]
     }
   },
@@ -43,7 +45,8 @@
     "src/**/*.d.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
-    "./vite.config.ts"
+    "./vite.config.ts",
+    "mock/**/*.ts",
   ],
   "exclude": ["node_modules", "dist"]
 }

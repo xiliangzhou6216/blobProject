@@ -33,27 +33,46 @@
         </a-row>
       </div>
       <a-form-item>
-        <a-button type="primary" html-type="submit" :loading="loading">登录</a-button>
+        <a-button type="primary" html-type="submit">登录</a-button>
       </a-form-item>
+      <a-button type="primary" @click="handleLogin" :loading="loading">测试请求</a-button>
+      <!-- {{ data ? `Welcome, ${data}!` : "What's your name?" }} -->
+      {{ data }}
     </a-form>
   </div>
 </template>
 <script lang="ts" setup>
-import type { FormInstance } from 'ant-design-vue'
+import { useRequest } from 'vue-request'
+
+function testService(name: string) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(name)
+    }, 1000)
+  })
+}
+const name = ref('@John60676')
+const { run, data, loading } = useRequest(testService, {
+  manual: true,
+})
+run(name.value).then((res) => {
+  console.log(res, 6666)
+})
+const handleLogin = () => {
+  run(name.value)
+}
 interface FormState {
   username: string
   password: string
   remember: boolean
 }
-
 const formState = reactive<FormState>({
   username: 'admin',
   password: '123456',
   remember: true,
 })
 
-const formRef = ref<FormInstance>()
-const loading = ref(false)
+// const loading = ref(false)
 
 const onFinish = (values: any) => {
   console.log('Success:', values)
@@ -65,6 +84,5 @@ const onFinish = (values: any) => {
 
 const onFinishFailed = (errorInfo: any) => {
   console.log('Failed:', errorInfo)
-  console.log(formRef)
 }
 </script>

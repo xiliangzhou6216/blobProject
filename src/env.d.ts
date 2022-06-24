@@ -23,3 +23,5 @@ declare module '*.md' {
   const Component: ComponentOptions
   export default Component
 }
+
+declare type Recordable<T = any> = Record<string, T>

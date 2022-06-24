@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { store } from '~/store/index'
 import { getToken, setToken, removeToken } from '~/utils/auth'
-import fetchApi from '~/api/user'
+import { createUserRequest } from '~/api/user/index'
 interface UserState {
   count: number
   token: string
@@ -44,7 +44,8 @@ export const useUserStore = defineStore('app-user', {
      * @returns promise
      */
     async login(params: any) {
-      const res = await Promise.resolve(params)
+      const res = await createUserRequest(params)
+      console.log(res, 6666)
       if (res) {
         this.setToken(res.token)
       }

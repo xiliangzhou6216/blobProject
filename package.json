@@ -124,7 +124,9 @@
         "ant-design-vue/es/menu/style/css",
         "ant-design-vue/es/row/style",
         "ant-design-vue/es/select/style",
-        "ityped"
+        "ityped",
+        "vite",
+        "vue-request"
       ]
     }
   }
