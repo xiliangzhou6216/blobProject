@@ -1,13 +1,14 @@
 import { defineStore } from 'pinia'
 import { store } from '~/store/index'
 import { getToken, setToken, removeToken } from '~/utils/auth'
-import { createUserRequest } from '~/api/user/index'
+import { loginRequest } from '~/api/user/index'
+import { router } from '~/modules/router'
+
 interface UserState {
   count: number
   token: string
   auths: string[]
 }
-const router = useRouter()
 
 export const useUserStore = defineStore('app-user', {
   state: (): UserState => ({
@@ -41,15 +42,15 @@ export const useUserStore = defineStore('app-user', {
     /**
      * @description: login
      * @param params {}
-     * @returns promise
+     * @returns
      */
     async login(params: any) {
-      const res = await createUserRequest(params)
-      console.log(res, 6666)
-      if (res) {
-        this.setToken(res.token)
+      const { data } = await loginRequest(params)
+      if (data && data.result) {
+        // save token
+        this.setToken(data.result.token)
       }
-      return res
+      return data
     },
     /**
      * @description logout

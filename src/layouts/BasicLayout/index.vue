@@ -8,7 +8,9 @@
             <div class="title">admin</div>
           </div>
         </div>
-        <div class="sys-setting">系统设置</div>
+        <div class="sys-setting">
+          <div @click="exitSystem">退出系统</div>
+        </div>
       </a-layout-header>
       <a-layout>
         <SideMenu v-bind="layoutConf" />
@@ -46,10 +48,16 @@
 import avatar from '~/assets/avatar.png'
 import SideMenu from './components/SiderMenu/src/SideMenu'
 import { clearMenuItem, filterRoutes } from './utils/index'
+import { useUserStoreWithOut } from '~/store/modules/user'
 const router = useRouter()
 const mdata = clearMenuItem(router.getRoutes()).filter(({ path }) => path.startsWith('/app/'))
 const menuData = filterRoutes(mdata)
 const layoutConf = reactive({ menuWidth: 208, theme: 'light', menuData })
+const userStore = useUserStoreWithOut()
+const exitSystem = () => {
+  userStore.logout()
+  console.log(userStore.token)
+}
 </script>
 <style scoped lang="less">
 .basicLayout-wrap {

@@ -51,8 +51,8 @@ export default defineConfig(({ command, mode }) => {
       viteMockServe({
         ignore: /^\_/,
         mockPath: 'mock',
-        localEnabled: isBuild, // 设置是否启用本地 xxx.ts 文件，不要在生产环境中打开它.设置为 false 将禁用 mock 功能
-        prodEnabled: isBuild, // 为了演示，线上开启 mock，实际开发请关闭，会影响打包体积
+        localEnabled: !isBuild, // 设置是否开启本地mock .ts文件，不要在生产环境打开
+        prodEnabled: isBuild, //设置是否开启打包的mock功能 ，实际开发请关闭，会影响打包体积
         // injectCode 只受prodEnabled影响
         // https://github.com/anncwb/vite-plugin-mock/issues/9
         // 下面这段代码会被注入 main.ts

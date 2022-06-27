@@ -33,34 +33,19 @@
         </a-row>
       </div>
       <a-form-item>
-        <a-button type="primary" html-type="submit">登录</a-button>
+        <a-button type="primary" :loading="loading" html-type="submit">登录</a-button>
       </a-form-item>
-      <a-button type="primary" @click="handleLogin" :loading="loading">测试请求</a-button>
-      <!-- {{ data ? `Welcome, ${data}!` : "What's your name?" }} -->
-      {{ data }}
     </a-form>
   </div>
 </template>
 <script lang="ts" setup>
-import { useRequest } from 'vue-request'
+import { useUserStore, useUserStoreWithOut } from '~/store/modules/user'
+import { useMessage } from '~/hooks/useMessage'
+const loading = ref(false)
+const userStore = useUserStore()
+const { createMessage } = useMessage()
+const router = useRouter()
 
-function testService(name: string) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(name)
-    }, 1000)
-  })
-}
-const name = ref('@John60676')
-const { run, data, loading } = useRequest(testService, {
-  manual: true,
-})
-run(name.value).then((res) => {
-  console.log(res, 6666)
-})
-const handleLogin = () => {
-  run(name.value)
-}
 interface FormState {
   username: string
   password: string
@@ -72,14 +57,15 @@ const formState = reactive<FormState>({
   remember: true,
 })
 
-// const loading = ref(false)
-
-const onFinish = (values: any) => {
+const onFinish = async (values: unknown) => {
   console.log('Success:', values)
   loading.value = true
-  setTimeout(() => {
-    loading.value = false
-  }, 500)
+  const res = await userStore.login(values)
+  loading.value = false
+  if (res.result) {
+    createMessage.success('成功')
+    router.replace('/')
+  }
 }
 
 const onFinishFailed = (errorInfo: any) => {

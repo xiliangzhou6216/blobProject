@@ -44,8 +44,9 @@ export default [
     url: '/v1/user/login',
     timeout: 200,
     method: 'post',
-    response: ({ body }) => {
-      const { username, password } = body
+    response: (request: requestParams) => {
+      console.log(request, 9999)
+      const { username, password } = request.body
       const checkUser = createFakeUserList().find(
         (item) => item.username === username && password === item.password
       )
@@ -96,7 +97,7 @@ export default [
     },
   },
   {
-    url: '/api/createUser',
+    url: '/v1/createUser',
     method: 'get',
     response: () => {
       return {
