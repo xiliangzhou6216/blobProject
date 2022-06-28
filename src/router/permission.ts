@@ -1,4 +1,4 @@
-import { router } from '~/modules/router'
+import { router } from '~/router/index'
 const whiteList = ['/login'] // 重定向白名单
 import { getToken } from '~/utils/auth'
 
@@ -13,6 +13,9 @@ router.beforeEach(async (to, from, next) => {
       console.log(11111)
     } else {
       console.log(22222)
+      // 调用用户信息接口 获取用户的角色有没有权限
+      // 没有权限的话 跳转到登录页面
+      // 有权限的话 拿到角色访问的路由表，生成路由表，再通过router.addRoutes 添加到路由实例，实现权限的过滤
       next()
     }
   } else {

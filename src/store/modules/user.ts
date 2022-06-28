@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { store } from '~/store/index'
 import { getToken, setToken, removeToken } from '~/utils/auth'
 import { loginRequest } from '~/api/user/index'
-import { router } from '~/modules/router'
+import { router } from '~/router/index'
 
 interface UserState {
   count: number

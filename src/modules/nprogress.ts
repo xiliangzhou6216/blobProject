@@ -1,4 +1,4 @@
-import { router } from './router'
+import { router } from '~/router/index'
 // import { App } from 'vue'
 import NProgress from 'nprogress'
 

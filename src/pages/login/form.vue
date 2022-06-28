@@ -39,7 +39,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { useUserStore, useUserStoreWithOut } from '~/store/modules/user'
+import { useUserStore } from '~/store/modules/user'
 import { useMessage } from '~/hooks/useMessage'
 const loading = ref(false)
 const userStore = useUserStore()
@@ -63,7 +63,7 @@ const onFinish = async (values: unknown) => {
   const res = await userStore.login(values)
   loading.value = false
   if (res.result) {
-    createMessage.success('成功')
+    createMessage.success('登录成功')
     router.replace('/')
   }
 }
