@@ -11,8 +11,15 @@ export function createFakeUserList() {
       desc: 'manager',
       password: '123456',
       token: 'fakeToken1',
-      auths: [],
-      modules: [],
+      auths: ['admin'],
+      modules: [
+        {
+          action: 'post',
+          module: 'home',
+          name: 'home创建权限',
+          uri: 'api/permission/post',
+        },
+      ],
       is_admin: 1,
       role_name: '管理员角色',
       mobile: 13000000000,
@@ -26,8 +33,15 @@ export function createFakeUserList() {
       avatar: '',
       desc: 'tester',
       token: 'fakeToken2',
-      auths: [],
-      modules: ['home', 'website'],
+      auths: ['test'],
+      modules: [
+        {
+          action: 'post',
+          module: 'website',
+          name: 'website创建权限',
+          uri: 'api/permission/post',
+        },
+      ],
       is_admin: 0,
       role_name: '普通用户角色',
       mobile: 18000000000,
@@ -45,7 +59,6 @@ export default [
     timeout: 200,
     method: 'post',
     response: (request: requestParams) => {
-      console.log(request, 9999)
       const { username, password } = request.body
       const checkUser = createFakeUserList().find(
         (item) => item.username === username && password === item.password
@@ -59,6 +72,7 @@ export default [
   {
     url: '/v1/user/permission',
     method: 'get',
+    timeout: 200,
     response: (request: requestParams) => {
       const token = getRequestToken(request)
       if (!token) return resultError('Invalid token')

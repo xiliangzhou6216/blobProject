@@ -1,10 +1,7 @@
 // import { ReqAuth, ReqParams, ResResult } from './type'
-import axios from 'axios'
 
-export interface ReqParams {
-  mobile: 'string'
-  password: 'string'
-}
+import { ReqParams } from './type'
+import { request } from '~/utils/request'
 
 enum URL {
   login = '/v1/user/login',
@@ -13,8 +10,15 @@ enum URL {
 
 // 登录
 export const loginRequest = (params: ReqParams) =>
-  axios({
+  request({
     url: URL.login,
     method: 'post',
     data: params,
+  })
+
+// 权限
+export const permissionRequest = () =>
+  request({
+    url: URL.permission,
+    method: 'get',
   })
