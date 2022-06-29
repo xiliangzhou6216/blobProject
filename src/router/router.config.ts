@@ -69,6 +69,24 @@ export const accessRoutes: RouteRecordRaw[] = [
   // ...accessRoutes,
 ]
 
+const constantRoutes: RouteRecordRaw[] = [
+  {
+    path: '/login',
+    component: () => import('~/pages/login/index.vue'),
+    name: 'login',
+    meta: { title: '登录' },
+  },
+  {
+    path: '/',
+    name: 'Root',
+    redirect: '/app',
+    meta: {
+      title: 'Root',
+    },
+  },
+  // ...accessRoutes,
+]
+
 export const publicRoutes = [
   {
     path: '/redirect',
@@ -88,24 +106,6 @@ export const publicRoutes = [
     path: '/404',
     component: () => import('~/pages/404.vue'),
   },
-]
-
-const constantRoutes: RouteRecordRaw[] = [
-  {
-    path: '/login',
-    component: () => import('~/pages/login/index.vue'),
-    name: 'login',
-    meta: { title: '登录' },
-  },
-  {
-    path: '/',
-    name: 'Root',
-    redirect: '/app',
-    meta: {
-      title: 'Root',
-    },
-  },
-  // ...accessRoutes,
 ]
 
 export default constantRoutes

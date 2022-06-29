@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia'
 import { store } from '~/store'
 import { permissionRequest } from '~/api/user'
+import type { RouteRecordRaw } from 'vue-router'
+import constantRoutes, { accessRoutes, publicRoutes } from '~/router/router.config'
 interface PermissioState {
   isGetUserInfo: boolean // 是否获取过用户信息
   isAdmin: 0 | 1 // 是否为管理员
@@ -54,14 +56,26 @@ export const usePermissioStore = defineStore({
      * 获取当前用户权限
      */
     async getPermission() {
-      const {
-        data: { result },
-      } = await permissionRequest()
-      if (result) {
-        this.setAuth(result.auths, result.modules)
-        this.setIsAdmin(result.is_admin)
+      try {
+        const {
+          data: { result },
+        } = await permissionRequest()
+        if (result) {
+          this.setAuth(result.auths, result.modules)
+          this.setIsAdmin(result.is_admin)
+        }
+        return result
+      } catch (error) {
+        return error
       }
-      return result
+    },
+    /**
+     * 获取路由
+     */
+    async buildRoutesAction(): Promise<RouteRecordRaw[]> {
+      // 404 路由一定要放在 权限路由后面
+      const routes: RouteRecordRaw[] = [...constantRoutes, ...accessRoutes, ...publicRoutes]
+      return routes
     },
   },
 })
