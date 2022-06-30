@@ -3,14 +3,23 @@ import { store } from '~/store'
 import { permissionRequest } from '~/api/user'
 import type { RouteRecordRaw } from 'vue-router'
 import constantRoutes, { accessRoutes, publicRoutes } from '~/router/router.config'
+// import { cloneDeep } from 'lodash-es'
 interface PermissioState {
   isGetUserInfo: boolean // 是否获取过用户信息
   isAdmin: 0 | 1 // 是否为管理员
   auths: string[] // 当前用户权限
   modules: string[] // 模块权限
   role: 0 | 1
+  addRouters: RouteRecordRaw[] // 权限路由
 }
-export const usePermissioStore = defineStore({
+
+// interface modulesState {
+//   action: string
+//   module: string
+//   name: string
+//   uri: string
+// }
+export const usePermissionStore = defineStore({
   id: 'app-permission',
   state: (): PermissioState => ({
     isGetUserInfo: false,
@@ -18,6 +27,7 @@ export const usePermissioStore = defineStore({
     auths: [],
     modules: [],
     role: 0,
+    addRouters: [],
   }),
   getters: {
     getAuths(): string[] {
@@ -34,6 +44,9 @@ export const usePermissioStore = defineStore({
     },
     getIsGetUserInfo(): boolean {
       return this.isGetUserInfo
+    },
+    getAddRouters(): RouteRecordRaw[] {
+      return this.addRouters
     },
   },
   actions: {
@@ -66,7 +79,7 @@ export const usePermissioStore = defineStore({
         }
         return result
       } catch (error) {
-        return error
+        console.log(error)
       }
     },
     /**
@@ -74,6 +87,15 @@ export const usePermissioStore = defineStore({
      */
     async buildRoutesAction(): Promise<RouteRecordRaw[]> {
       // 404 路由一定要放在 权限路由后面
+
+      const hash: any = {}
+      this.modules.forEach((item: any) => {
+        if (!hash[item.module]) {
+          hash[item.module] = true
+        }
+      })
+      // const routerMap = cloneDeep(accessRoutes)
+      // console.log(routerMap)
       const routes: RouteRecordRaw[] = [...constantRoutes, ...accessRoutes, ...publicRoutes]
       return routes
     },
@@ -81,6 +103,6 @@ export const usePermissioStore = defineStore({
 })
 
 // 组件外使用
-export function usePermissioStoreWithOut() {
-  return usePermissioStore(store)
+export function usePermissionStoreWithOut() {
+  return usePermissionStore(store)
 }

@@ -51,7 +51,7 @@ export const accessRoutes: RouteRecordRaw[] = [
             redirect: '/app/others/child/aboutc',
             meta: {
               title: '三级菜单',
-              auth: ['qqq'],
+              auth: ['otherschild'],
             },
             children: [
               {

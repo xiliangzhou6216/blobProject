@@ -4,8 +4,8 @@ import { ReqParams } from './type'
 import { request } from '~/utils/request'
 
 enum URL {
-  login = '/v1/user/login',
-  permission = '/v1/user/permission',
+  login = '/api/user/login',
+  permission = '/api/user/permission',
 }
 
 // 登录

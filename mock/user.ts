@@ -6,7 +6,7 @@ export function createFakeUserList() {
     {
       userId: '1',
       username: 'admin',
-      realName: 'sssgoEasy Admin',
+      realName: 'Admin',
       avatar: '',
       desc: 'manager',
       password: '123456',
@@ -16,8 +16,14 @@ export function createFakeUserList() {
         {
           action: 'post',
           module: 'home',
-          name: 'home创建权限',
-          uri: 'api/permission/post',
+          name: 'home模块',
+          uri: '/api/user/login',
+        },
+        {
+          action: 'post',
+          module: 'others',
+          name: 'others二级菜单',
+          uri: '/api/user/permission',
         },
       ],
       is_admin: 1,
@@ -34,14 +40,7 @@ export function createFakeUserList() {
       desc: 'tester',
       token: 'fakeToken2',
       auths: ['test'],
-      modules: [
-        {
-          action: 'post',
-          module: 'website',
-          name: 'website创建权限',
-          uri: 'api/permission/post',
-        },
-      ],
+      modules: [],
       is_admin: 0,
       role_name: '普通用户角色',
       mobile: 18000000000,
@@ -55,7 +54,7 @@ import Mock, { Random } from 'mockjs'
 export default [
   // mock user login
   {
-    url: '/v1/user/login',
+    url: '/api/user/login',
     timeout: 200,
     method: 'post',
     response: (request: requestParams) => {
@@ -70,7 +69,7 @@ export default [
     },
   },
   {
-    url: '/v1/user/permission',
+    url: '/api/user/permission',
     method: 'get',
     timeout: 200,
     response: (request: requestParams) => {
@@ -84,7 +83,7 @@ export default [
     },
   },
   {
-    url: '/v1/user/logout',
+    url: '/api/user/logout',
     timeout: 200,
     method: 'get',
     response: (request: requestParams) => {
@@ -98,7 +97,7 @@ export default [
     },
   },
   {
-    url: '/v1/account/info',
+    url: '/api/account/info',
     method: 'get',
     response: (request: requestParams) => {
       const token = getRequestToken(request)
@@ -111,7 +110,7 @@ export default [
     },
   },
   {
-    url: '/v1/createUser',
+    url: '/api/createUser',
     method: 'get',
     response: () => {
       return {
