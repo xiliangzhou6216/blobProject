@@ -3,7 +3,8 @@ import { store } from '~/store'
 import { permissionRequest } from '~/api/user'
 import type { RouteRecordRaw } from 'vue-router'
 import constantRoutes, { accessRoutes, publicRoutes } from '~/router/router.config'
-// import { cloneDeep } from 'lodash-es'
+import { cloneDeep } from 'lodash-es'
+import { filterAsyncRouter } from '~/utils/permission'
 interface PermissioState {
   isGetUserInfo: boolean // 是否获取过用户信息
   isAdmin: 0 | 1 // 是否为管理员
@@ -86,17 +87,19 @@ export const usePermissionStore = defineStore({
      * 获取路由
      */
     async buildRoutesAction(): Promise<RouteRecordRaw[]> {
-      // 404 路由一定要放在 权限路由后面
-
       const hash: any = {}
       this.modules.forEach((item: any) => {
         if (!hash[item.module]) {
           hash[item.module] = true
         }
       })
-      // const routerMap = cloneDeep(accessRoutes)
-      // console.log(routerMap)
-      const routes: RouteRecordRaw[] = [...constantRoutes, ...accessRoutes, ...publicRoutes]
+      const permissionList = Object.keys(hash)
+      const routerMap = cloneDeep(accessRoutes)
+      const accessRoutesFilter = filterAsyncRouter(routerMap, permissionList)
+      this.addRouters = accessRoutesFilter
+      // 404 路由一定要放在 权限路由后面
+      const routes: RouteRecordRaw[] = [...constantRoutes, ...accessRoutesFilter, ...publicRoutes]
+      console.log(cloneDeep(accessRoutes), accessRoutesFilter)
       return routes
     },
   },

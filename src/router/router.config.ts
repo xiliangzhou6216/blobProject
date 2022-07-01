@@ -18,7 +18,7 @@ export const accessRoutes: RouteRecordRaw[] = [
         meta: {
           title: '首页',
           icon: 'liulanqi',
-          auth: ['home'],
+          permission: 'home',
         },
       },
       {
@@ -29,21 +29,20 @@ export const accessRoutes: RouteRecordRaw[] = [
         meta: {
           title: '二级菜单',
           icon: 'liulanqi',
-          auth: ['others'],
         },
         children: [
           {
             path: '/app/others/about',
             name: 'about',
             component: () => import('~/pages/others/about/index.vue'),
-            meta: { title: '关于', keepAlive: true, hiddenWrap: true },
+            meta: { title: '关于', keepAlive: true, hiddenWrap: true, permission: 'others' },
           },
-          {
-            path: '/app/others/antdv',
-            name: 'antdv',
-            component: () => import('~/pages/others/antdv/index.vue'),
-            meta: { title: '组件', keepAlive: true, breadcrumb: true },
-          },
+          // {
+          //   path: '/app/others/antdv',
+          //   name: 'antdv',
+          //   component: () => import('~/pages/others/antdv/index.vue'),
+          //   meta: { title: '组件', keepAlive: true, breadcrumb: true },
+          // },
           {
             path: '/app/others/child',
             name: 'otherschild',
@@ -51,7 +50,6 @@ export const accessRoutes: RouteRecordRaw[] = [
             redirect: '/app/others/child/aboutc',
             meta: {
               title: '三级菜单',
-              auth: ['otherschild'],
             },
             children: [
               {

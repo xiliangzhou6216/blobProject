@@ -11,11 +11,11 @@ let routeFlag: Boolean = false
 
 router.beforeEach(async (to, from, next) => {
   const hasToken = getToken()
-  console.log(to, from, hasToken)
+  // console.log(to, from, hasToken)
   if (hasToken) {
     // 已登录
     if (to.path === '/login') {
-      console.log(111111)
+      // console.log(111111)
       next({ path: '/' })
     } else {
       // 调用用户信息接口 获取用户的角色有没有权限
@@ -27,7 +27,7 @@ router.beforeEach(async (to, from, next) => {
           next('/login')
           createMessage.error('没有任何权限')
         } else {
-          console.log(555555)
+          // console.log(555555)
           next()
         }
       } else {
@@ -43,14 +43,14 @@ router.beforeEach(async (to, from, next) => {
         const redirect = decodeURIComponent(redirectPath)
         const nextData = to.path === redirect ? { ...to, replace: true } : { path: redirect }
         next(nextData)
-        console.log(4444444, res, permissioStore.getModules.length)
+        console.log(4444444, res, routes)
         // 不使用 next() 是因为，在执行完 router.addRoute 后，
         // 原本的路由表内还没有添加进去的路由，会 No match
         // replace 使路由从新进入一遍，进行匹配即可
       }
     }
   } else {
-    console.log(222222)
+    // console.log(222222)
     routeFlag = false
     // 未登录
     if (whiteList.indexOf(to.path) !== -1) {
