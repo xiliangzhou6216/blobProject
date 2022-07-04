@@ -25,6 +25,12 @@ export function createFakeUserList() {
           name: 'others二级菜单',
           uri: '/api/user/permission',
         },
+        {
+          action: 'post',
+          module: 'otherschild',
+          name: 'otherschild三级菜单',
+          uri: '/api/user/permission',
+        },
       ],
       is_admin: 1,
       role_name: '管理员角色',
@@ -40,7 +46,14 @@ export function createFakeUserList() {
       desc: 'tester',
       token: 'fakeToken2',
       auths: ['test'],
-      modules: [],
+      modules: [
+        {
+          action: 'post',
+          module: 'home',
+          name: 'home模块',
+          uri: '/api/user/login',
+        },
+      ],
       is_admin: 0,
       role_name: '普通用户角色',
       mobile: 18000000000,

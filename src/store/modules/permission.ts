@@ -99,7 +99,6 @@ export const usePermissionStore = defineStore({
       this.addRouters = accessRoutesFilter
       // 404 路由一定要放在 权限路由后面
       const routes: RouteRecordRaw[] = [...constantRoutes, ...accessRoutesFilter, ...publicRoutes]
-      console.log(cloneDeep(accessRoutes), accessRoutesFilter)
       return routes
     },
   },

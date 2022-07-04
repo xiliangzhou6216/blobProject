@@ -9,22 +9,16 @@ export function filterAsyncRouter(
   routerMap: RouteRecordRaw[],
   permissionList: string[]
 ): RouteRecordRaw[] {
-  const res: RouteRecordRaw[] = []
-  routerMap.forEach((route) => {
+  const accessedRouters: RouteRecordRaw[] = routerMap.filter((route) => {
     const { permission } = (route.meta as metaType) || {}
     if (permission && permissionList.includes(permission)) {
-      if (route.children?.length) {
-        route.children = filterAsyncRouter(route.children, permissionList)
-      }
-      res.push(route)
+      return true
+    } else if (route.children) {
+      route.children = filterAsyncRouter(route.children, permissionList)
+      return route.children.length !== 0
     } else {
-      console.log(route)
-      if (route.children?.length) {
-        route.children = filterAsyncRouter(route.children, permissionList)
-        // console.log(route, route.children?.length)
-        res.push(route)
-      }
+      return false
     }
   })
-  return res
+  return accessedRouters
 }

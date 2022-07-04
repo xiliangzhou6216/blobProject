@@ -1,8 +1,6 @@
 import type { RouteRecordRaw } from 'vue-router'
 import BasicLayout from '~/layouts/BasicLayout/index.vue'
 
-// import { h } from 'vue'
-// const RouteView = h('router-view')
 export const accessRoutes: RouteRecordRaw[] = [
   {
     path: '/app',
@@ -37,12 +35,12 @@ export const accessRoutes: RouteRecordRaw[] = [
             component: () => import('~/pages/others/about/index.vue'),
             meta: { title: '关于', keepAlive: true, hiddenWrap: true, permission: 'others' },
           },
-          // {
-          //   path: '/app/others/antdv',
-          //   name: 'antdv',
-          //   component: () => import('~/pages/others/antdv/index.vue'),
-          //   meta: { title: '组件', keepAlive: true, breadcrumb: true },
-          // },
+          {
+            path: '/app/others/antdv',
+            name: 'antdv',
+            component: () => import('~/pages/others/antdv/index.vue'),
+            meta: { title: '组件', keepAlive: true, breadcrumb: true, permission: 'others' },
+          },
           {
             path: '/app/others/child',
             name: 'otherschild',
@@ -56,7 +54,7 @@ export const accessRoutes: RouteRecordRaw[] = [
                 path: '/app/others/child/aboutc',
                 name: 'aboutc',
                 component: () => import('~/pages/others/about/aboutc/index.vue'),
-                meta: { title: '组件c' },
+                meta: { title: '组件c', permission: 'otherschild' },
               },
             ],
           },
@@ -64,7 +62,6 @@ export const accessRoutes: RouteRecordRaw[] = [
       },
     ],
   },
-  // ...accessRoutes,
 ]
 
 const constantRoutes: RouteRecordRaw[] = [
@@ -82,7 +79,6 @@ const constantRoutes: RouteRecordRaw[] = [
       title: 'Root',
     },
   },
-  // ...accessRoutes,
 ]
 
 export const publicRoutes = [

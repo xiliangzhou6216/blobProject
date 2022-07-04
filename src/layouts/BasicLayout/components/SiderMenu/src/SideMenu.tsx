@@ -30,7 +30,7 @@ export default defineComponent({
   setup(props, { emit }) {
     // 定义菜单数据
     const state = reactive<any>({
-      collapsed: true, // default value
+      collapsed: false, // default value
       openKeys: [], // 当前展开的 SubMenu 菜单项 key 数组
       selectedKeys: [], // 当前选中的菜单项 key 数组
     })
@@ -95,9 +95,7 @@ export default defineComponent({
         collapsible
         collapsed={state.collapsed}
         breakpoint='lg'
-        onBreakpoint={(val: boolean) => {
-          state.collapsed = val
-        }}
+        onBreakpoint={(val: boolean) => (state.collapsed = val)}
       >
         <a-menu
           selectedKeys={state.selectedKeys}
@@ -109,13 +107,13 @@ export default defineComponent({
           onSelect={onSelect}
         >
           {getMenuTree(props.menuData)}
-          <div class='sideMenu-footer'>
+          {/* <div class='sideMenu-footer'>
             {h(state.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
               class: 'trigger',
               style: { fontSize: 16 },
               onClick: () => (state.collapsed = !state.collapsed),
             })}
-          </div>
+          </div> */}
         </a-menu>
       </a-layout-sider>
     )
