@@ -1,10 +1,10 @@
 // tsx TSX（defineComponent） 中 components、props、emits 等的声明是省不了的
 // 定义
-import Icon from '~/components/Icon/index'
+import Iconfont from '~/components/Iconfont/index'
 import { PropType } from 'vue'
 import { MenuItemData } from '../../../utils/types'
 import { createWebHashHistory } from 'vue-router'
-import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons-vue'
+// import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons-vue'
 import './style.less'
 interface Props {
   name?: string
@@ -54,7 +54,7 @@ export default defineComponent({
     })
 
     // icon
-    const getIcon = (type: string) => (type ? <Icon type={type} /> : null)
+    const getIcon = (type: string) => (type ? <Iconfont type={type} /> : null)
     // 菜单树
     const getMenuTree = (data: MenuItemData[]) => {
       return data.map((item) => {

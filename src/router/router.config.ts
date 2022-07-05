@@ -1,6 +1,8 @@
 import type { RouteRecordRaw } from 'vue-router'
 import BasicLayout from '~/layouts/BasicLayout/index.vue'
 
+// const icons: string[] = ['fanhui', 'facebook', 'twitter', 'xiangxia', 'youxiang']
+
 export const accessRoutes: RouteRecordRaw[] = [
   {
     path: '/app',
@@ -14,10 +16,17 @@ export const accessRoutes: RouteRecordRaw[] = [
         component: () => import('~/pages/home/index.vue'),
         name: 'home',
         meta: {
-          title: '首页',
-          icon: 'liulanqi',
-          permission: 'home',
+          title: '分析管理',
+          icon: 'twitter',
         },
+        children: [
+          {
+            path: '/app/home/antdv',
+            name: 'antdv',
+            component: () => import('~/pages/others/antdv/index.vue'),
+            meta: { title: '组件', keepAlive: true, breadcrumb: true, permission: 'home' },
+          },
+        ],
       },
       {
         path: '/app/others',
@@ -25,8 +34,8 @@ export const accessRoutes: RouteRecordRaw[] = [
         component: () => import('~/pages/BlankLayout.vue'),
         redirect: '/app/others/about',
         meta: {
-          title: '二级菜单',
-          icon: 'liulanqi',
+          title: '菜单管理',
+          icon: 'facebook',
         },
         children: [
           {
@@ -36,18 +45,13 @@ export const accessRoutes: RouteRecordRaw[] = [
             meta: { title: '关于', keepAlive: true, hiddenWrap: true, permission: 'others' },
           },
           {
-            path: '/app/others/antdv',
-            name: 'antdv',
-            component: () => import('~/pages/others/antdv/index.vue'),
-            meta: { title: '组件', keepAlive: true, breadcrumb: true, permission: 'others' },
-          },
-          {
             path: '/app/others/child',
             name: 'otherschild',
             component: () => import('~/pages/BlankLayout.vue'),
             redirect: '/app/others/child/aboutc',
             meta: {
               title: '三级菜单',
+              icon: 'youxiang',
             },
             children: [
               {

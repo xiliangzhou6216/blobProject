@@ -19,6 +19,7 @@ import IconsResolver from 'unplugin-icons/resolver'
 import Legacy from '@vitejs/plugin-legacy'
 import Icons from 'unplugin-icons/vite' //自动按需引入icons
 import { viteMockServe } from 'vite-plugin-mock'
+import PurgeIcons from 'vite-plugin-purge-icons'
 
 import { AntDesignVueResolver, VueUseComponentsResolver } from 'unplugin-vue-components/resolvers'
 
@@ -43,6 +44,8 @@ export default defineConfig(({ command, mode }) => {
       Legacy({
         targets: ['defaults', 'not IE 11'],
       }),
+      // iconify图标
+      PurgeIcons(),
       // 文件路由
       Pages({
         extensions: ['vue', 'md', 'tsx'],
@@ -138,7 +141,9 @@ export default defineConfig(({ command, mode }) => {
     },
     //使用此选项可强制预构建链接的包
     optimizeDeps: {
+      // @iconify/iconify: The dependency is dynamically and virtually loaded by @purge-icons/generated, so it needs to be specified explicitly
       include: [
+        '@iconify/iconify',
         'nprogress',
         'pinia',
         'vue',

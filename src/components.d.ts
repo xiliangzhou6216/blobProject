@@ -4,26 +4,20 @@
 
 declare module 'vue' {
   export interface GlobalComponents {
+    '// Icon': typeof import('./components/Icon/index.vue')['default']
     ABreadcrumb: typeof import('ant-design-vue/es')['Breadcrumb']
-    AButton: typeof import('ant-design-vue/es')['Button']
     ACard: typeof import('ant-design-vue/es')['Card']
-    ACheckbox: typeof import('ant-design-vue/es')['Checkbox']
-    ACol: typeof import('ant-design-vue/es')['Col']
-    AForm: typeof import('ant-design-vue/es')['Form']
-    AFormItem: typeof import('ant-design-vue/es')['FormItem']
-    AInput: typeof import('ant-design-vue/es')['Input']
-    AInputPassword: typeof import('ant-design-vue/es')['InputPassword']
     ALayout: typeof import('ant-design-vue/es')['Layout']
     ALayoutContent: typeof import('ant-design-vue/es')['LayoutContent']
     ALayoutHeader: typeof import('ant-design-vue/es')['LayoutHeader']
     ALayoutSider: typeof import('ant-design-vue/es')['LayoutSider']
     AMenu: typeof import('ant-design-vue/es')['Menu']
     AMenuItem: typeof import('ant-design-vue/es')['MenuItem']
-    ARow: typeof import('ant-design-vue/es')['Row']
     ASubMenu: typeof import('ant-design-vue/es')['SubMenu']
     Breadcrumb: typeof import('./components/Breadcrumb/src/Breadcrumb.vue')['default']
     Footer: typeof import('./components/Footer.vue')['default']
-    Icon: typeof import('./components/Icon/index.tsx')['default']
+    Icon: typeof import('./components/Icon/index.vue')['default']
+    Iconfont: typeof import('./components/Iconfont/index.tsx')['default']
   }
 }
 
