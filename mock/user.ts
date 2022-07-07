@@ -14,10 +14,10 @@ export function createFakeUserList() {
       auths: ['admin'],
       modules: [
         {
-          action: 'post',
-          module: 'home',
+          action: 'post', // module和action组成  按钮级别权限
+          module: 'home', // 菜单路由权限
           name: 'home模块',
-          uri: '/api/user/login',
+          uri: '/api/user/login', //接口访问权限
         },
         {
           action: 'post',

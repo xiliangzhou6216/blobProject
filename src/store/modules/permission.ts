@@ -5,24 +5,26 @@ import type { RouteRecordRaw } from 'vue-router'
 import constantRoutes, { accessRoutes, publicRoutes } from '~/router/router.config'
 import { cloneDeep } from 'lodash-es'
 import { filterAsyncRouter } from '~/utils/permission'
-interface PermissioState {
+
+declare interface PermissionUserState {
   isGetUserInfo: boolean // 是否获取过用户信息
-  isAdmin: 0 | 1 // 是否为管理员
-  auths: string[] // 当前用户权限
-  modules: string[] // 模块权限
-  role: 0 | 1
-  addRouters: RouteRecordRaw[] // 权限路由
+  isAdmin: 0 | 1 // 是否为管理员，当为角色为管理员时，跳过权限筛选
+  auths: string[] // 当前用户权限：按钮操作、接口控制
+  modules: modulesState[] // 模块权限：菜单与路由控制
+  role: 0 | 1 // // 账号角色
+  addRouters: RouteRecordRaw[] // 用户有权限的路由
 }
 
-// interface modulesState {
-//   action: string
-//   module: string
-//   name: string
-//   uri: string
-// }
+declare interface modulesState {
+  action: string
+  module: string
+  name: string
+  uri: string
+}
+
 export const usePermissionStore = defineStore({
   id: 'app-permission',
-  state: (): PermissioState => ({
+  state: (): PermissionUserState => ({
     isGetUserInfo: false,
     isAdmin: 0,
     auths: [],
@@ -37,7 +39,7 @@ export const usePermissionStore = defineStore({
     getRole(): 0 | 1 {
       return this.role
     },
-    getModules(): string[] {
+    getModules(): modulesState[] {
       return this.modules
     },
     getIsAdmin(): 0 | 1 {

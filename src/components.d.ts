@@ -4,7 +4,6 @@
 
 declare module 'vue' {
   export interface GlobalComponents {
-    '// Icon': typeof import('./components/Icon/index.vue')['default']
     ABreadcrumb: typeof import('ant-design-vue/es')['Breadcrumb']
     ACard: typeof import('ant-design-vue/es')['Card']
     ALayout: typeof import('ant-design-vue/es')['Layout']

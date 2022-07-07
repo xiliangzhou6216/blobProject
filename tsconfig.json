@@ -35,7 +35,6 @@
     "paths": {
       "~/*": ["src/*"],
       "#/*": ["types/*"]
-      // "/src/*": ["src/*"]
     }
   },
   "include": [
@@ -45,8 +44,8 @@
     "src/**/*.d.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
-    "./vite.config.ts",
+    "vite.config.ts",
     "mock/**/*.ts",
   ],
-  "exclude": ["node_modules", "dist"]
+  "exclude": ["node_modules", "tests/server/**/*.ts", "dist", "**/*.js"]
 }
