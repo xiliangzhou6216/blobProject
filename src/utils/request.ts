@@ -1,5 +1,14 @@
 import axios from 'axios'
 import { getToken } from './auth'
+import { usePermissionStoreWithOut } from '~/store/modules/permission'
+import { WhiteList } from './permission'
+
+// 接口返回 形状
+export interface ResData<T> {
+  code: number
+  message: string
+  result: T
+}
 
 const request = axios.create({
   timeout: 1000, // 请求超时时间
@@ -7,7 +16,14 @@ const request = axios.create({
 // 添加请求拦截器
 request.interceptors.request.use(
   function (config: any) {
-    // 在发送请求之前做些什么
+    // 接口权限拦截
+    const store = usePermissionStoreWithOut()
+    const { url = '' } = config
+    if (!WhiteList.includes(url)) {
+      if (!store.getModules.some((item) => item.url === url)) {
+        return Promise.reject('没有操作权限')
+      }
+    }
     const token = getToken()
     if (token && !config.headers['Authorization']) {
       config.headers.common['Authorization'] = token

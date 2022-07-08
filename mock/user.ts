@@ -17,19 +17,19 @@ export function createFakeUserList() {
           action: 'post', // module和action组成  按钮级别权限
           module: 'home', // 菜单路由权限
           name: 'home模块',
-          uri: '/api/user/login', //接口访问权限
+          url: '/api/user/login', //接口访问权限
         },
         {
           action: 'post',
           module: 'others',
           name: 'others二级菜单',
-          uri: '/api/user/permission',
+          url: '/api/user/permission',
         },
         {
           action: 'post',
           module: 'otherschild',
           name: 'otherschild三级菜单',
-          uri: '/api/user/permission',
+          url: '/api/user/permission',
         },
       ],
       is_admin: 1,

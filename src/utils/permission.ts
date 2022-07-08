@@ -5,6 +5,9 @@
 import type { RouteRecordRaw } from 'vue-router'
 type metaType = { permission?: string; title?: string }
 
+// 不需要权限过滤的 白名单
+export const WhiteList = ['/api/user/login', '/api/user/permission', '/api/account/info']
+
 export function filterAsyncRouter(
   routerMap: RouteRecordRaw[],
   permissionList: string[]

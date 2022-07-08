@@ -9,7 +9,7 @@ type modulesState = {
   action: string
   module: string
   name: string
-  uri: string
+  url: string
 }
 
 export function usePermission() {

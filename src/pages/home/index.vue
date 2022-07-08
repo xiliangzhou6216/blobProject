@@ -2,11 +2,12 @@
   <div>
     home
     <Icon icon="noto-v1:1st-place-medal" class="www" :size="50" />
+    <a-button type="primary" @click="ceshi">测试</a-button>
   </div>
 </template>
 
 <script setup>
-import { usePermission } from '~/hooks/usePermission'
-const { hasPermission } = usePermission()
-console.log(hasPermission('home.post'))
+const ceshi = () => {
+  console.log(1111)
+}
 </script>

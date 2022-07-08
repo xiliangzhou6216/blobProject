@@ -14,7 +14,7 @@ import './router/permission'
 // 插件自动加载
 // 从文件中导入多个模块  Register global
 const modules = import.meta.globEager('./modules/*.ts')
-console.log(modules)
+
 const app = createApp(App)
 
 Object.values(modules).forEach((item) => {

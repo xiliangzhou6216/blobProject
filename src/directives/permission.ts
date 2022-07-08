@@ -1,15 +1,15 @@
 /**
  * Global authority directive
  * Used for fine-grained control of component permissions
- * @example   v-auth="module.action"
+ * @example   v-permission="'module.action'"  v-permission="['module.action']"
+ * https://v3.cn.vuejs.org/guide/custom-directive.html
  */
 import type { App, Directive, DirectiveBinding } from 'vue'
 
 import { usePermission } from '~/hooks/usePermission'
 
-function isAuth(el: Element, binding: any) {
+function isPermission(el: Element, binding: any) {
   const { hasPermission } = usePermission()
-
   const value = binding.value
   if (!value) return
   if (!hasPermission(value)) {
@@ -18,15 +18,15 @@ function isAuth(el: Element, binding: any) {
 }
 
 const mounted = (el: Element, binding: DirectiveBinding<any>) => {
-  isAuth(el, binding)
+  isPermission(el, binding)
 }
 
-const authDirective: Directive = {
-  mounted,
+const permissionDirective: Directive = {
+  mounted, // 在绑定元素的父组件被挂载后调用
 }
 
 export function setupPermissionDirective(app: App) {
-  app.directive('auth', authDirective)
+  app.directive('permission', permissionDirective)
 }
 
-export default authDirective
+export default permissionDirective

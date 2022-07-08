@@ -19,7 +19,7 @@ declare interface modulesState {
   action: string
   module: string
   name: string
-  uri: string
+  url: string
 }
 
 export const usePermissionStore = defineStore({
@@ -53,7 +53,7 @@ export const usePermissionStore = defineStore({
     },
   },
   actions: {
-    setAuth(auths: string[], modules: string[]) {
+    setAuth(auths: string[], modules: modulesState[]) {
       this.auths = auths
       this.isGetUserInfo = true
       this.modules = modules

@@ -37,7 +37,6 @@ const update = async () => {
     el.textContent = ''
     el.appendChild(span)
   } else {
-    console.log(555)
     el.textContent = ''
     el.appendChild(svg)
   }
