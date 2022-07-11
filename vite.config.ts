@@ -104,10 +104,11 @@ export default defineConfig(({ command, mode }) => {
         // 指定组件位置，默认是src/components
         // dirs: ['src/components'],
         dts: resolve(__dirname, 'src/components.d.ts'),
-        // ant-design-vue 按需导入
+        // ui库解析器，也可以自定义
         resolvers: [
           IconsResolver(),
           AntDesignVueResolver({ importStyle: 'less' }),
+          // AntDesignVueResolver(),
           VueUseComponentsResolver(),
         ],
       }),
