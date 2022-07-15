@@ -20,15 +20,29 @@ import Legacy from '@vitejs/plugin-legacy'
 import Icons from 'unplugin-icons/vite' //自动按需引入icons
 import { viteMockServe } from 'vite-plugin-mock'
 import PurgeIcons from 'vite-plugin-purge-icons'
+import visualizer from 'rollup-plugin-visualizer'
 
 import { AntDesignVueResolver, VueUseComponentsResolver } from 'unplugin-vue-components/resolvers'
 
 const markdownWrapperClasses =
   'prose md:prose-lg lg:prose-lg dark:prose-invert text-left p-10 prose-slate prose-img:rounded-xl prose-headings:underline prose-a:text-blue-600'
+
+function configVisualizerConfig() {
+  if (process.env.REPORT === 'true') {
+    return visualizer({
+      filename: './node_modules/.cache/visualizer/stats.html',
+      open: true,
+      gzipSize: true,
+      brotliSize: true,
+    }) as Plugin
+  }
+  return []
+}
+
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {
   const isBuild = command === 'build'
-  console.log(command, mode)
+  console.log(command, mode, 555)
   const env = loadEnv(mode, process.cwd(), '')
   console.log(loadEnv, env)
   return {
@@ -55,7 +69,7 @@ export default defineConfig(({ command, mode }) => {
         ignore: /^\_/,
         mockPath: 'mock',
         localEnabled: !isBuild, // 设置是否开启本地mock .ts文件，不要在生产环境打开
-        prodEnabled: isBuild, //设置是否开启打包的mock功能 ，实际开发请关闭，会影响打包体积
+        prodEnabled: isBuild, //为了演示，线上开启 mock，实际开发请关闭，会影响打包体积
         // injectCode 只受prodEnabled影响
         // https://github.com/anncwb/vite-plugin-mock/issues/9
         // 下面这段代码会被注入 main.ts
@@ -92,12 +106,12 @@ export default defineConfig(({ command, mode }) => {
       }),
       // 布局系统
       Layouts(),
-      // api 自动按需引入
+      // 依赖按需自动导入
       AutoImport({
         imports: ['vue', 'vue-router', 'vue-i18n', '@vueuse/head', '@vueuse/core'],
         dts: 'src/auto-imports.d.ts',
       }),
-      // 组件自动按需引入
+      // 组件自动按需引入  设计原理是根据  vue template 模板中的组件使用进行处理的,函数式调用时插件查询不到,message.success('xx')可以创建 DOM元素，但是没有相关样式代码
       Components({
         extensions: ['vue', 'md', 'tsx'],
         include: [/\.md$/, /\.vue$/, /\.tsx$/],
@@ -107,8 +121,7 @@ export default defineConfig(({ command, mode }) => {
         // ui库解析器，也可以自定义
         resolvers: [
           IconsResolver(),
-          AntDesignVueResolver({ importStyle: 'less' }),
-          // AntDesignVueResolver(),
+          AntDesignVueResolver({ importStyle: 'less' }), // 自定义主题 设置自定义样式 开启 importStyle: 'less'
           VueUseComponentsResolver(),
         ],
       }),
@@ -123,6 +136,8 @@ export default defineConfig(({ command, mode }) => {
       vueJsx(),
       // 生产环境资源压缩
       viteCompression(),
+      // 包依赖分析可视化
+      configVisualizerConfig(),
     ],
     // CSS 预处理器  支持 less 样式
     css: {

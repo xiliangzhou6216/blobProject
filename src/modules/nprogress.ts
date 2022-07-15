@@ -13,6 +13,7 @@ export default () => {
   router.beforeEach(() => {
     // console.log('全局路由前置守卫')
     // 设置页面标题
+    console.log(import.meta, 666)
     document.title = import.meta.env.VITE_APP_TITLE
     if (!NProgress.isStarted()) {
       NProgress.start()
