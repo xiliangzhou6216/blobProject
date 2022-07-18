@@ -1,7 +1,7 @@
 <template>
   <div>
     <a-breadcrumb :routes="routes">
-      <template #itemRender="{ route, routes, paths }">
+      <template #itemRender="{ route, routes: any, paths }">
         <span v-if="routes.indexOf(route) === routes.length - 1">
           {{ route.meta.title }}
         </span>
@@ -21,13 +21,15 @@ export interface routeType {
   redirect?: string
 }
 const { currentRoute, push } = useRouter()
-const routes = ref<RouteLocationMatched[]>([])
+const routes = ref<any>([])
+// const routes = ref<RouteLocationMatched[]>([])
 
 watchEffect(() => {
   // 过滤路由
   const routeMatched = currentRoute.value.matched.filter(
     (item) => !['/', '/app'].includes(item.path)
   )
+  console.log(routeMatched)
   routes.value = routeMatched
 })
 

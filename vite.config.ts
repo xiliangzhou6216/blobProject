@@ -55,6 +55,7 @@ export default defineConfig(({ command, mode }) => {
       vue({
         include: [/\.vue$/, /\.md$/],
       }),
+      // 兼容处理
       Legacy({
         targets: ['defaults', 'not IE 11'],
       }),
@@ -74,7 +75,7 @@ export default defineConfig(({ command, mode }) => {
         // https://github.com/anncwb/vite-plugin-mock/issues/9
         // 下面这段代码会被注入 main.ts
         injectCode: `
-           import { setupProdMockServer } from './mock/_createProdMockServer';
+           import { setupProdMockServer } from '../mock/_createProdMockServer';
      
            setupProdMockServer();
            `,

@@ -1,17 +1,3 @@
-<script setup lang="ts">
-import { init } from 'ityped'
-const content = ref<null | Element>(null)
-onMounted(() => {
-  init(content.value as Element, {
-    showCursor: false,
-    disableBackTyping: true,
-    strings: [' is not found!'],
-  })
-})
-const router = useRouter()
-const back = () => router.push('/')
-</script>
-
 <template>
   <div class="flex flex-wrap h-screen text-center justify-around items-center">
     <div class="font-blod desc">
@@ -25,6 +11,19 @@ const back = () => router.push('/')
     <img src="/notFound/1.svg" class="cover" alt="page not found" />
   </div>
 </template>
+<script setup lang="ts">
+import { init } from 'ityped'
+const content = ref<null | Element>(null)
+onMounted(() => {
+  init(content.value as Element, {
+    showCursor: false,
+    disableBackTyping: true,
+    strings: [' is not found!'],
+  })
+})
+const router = useRouter()
+const back = () => router.push('/')
+</script>
 
 <style>
 .code {
