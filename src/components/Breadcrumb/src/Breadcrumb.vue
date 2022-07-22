@@ -1,7 +1,7 @@
 <template>
   <div>
     <a-breadcrumb :routes="routes">
-      <template #itemRender="{ route, routes: any, paths }">
+      <template #itemRender="{ route, routes, paths }">
         <span v-if="routes.indexOf(route) === routes.length - 1">
           {{ route.meta.title }}
         </span>

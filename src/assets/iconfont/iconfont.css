@@ -1,12 +1,12 @@
 @font-face {
-  font-family: "iconfont"; /* Project id 3481341 */
+  font-family: 'iconfont'; /* Project id 3481341 */
   src: url('iconfont.woff2?t=1656986356293') format('woff2'),
-       url('iconfont.woff?t=1656986356293') format('woff'),
-       url('iconfont.ttf?t=1656986356293') format('truetype');
+    url('iconfont.woff?t=1656986356293') format('woff'),
+    url('iconfont.ttf?t=1656986356293') format('truetype');
 }
 
 .iconfont {
-  font-family: "iconfont" !important;
+  font-family: 'iconfont' !important;
   font-size: 16px;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
@@ -14,86 +14,85 @@
 }
 
 .icon-auto:before {
-  content: "\e6eb";
+  content: '\e6eb';
 }
 
 .icon-all:before {
-  content: "\e6ef";
+  content: '\e6ef';
 }
 
 .icon-bussiness-man:before {
-  content: "\e6f0";
+  content: '\e6f0';
 }
 
 .icon-component:before {
-  content: "\e6f2";
+  content: '\e6f2';
 }
 
 .icon-code:before {
-  content: "\e6f3";
+  content: '\e6f3';
 }
 
 .icon-copy:before {
-  content: "\e6f4";
+  content: '\e6f4';
 }
 
 .icon-dollar:before {
-  content: "\e6f5";
+  content: '\e6f5';
 }
 
 .icon-history:before {
-  content: "\e6f8";
+  content: '\e6f8';
 }
 
 .icon-editor:before {
-  content: "\e6f6";
+  content: '\e6f6';
 }
 
 .icon-data:before {
-  content: "\e6fa";
+  content: '\e6fa';
 }
 
 .icon-gift:before {
-  content: "\e6fb";
+  content: '\e6fb';
 }
 
 .icon-integral:before {
-  content: "\e6fc";
+  content: '\e6fc';
 }
 
 .icon-nav-list:before {
-  content: "\e6fd";
+  content: '\e6fd';
 }
 
 .icon-pic:before {
-  content: "\e6ff";
+  content: '\e6ff';
 }
 
 .icon-Notvisible:before {
-  content: "\e6fe";
+  content: '\e6fe';
 }
 
 .icon-chuangjianteshuzuoye:before {
-  content: "\e6cb";
+  content: '\e6cb';
 }
 
 .icon-wailaidengji:before {
-  content: "\e6cc";
+  content: '\e6cc';
 }
 
 .icon-renyuanguanli:before {
-  content: "\e6d0";
+  content: '\e6d0';
 }
 
 .icon-renyuanxinxi:before {
-  content: "\e6d1";
+  content: '\e6d1';
 }
 
 .icon-a-36-wodezongjie:before {
-  content: "\e6f9";
+  content: '\e6f9';
 }
 
 .icon-github:before {
-  content: "\e737";
+  content: '\e737';
 }
-

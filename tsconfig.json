@@ -45,7 +45,7 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     "vite.config.ts",
-    "mock/**/*.ts",
+    "mock/**/*.ts"
   ],
   "exclude": ["node_modules", "tests/server/**/*.ts", "dist", "**/*.js"]
 }
