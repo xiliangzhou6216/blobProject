@@ -1,4 +1,4 @@
-import { router } from './router'
+import { router } from '~/router/index'
 // import { App } from 'vue'
 import NProgress from 'nprogress'
 
@@ -11,9 +11,10 @@ import NProgress from 'nprogress'
 
 export default () => {
   router.beforeEach(() => {
-    console.log('全局路由前置守卫')
+    // console.log('全局路由前置守卫')
     // 设置页面标题
-    document.title = import.meta.env.VITE_APP_TITLE
+    console.log(import.meta, 666)
+    document.title = import.meta.env.VITE_APP_TITLE as string
     if (!NProgress.isStarted()) {
       NProgress.start()
     }

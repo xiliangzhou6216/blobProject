@@ -1,3 +1,3 @@
 <template>
-  <div>antdv</div>
+  <div>组件</div>
 </template>
