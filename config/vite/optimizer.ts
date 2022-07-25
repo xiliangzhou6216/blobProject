@@ -16,6 +16,7 @@ const vendorLibs: { match: string[]; output: string }[] = [
 
 // @ts-ignore
 export const configManualChunk = (id: string) => {
+  // 获取node_modules下 每个解析的依赖模块id
   if (/[\\/]node_modules[\\/]/.test(id)) {
     const matchItem = vendorLibs.find((item) => {
       const reg = new RegExp(`[\\/]node_modules[\\/]_?(${item.match.join('|')})(.*)`, 'ig')

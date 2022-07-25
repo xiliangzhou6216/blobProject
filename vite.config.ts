@@ -157,6 +157,13 @@ export default defineConfig(({ command, mode }) => {
       open: false, // 类型： boolean | string在服务器启动时自动在浏览器中打开应用程序；
       cors: false, // 类型： boolean | CorsOptions 为开发服务器配置 CORS。默认启用并允许任何源
       host: '0.0.0.0', // IP配置，支持从IP启动
+      proxy: {
+        '/api': {
+          target: 'http://localhost:3001',
+          changeOrigin: true, // 就会把请求 API header 中的 origin，改成跟 target 里边的域名一样了
+          rewrite: (path) => path.replace(/^\/api/, ''), // localhost:5002/api/user/permission  localhost:3001/user/permission
+        },
+      },
     },
     // build
     build: {
@@ -168,7 +175,7 @@ export default defineConfig(({ command, mode }) => {
           drop_console: VITE_DROP_CONSOLE,
         },
       },
-      // Rollup 打包配置
+      // Rollup 打包配置 自定义构建
       rollupOptions: {
         output: {
           manualChunks: configManualChunk,
@@ -176,7 +183,7 @@ export default defineConfig(({ command, mode }) => {
       },
       // Turning off brotliSize display can slightly reduce packaging time
       brotliSize: false,
-      chunkSizeWarningLimit: 2000,
+      chunkSizeWarningLimit: 2000, // 块大小警告的限制
     },
     resolve: {
       alias: {
