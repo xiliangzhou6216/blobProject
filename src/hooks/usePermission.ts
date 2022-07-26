@@ -1,4 +1,4 @@
-/**
+/**permissionStore
  *
  * @description 处理权限
  */
@@ -13,25 +13,25 @@ type modulesState = {
 }
 
 export function usePermission() {
-  const permissioStore = usePermissionStore()
+  const permissionStore = usePermissionStore()
   function hasPermission(value?: string | string[]): boolean {
     if (!value) {
       return true
     }
     // 管理员不验证
-    if (permissioStore.getIsAdmin === 1) {
+    if (permissionStore.getIsAdmin === 1) {
       return true
     }
     if (Array.isArray(value)) {
       for (const iterator of value) {
         const [module, action] = iterator.split('.')
-        return permissioStore.getModules.some(
+        return permissionStore.getModules.some(
           (item: modulesState) => item.module === module && item.action === action
         )
       }
     }
     if (!Array.isArray(value)) {
-      return permissioStore.getModules.some(
+      return permissionStore.getModules.some(
         (item: modulesState) =>
           item.module === value.split('.')[0] && item.action === value.split('.')[1]
       )

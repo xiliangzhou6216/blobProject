@@ -9,7 +9,13 @@
           </div>
         </div>
         <div class="sys-setting">
-          <div @click="exitSystem">退出系统</div>
+          <a-space>
+            <div class="cursor-pointer ml-6" @click="themeChange">Theme {{ theme }}</div>
+            <div class="cursor-pointer ml-6" @click="languageChange">国际化</div>
+            <div class="ml-6">language: {{ language }}</div>
+            <div>base: {{ t('about') }}</div>
+            <div class="cursor-pointer ml-6" @click="exitSystem">退出系统</div>
+          </a-space>
         </div>
       </a-layout-header>
       <a-layout>
@@ -49,6 +55,8 @@ import avatar from '~/assets/avatar.png'
 import SideMenu from './components/SiderMenu/src/SideMenu'
 import { clearMenuItem, filterRoutes } from './utils/index'
 import { useUserStoreWithOut } from '~/store/modules/user'
+import useDarks from '~/composables/useDarks'
+const { t, locale } = useI18n()
 const router = useRouter()
 const mdata = clearMenuItem(router.getRoutes()).filter(({ path }) => path.startsWith('/app/'))
 const menuData = filterRoutes(mdata)
@@ -57,6 +65,17 @@ const userStore = useUserStoreWithOut()
 const exitSystem = () => {
   userStore.logout()
   console.log(userStore.token)
+}
+
+const { isDark, toggleDark } = useDarks()
+const theme = computed(() => (isDark.value ? 'Dark' : 'Light'))
+const language = computed(() => (locale.value === 'zh-CN' ? '中文' : 'English'))
+const themeChange = () => {
+  toggleDark()
+}
+const languageChange = () => {
+  console.log(locale, 56)
+  locale.value = locale.value === 'zh-CN' ? 'en' : 'zh-CN'
 }
 </script>
 <style scoped lang="less">
@@ -91,6 +110,7 @@ const exitSystem = () => {
     }
     .sys-setting {
       color: black;
+      // cursor: pointer;
     }
   }
   .basicLayout-section {

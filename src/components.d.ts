@@ -12,6 +12,7 @@ declare module 'vue' {
     ALayoutSider: typeof import('ant-design-vue/es')['LayoutSider']
     AMenu: typeof import('ant-design-vue/es')['Menu']
     AMenuItem: typeof import('ant-design-vue/es')['MenuItem']
+    ASpace: typeof import('ant-design-vue/es')['Space']
     ASubMenu: typeof import('ant-design-vue/es')['SubMenu']
     Breadcrumb: typeof import('./components/Breadcrumb/src/Breadcrumb.vue')['default']
     Footer: typeof import('./components/Footer.vue')['default']
@@ -20,4 +21,4 @@ declare module 'vue' {
   }
 }
 
-export {}
+export { }

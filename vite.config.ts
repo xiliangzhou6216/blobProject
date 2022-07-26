@@ -188,6 +188,7 @@ export default defineConfig(({ command, mode }) => {
     resolve: {
       alias: {
         '~/': `${resolve(__dirname, 'src')}/`, // 查找~项目更目录
+        '#/': `${resolve(__dirname, 'types')}/`,
       },
     },
     //使用此选项可强制预构建链接的包
