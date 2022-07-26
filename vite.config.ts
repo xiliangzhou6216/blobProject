@@ -44,9 +44,9 @@ function configVisualizerConfig() {
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {
   const isBuild = command === 'build'
-  console.log(command, mode, 555)
+  // console.log(command, mode, 555)
   const env = loadEnv(mode, process.cwd(), '')
-  console.log(loadEnv, env)
+  console.log(1111, env, 3333)
   return {
     plugins: [
       // 将包信息文件作为 vite 的配置文件之一，为 vite-plugin-optimize-persist 所用

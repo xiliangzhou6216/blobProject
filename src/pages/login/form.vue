@@ -6,7 +6,7 @@
       name="basic"
       autocomplete="off"
       @finish="onFinish"
-      @finishFailed="onFinishFailed"
+      @finish-failed="onFinishFailed"
     >
       <a-form-item name="username" :rules="[{ required: true, message: '请输入账户' }]">
         <a-input v-model:value="formState.username" placeholder="admin" />
