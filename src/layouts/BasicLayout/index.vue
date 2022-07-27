@@ -74,7 +74,7 @@ const themeChange = () => {
   toggleDark()
 }
 const languageChange = () => {
-  console.log(locale, 56)
+  console.log(locale, 56, userStore.getErrorLog)
   locale.value = locale.value === 'zh-CN' ? 'en' : 'zh-CN'
 }
 </script>

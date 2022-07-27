@@ -6,20 +6,25 @@ import constantRoutes, { accessRoutes, publicRoutes } from '~/router/router.conf
 import { cloneDeep } from 'lodash-es'
 import { filterAsyncRouter } from '~/utils/permission'
 
-declare interface PermissionUserState {
+type UserInfo = {
+  id?: number
+  username?: string
+}
+
+interface modulesState {
+  action: string
+  module: string
+  name: string
+  url: string
+}
+interface PermissionUserState {
   isGetUserInfo: boolean // 是否获取过用户信息
   isAdmin: 0 | 1 // 是否为管理员，当为角色为管理员时，跳过权限筛选
   auths: string[] // 当前用户权限：按钮操作、接口控制
   modules: modulesState[] // 模块权限：菜单与路由控制
   role: 0 | 1 // // 账号角色
   addRouters: RouteRecordRaw[] // 用户有权限的路由
-}
-
-declare interface modulesState {
-  action: string
-  module: string
-  name: string
-  url: string
+  userInfo: UserInfo | {} // 用户信息
 }
 
 export const usePermissionStore = defineStore({
@@ -31,8 +36,12 @@ export const usePermissionStore = defineStore({
     modules: [],
     role: 0,
     addRouters: [],
+    userInfo: {},
   }),
   getters: {
+    getUserInfo(): UserInfo {
+      return this.userInfo
+    },
     getAuths(): string[] {
       return this.auths
     },
@@ -53,6 +62,9 @@ export const usePermissionStore = defineStore({
     },
   },
   actions: {
+    setUserInfo(info: UserInfo) {
+      this.userInfo = info
+    },
     setAuth(auths: string[], modules: modulesState[]) {
       this.auths = auths
       this.isGetUserInfo = true
@@ -79,6 +91,7 @@ export const usePermissionStore = defineStore({
         if (result) {
           this.setAuth(result.auths, result.modules)
           this.setIsAdmin(result.is_admin)
+          this.setUserInfo({ username: result.username, id: result.id })
         }
         return result
       } catch (error) {

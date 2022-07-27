@@ -4,10 +4,20 @@ import { getToken, setToken, removeToken } from '~/utils/auth'
 import { loginRequest } from '~/api/user/index'
 import { router } from '~/router/index'
 
+// 全局错误拦截
+interface log {
+  url: unknown
+  info?: string
+  time: string | null
+  err: string | any
+  name: string
+  type: string
+}
 interface UserState {
   count: number
   token: string
   auths: string[]
+  errorLog: log[]
 }
 
 export const useUserStore = defineStore('app-user', {
@@ -15,6 +25,7 @@ export const useUserStore = defineStore('app-user', {
     count: 1,
     token: '',
     auths: [],
+    errorLog: [],
   }),
   getters: {
     getCount(): number {
@@ -23,8 +34,14 @@ export const useUserStore = defineStore('app-user', {
     getToken(): string {
       return this.token || getToken()
     },
+    getErrorLog(): log[] {
+      return this.errorLog
+    },
   },
   actions: {
+    setErrorLog(info: log) {
+      this.errorLog.push(info)
+    },
     setToken(info: string) {
       this.token = info ?? '' // for null or undefined value
       setToken(info)

@@ -42,7 +42,7 @@
 import { useUserStore } from '~/store/modules/user'
 import { useMessage } from '~/hooks/useMessage'
 const loading = ref(false)
-const userStore = useUserStore()
+const useStore = useUserStore()
 const { createMessage } = useMessage()
 const router = useRouter()
 
@@ -60,7 +60,7 @@ const formState = reactive<FormState>({
 const onFinish = async (values: unknown) => {
   console.log('Success:', values)
   loading.value = true
-  const res = await userStore.login(values)
+  const res = await useStore.login(values)
   loading.value = false
   if (res.result) {
     createMessage.success('登录成功')

@@ -4,7 +4,7 @@ import { resultError, resultSuccess, getRequestToken, requestParams } from './_u
 export function createFakeUserList() {
   return [
     {
-      userId: '1',
+      id: '1',
       username: 'admin',
       realName: 'Admin',
       avatar: '',
@@ -38,7 +38,7 @@ export function createFakeUserList() {
       last_login: '2021-11-11 12:00',
     },
     {
-      userId: '2',
+      id: '2',
       username: 'test',
       password: '123456',
       realName: 'test user',
