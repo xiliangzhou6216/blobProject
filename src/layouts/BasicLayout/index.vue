@@ -11,6 +11,7 @@
         <div class="sys-setting">
           <a-space>
             <div class="cursor-pointer ml-6" @click="themeChange">Theme {{ theme }}</div>
+            <Dropdown/>
             <div class="cursor-pointer ml-6" @click="languageChange">国际化</div>
             <div class="ml-6">language: {{ language }}</div>
             <div>base: {{ t('about') }}</div>

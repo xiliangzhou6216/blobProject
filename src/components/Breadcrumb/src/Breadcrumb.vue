@@ -15,11 +15,6 @@
 
 <script setup lang="ts">
 import type { RouteLocationMatched } from 'vue-router'
-export interface routeType {
-  path: string
-  name?: string
-  redirect?: string
-}
 const { currentRoute, push } = useRouter()
 const routes = ref<any>([])
 // const routes = ref<RouteLocationMatched[]>([])
