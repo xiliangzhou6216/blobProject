@@ -18,13 +18,22 @@ function setI18nLanguage(locale: LocaleType) {
 export function useLocale() {
   const localeStore = useLocaleStoreWithOut()
   const getLocale = computed(() => localeStore.getLocale)
-  function changeLocale(locale: LocaleType) {
+  async function changeLocale(locale: LocaleType) {
     const globalI18n = i18n.global
     const currentLocale = unref(globalI18n.locale)
     if (currentLocale === locale) {
       return locale
     }
-
+    const messages = Object.fromEntries(
+      Object.entries(
+        import.meta.globEager('./locales/*.y(a)?ml') //匹配所有在locales路径下的y(a)?ml文件
+      ).map(([key, value]) => {
+        const yaml = key.endsWith('.yaml')
+        return [key.slice(14, yaml ? -5 : -4), value.default]
+      })
+    )
+    console.log(locale, messages, import.meta.globEager('./**/.yml'))
+    globalI18n.setLocaleMessage(locale, messages[locale])
     setI18nLanguage(locale)
     return locale
   }

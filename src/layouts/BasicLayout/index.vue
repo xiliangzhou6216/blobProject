@@ -12,6 +12,7 @@
           <a-space>
             <div class="cursor-pointer ml-6" @click="themeChange">Theme {{ theme }}</div>
             <Dropdown
+              :selectedKeys="selectedKeys"
               placement="bottom"
               :trigger="['click']"
               :dropMenuList="localeList"
@@ -67,12 +68,15 @@ import type { DropMenu } from '~/components/Dropdown'
 import { clearMenuItem, filterRoutes } from './utils/index'
 import { useUserStoreWithOut } from '~/store/modules/user'
 import useDarks from '~/composables/useDarks'
+import { useLocale } from '../../../locales/useLocale'
+import type { LocaleType } from '#/global'
 const { t, locale } = useI18n()
 const router = useRouter()
 const mdata = clearMenuItem(router.getRoutes()).filter(({ path }) => path.startsWith('/app/'))
 const menuData = filterRoutes(mdata)
 const layoutConf = reactive({ menuWidth: 208, theme: 'light', menuData })
 const userStore = useUserStoreWithOut()
+const { changeLocale, getLocale } = useLocale()
 const exitSystem = () => {
   userStore.logout()
   console.log(userStore.token)
@@ -89,10 +93,24 @@ const localeList = [
   },
 ]
 
-const handleMenuEvent = (menu: DropMenu) => {
-  console.log(menu, 5555)
+const selectedKeys = ref<string[]>([])
+
+const toggleLocale = async (lang: LocaleType | string) => {
+  await changeLocale(lang as LocaleType)
+  selectedKeys.value = [lang as string]
 }
 
+const handleMenuEvent = (menu: DropMenu) => {
+  if (unref(getLocale) === menu.key) {
+    return
+  }
+  toggleLocale(menu.key)
+  console.log(menu.key, 5555)
+}
+
+watchEffect(() => {
+  selectedKeys.value = [unref(getLocale)]
+})
 const { isDark, toggleDark } = useDarks()
 const theme = computed(() => (isDark.value ? 'Dark' : 'Light'))
 

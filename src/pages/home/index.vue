@@ -7,5 +7,5 @@
 
 <script setup lang="ts">
 const { t } = useI18n()
-console.log(t, 1)
+// console.log(t, 1)
 </script>

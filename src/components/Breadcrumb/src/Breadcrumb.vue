@@ -24,7 +24,7 @@ watchEffect(() => {
   const routeMatched = currentRoute.value.matched.filter(
     (item) => !['/', '/app'].includes(item.path)
   )
-  console.log(routeMatched)
+  // console.log(routeMatched)
   routes.value = routeMatched
 })
 
