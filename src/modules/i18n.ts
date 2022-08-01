@@ -1,5 +1,11 @@
 import { App } from 'vue'
 import { createI18n } from 'vue-i18n'
+import { setHtmlPageLang } from '../../locales/help'
+
+// 导出
+export let i18n: any
+
+import { useLocaleStoreWithOut } from '~/store/modules/locale'
 
 const messages = Object.fromEntries(
   Object.entries(
@@ -11,9 +17,13 @@ const messages = Object.fromEntries(
 )
 
 export default (app: App) => {
-  const i18n = createI18n({
+  const localeStore = useLocaleStoreWithOut()
+  const locale = localeStore.getLocale
+  console.log(messages, 99999)
+  setHtmlPageLang(locale)
+  i18n = createI18n({
     legacy: false,
-    locale: 'en',
+    locale,
     messages, // {}
   })
 

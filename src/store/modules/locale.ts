@@ -2,18 +2,15 @@ import { defineStore } from 'pinia'
 import { store } from '~/store/index'
 import storage from 'store'
 import { LOCALE_KEY } from '~/enums/cacheEnum'
+// import { localeSetting } from '~/settings/localeSetting'
+import type { LocaleType, LocaleState } from '#/global'
 
 console.log(storage)
-type LocaleType = 'zh-CN' | 'en'
 const localeSetting = {
   showPicker: true,
   localInfo: 'zh-CN',
 }
 
-interface LocaleState {
-  localInfo: LocaleType
-  showPicker: boolean
-}
 export const useLocaleStore = defineStore('app-locale', {
   state: (): LocaleState => localeSetting as LocaleState,
   getters: {

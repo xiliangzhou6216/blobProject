@@ -1,13 +1,13 @@
 <template>
-  <a-dropdown placement="bottom">
-    <a class="ant-dropdown-link" @click.prevent>
-      <Icon icon="carbon:language" class="www" :size="20" />
-    </a>
+  <a-dropdown :trigger="trigger" v-bind="$attrs">
+    <span>
+      <slot></slot>
+    </span>
     <template #overlay>
-      <a-menu @click="onClick">
-        <a-menu-item key="1">1st menu item</a-menu-item>
-        <a-menu-item key="2">2nd menu item</a-menu-item>
-        <a-menu-item key="3">3rd menu item</a-menu-item>
+      <a-menu @click="onClick" :selectedKeys="selectedKeys">
+        <template v-for="item in dropMenuList" :key="item.key">
+          <a-menu-item v-bind="getAttr(item.key)">{{ item.text }}</a-menu-item>
+        </template>
       </a-menu>
     </template>
   </a-dropdown>
@@ -16,21 +16,35 @@
 <script setup lang="ts">
 import type { MenuProps } from 'ant-design-vue'
 import { PropType } from 'vue'
+import { DropMenu } from './type'
 
 const props = defineProps({
+  /**
+   * @default ['hover']
+   */
   trigger: {
     type: Array as PropType<('contextmenu' | 'click' | 'hover')[]>,
-    default: () => ['contextmenu'],
+    default: () => ['contextmenu'], // 上下文菜单键
   },
   dropMenuList: {
-    type: Array,
+    type: Array as PropType<DropMenu[]>,
+    default: () => [],
+  },
+  selectedKeys: {
+    type: Array as PropType<string[]>,
     default: () => [],
   },
 })
 
+const emit = defineEmits(['menuEvent'])
+
 const onClick: MenuProps['onClick'] = ({ key }) => {
+  const menu = props.dropMenuList.find((item: DropMenu) => item.key === key)
+  emit('menuEvent', menu)
   console.log(`Click on item ${key}`)
 }
+// 小技巧 把属性绑定表达式
+const getAttr = (key: string) => ({ key })
 </script>
 
 <style lang="less" scoped></style>

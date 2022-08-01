@@ -11,9 +11,18 @@
         <div class="sys-setting">
           <a-space>
             <div class="cursor-pointer ml-6" @click="themeChange">Theme {{ theme }}</div>
-            <Dropdown/>
-            <div class="cursor-pointer ml-6" @click="languageChange">国际化</div>
-            <div class="ml-6">language: {{ language }}</div>
+            <Dropdown
+              placement="bottom"
+              :trigger="['click']"
+              :dropMenuList="localeList"
+              @menuEvent="handleMenuEvent"
+            >
+              <span class="cursor-pointer flex items-center">
+                <Icon icon="ion:language" :size="20" />
+              </span>
+            </Dropdown>
+            <!-- <div class="cursor-pointer ml-6" @click="languageChange">国际化</div> -->
+            <!-- <div class="ml-6">language: {{ language }}</div> -->
             <div>base: {{ t('about') }}</div>
             <div class="cursor-pointer ml-6" @click="exitSystem">退出系统</div>
           </a-space>
@@ -54,6 +63,7 @@
 // 子组件 sfc interface 定义 emits  props
 import avatar from '~/assets/avatar.png'
 import SideMenu from './components/SiderMenu/src/SideMenu'
+import type { DropMenu } from '~/components/Dropdown'
 import { clearMenuItem, filterRoutes } from './utils/index'
 import { useUserStoreWithOut } from '~/store/modules/user'
 import useDarks from '~/composables/useDarks'
@@ -68,16 +78,32 @@ const exitSystem = () => {
   console.log(userStore.token)
 }
 
+const localeList = [
+  {
+    key: 'zh-CN',
+    text: '中文',
+  },
+  {
+    key: 'en',
+    text: 'English',
+  },
+]
+
+const handleMenuEvent = (menu: DropMenu) => {
+  console.log(menu, 5555)
+}
+
 const { isDark, toggleDark } = useDarks()
 const theme = computed(() => (isDark.value ? 'Dark' : 'Light'))
-const language = computed(() => (locale.value === 'zh-CN' ? '中文' : 'English'))
+
 const themeChange = () => {
   toggleDark()
 }
-const languageChange = () => {
-  console.log(locale, 56, userStore.getErrorLog)
-  locale.value = locale.value === 'zh-CN' ? 'en' : 'zh-CN'
-}
+// const language = computed(() => (locale.value === 'zh-CN' ? '中文' : 'English'))
+// const languageChange = () => {
+//   console.log(locale, 56, userStore.getErrorLog)
+//   locale.value = locale.value === 'zh-CN' ? 'en' : 'zh-CN'
+// }
 </script>
 <style scoped lang="less">
 .basicLayout-wrap {

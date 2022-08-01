@@ -145,6 +145,7 @@
         "axios",
         "ityped",
         "lodash-es",
+        "store",
         "vite",
         "vue-request"
       ]
