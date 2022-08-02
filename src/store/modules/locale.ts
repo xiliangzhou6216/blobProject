@@ -8,7 +8,7 @@ import type { LocaleType, LocaleState } from '#/global'
 console.log(storage)
 const localeSetting = {
   showPicker: true,
-  localInfo: 'zh-CN',
+  localInfo: storage.get(LOCALE_KEY) || 'zh-CN',
 }
 
 export const useLocaleStore = defineStore('app-locale', {
@@ -34,7 +34,7 @@ export const useLocaleStore = defineStore('app-locale', {
      * 初始化多语言信息并从本地缓存中加载现有配置
      */
     initLocale() {
-      this.setLocaleInfo(localeSetting.localInfo as LocaleType)
+      this.setLocaleInfo(this.localInfo as LocaleType)
     },
   },
 })

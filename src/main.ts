@@ -13,11 +13,10 @@ import { setupGlobDirectives } from './directives'
 import './router/permission'
 import { useUserStoreWithOut } from '~/store/modules/user'
 import { usePermissionStoreWithOut } from '~/store/modules/permission'
-const useStore = useUserStoreWithOut()
-const usePermission = usePermissionStoreWithOut()
-
 // 工具类
 import { parseTime } from '~/utils/parse-time'
+const useStore = useUserStoreWithOut()
+const usePermission = usePermissionStoreWithOut()
 
 // 批量处理文件
 const modules = import.meta.globEager('./modules/*.ts')

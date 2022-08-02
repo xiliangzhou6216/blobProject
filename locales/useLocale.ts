@@ -1,11 +1,10 @@
 import { useLocaleStoreWithOut } from '~/store/modules/locale'
 import { unref, computed } from 'vue'
-import { i18n } from '~/modules/i18n'
+import { i18n, messages } from '~/modules/i18n'
 import type { LocaleType } from '#/global'
-import { setHtmlPageLang } from './help'
+import { setHtmlPageLang, loadedLanguages } from './help'
 function setI18nLanguage(locale: LocaleType) {
   const localeStore = useLocaleStoreWithOut()
-
   if (i18n.mode === 'legacy') {
     i18n.global.locale = locale
   } else {
@@ -15,6 +14,10 @@ function setI18nLanguage(locale: LocaleType) {
   setHtmlPageLang(locale)
 }
 
+/**
+ * 切换语言环境
+ * @returns
+ */
 export function useLocale() {
   const localeStore = useLocaleStoreWithOut()
   const getLocale = computed(() => localeStore.getLocale)
@@ -24,16 +27,13 @@ export function useLocale() {
     if (currentLocale === locale) {
       return locale
     }
-    const messages = Object.fromEntries(
-      Object.entries(
-        import.meta.globEager('./locales/*.y(a)?ml') //匹配所有在locales路径下的y(a)?ml文件
-      ).map(([key, value]) => {
-        const yaml = key.endsWith('.yaml')
-        return [key.slice(14, yaml ? -5 : -4), value.default]
-      })
-    )
-    console.log(locale, messages, import.meta.globEager('./**/.yml'))
+    if (loadedLanguages.includes(locale)) {
+      setI18nLanguage(locale)
+      return locale
+    }
+    console.log(locale, messages, import.meta.globEager('./locales/*.yml'))
     globalI18n.setLocaleMessage(locale, messages[locale])
+    loadedLanguages.push(locale)
     setI18nLanguage(locale)
     return locale
   }

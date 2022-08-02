@@ -14,7 +14,7 @@
             <Dropdown
               :selectedKeys="selectedKeys"
               placement="bottom"
-              :trigger="['click']"
+              :trigger="['hover']"
               :dropMenuList="localeList"
               @menuEvent="handleMenuEvent"
             >
@@ -22,8 +22,6 @@
                 <Icon icon="ion:language" :size="20" />
               </span>
             </Dropdown>
-            <!-- <div class="cursor-pointer ml-6" @click="languageChange">国际化</div> -->
-            <!-- <div class="ml-6">language: {{ language }}</div> -->
             <div>base: {{ t('about') }}</div>
             <div class="cursor-pointer ml-6" @click="exitSystem">退出系统</div>
           </a-space>
@@ -70,7 +68,6 @@ import { useUserStoreWithOut } from '~/store/modules/user'
 import useDarks from '~/composables/useDarks'
 import { useLocale } from '../../../locales/useLocale'
 import type { LocaleType } from '#/global'
-const { t, locale } = useI18n()
 const router = useRouter()
 const mdata = clearMenuItem(router.getRoutes()).filter(({ path }) => path.startsWith('/app/'))
 const menuData = filterRoutes(mdata)
@@ -117,11 +114,6 @@ const theme = computed(() => (isDark.value ? 'Dark' : 'Light'))
 const themeChange = () => {
   toggleDark()
 }
-// const language = computed(() => (locale.value === 'zh-CN' ? '中文' : 'English'))
-// const languageChange = () => {
-//   console.log(locale, 56, userStore.getErrorLog)
-//   locale.value = locale.value === 'zh-CN' ? 'en' : 'zh-CN'
-// }
 </script>
 <style scoped lang="less">
 .basicLayout-wrap {

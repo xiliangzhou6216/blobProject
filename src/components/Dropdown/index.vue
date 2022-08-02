@@ -41,7 +41,6 @@ const emit = defineEmits(['menuEvent'])
 const onClick: MenuProps['onClick'] = ({ key }) => {
   const menu = props.dropMenuList.find((item: DropMenu) => item.key === key)
   emit('menuEvent', menu)
-  console.log(`Click on item ${key}`)
 }
 // 小技巧 把属性绑定表达式
 const getAttr = (key: string) => ({ key })

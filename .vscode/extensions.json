@@ -1,9 +1,15 @@
 {
   "recommendations": [
+    "vscode-icons-team.vscode-icons",
+    "davidanson.vscode-markdownlint",
     "johnsoncodehk.volar",
     "antfu.iconify",
-    "mikestead.dotenv",
     "redhat.vscode-yaml",
-    "lokalise.i18n-ally"
+    "lokalise.i18n-ally",
+    "mikestead.dotenv",
+    "dbaeumer.vscode-eslint",
+    "stylelint.vscode-stylelint",
+    "esbenp.prettier-vscode",
+    "mrmlnc.vscode-less",
   ]
 }
