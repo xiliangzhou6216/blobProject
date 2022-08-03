@@ -1,4 +1,4 @@
-export interface DropMenu {
+export interface DropMenuType {
   key: string
   text: string
 }

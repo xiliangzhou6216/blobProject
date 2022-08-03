@@ -11,18 +11,7 @@
         <div class="sys-setting">
           <a-space>
             <div class="cursor-pointer ml-6" @click="themeChange">Theme {{ theme }}</div>
-            <Dropdown
-              :selectedKeys="selectedKeys"
-              placement="bottom"
-              :trigger="['hover']"
-              :dropMenuList="localeList"
-              @menuEvent="handleMenuEvent"
-            >
-              <span class="cursor-pointer flex items-center">
-                <Icon icon="ion:language" :size="20" />
-              </span>
-            </Dropdown>
-            <div>base: {{ t('about') }}</div>
+            <AppLocale/>
             <div class="cursor-pointer ml-6" @click="exitSystem">退出系统</div>
           </a-space>
         </div>
@@ -62,52 +51,20 @@
 // 子组件 sfc interface 定义 emits  props
 import avatar from '~/assets/avatar.png'
 import SideMenu from './components/SiderMenu/src/SideMenu'
-import type { DropMenu } from '~/components/Dropdown'
 import { clearMenuItem, filterRoutes } from './utils/index'
 import { useUserStoreWithOut } from '~/store/modules/user'
+import AppLocale from './components/Header/AppLocale.vue'
 import useDarks from '~/composables/useDarks'
-import { useLocale } from '../../../locales/useLocale'
-import type { LocaleType } from '#/global'
 const router = useRouter()
 const mdata = clearMenuItem(router.getRoutes()).filter(({ path }) => path.startsWith('/app/'))
 const menuData = filterRoutes(mdata)
 const layoutConf = reactive({ menuWidth: 208, theme: 'light', menuData })
 const userStore = useUserStoreWithOut()
-const { changeLocale, getLocale } = useLocale()
+
 const exitSystem = () => {
   userStore.logout()
   console.log(userStore.token)
 }
-
-const localeList = [
-  {
-    key: 'zh-CN',
-    text: '中文',
-  },
-  {
-    key: 'en',
-    text: 'English',
-  },
-]
-
-const selectedKeys = ref<string[]>([])
-
-const toggleLocale = async (lang: LocaleType | string) => {
-  await changeLocale(lang as LocaleType)
-  selectedKeys.value = [lang as string]
-}
-
-const handleMenuEvent = (menu: DropMenu) => {
-  if (unref(getLocale) === menu.key) {
-    return
-  }
-  toggleLocale(menu.key)
-  console.log(menu.key, 5555)
-}
-
-watchEffect(() => {
-  selectedKeys.value = [unref(getLocale)]
-})
 const { isDark, toggleDark } = useDarks()
 const theme = computed(() => (isDark.value ? 'Dark' : 'Light'))
 

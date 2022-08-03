@@ -1,6 +1,6 @@
 import { useLocaleStoreWithOut } from '~/store/modules/locale'
 import { unref, computed } from 'vue'
-import { i18n, messages } from '~/modules/i18n'
+import { i18n, localesConfigs } from '~/modules/i18n'
 import type { LocaleType } from '#/global'
 import { setHtmlPageLang, loadedLanguages } from './help'
 function setI18nLanguage(locale: LocaleType) {
@@ -18,9 +18,12 @@ function setI18nLanguage(locale: LocaleType) {
  * 切换语言环境
  * @returns
  */
-export function useLocale() {
+export function useLocaleHook() {
   const localeStore = useLocaleStoreWithOut()
   const getLocale = computed(() => localeStore.getLocale)
+  const getAntdLocale = computed((): any => {
+    return i18n.global.getLocaleMessage(unref(getLocale))?.antdLocale ?? {}
+  })
   async function changeLocale(locale: LocaleType) {
     const globalI18n = i18n.global
     const currentLocale = unref(globalI18n.locale)
@@ -31,8 +34,8 @@ export function useLocale() {
       setI18nLanguage(locale)
       return locale
     }
-    console.log(locale, messages, import.meta.globEager('./locales/*.yml'))
-    globalI18n.setLocaleMessage(locale, messages[locale])
+    if (!localesConfigs[locale]) return
+    globalI18n.setLocaleMessage(locale, localesConfigs[locale])
     loadedLanguages.push(locale)
     setI18nLanguage(locale)
     return locale
@@ -41,5 +44,6 @@ export function useLocale() {
   return {
     changeLocale,
     getLocale,
+    getAntdLocale,
   }
 }

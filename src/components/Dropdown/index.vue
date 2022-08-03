@@ -16,7 +16,7 @@
 <script setup lang="ts">
 import type { MenuProps } from 'ant-design-vue'
 import { PropType } from 'vue'
-import { DropMenu } from './type'
+import { DropMenuType } from './type'
 
 const props = defineProps({
   /**
@@ -27,7 +27,7 @@ const props = defineProps({
     default: () => ['contextmenu'], // 上下文菜单键
   },
   dropMenuList: {
-    type: Array as PropType<DropMenu[]>,
+    type: Array as PropType<DropMenuType[]>,
     default: () => [],
   },
   selectedKeys: {
@@ -39,7 +39,7 @@ const props = defineProps({
 const emit = defineEmits(['menuEvent'])
 
 const onClick: MenuProps['onClick'] = ({ key }) => {
-  const menu = props.dropMenuList.find((item: DropMenu) => item.key === key)
+  const menu = props.dropMenuList.find((item: DropMenuType) => item.key === key)
   emit('menuEvent', menu)
 }
 // 小技巧 把属性绑定表达式
