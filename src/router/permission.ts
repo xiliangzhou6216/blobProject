@@ -1,4 +1,4 @@
-import { router } from '~/router/index'
+import { router } from './index'
 const whiteList = ['/login'] // 重定向白名单
 import { getToken, removeToken } from '~/utils/auth'
 import { usePermissionStoreWithOut } from '~/store/modules/permission'

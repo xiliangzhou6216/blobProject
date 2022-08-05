@@ -9,7 +9,7 @@ import NProgress from 'nprogress'
  * @return {*}
  */
 
-export default () => {
+export const setupNprogress = () => {
   router.beforeEach(() => {
     // console.log('全局路由前置守卫')
     // 设置页面标题

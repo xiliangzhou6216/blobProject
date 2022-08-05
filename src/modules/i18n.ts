@@ -37,8 +37,6 @@ export const localesConfigs = {
 
 function createI18nOptions() {
   const localeStore = useLocaleStoreWithOut()
-  // 初始化语言
-  localeStore.initLocale()
   const locale = localeStore.getLocale
   setHtmlPageLang(locale)
   loadedLanguages.push(locale)
@@ -52,7 +50,7 @@ function createI18nOptions() {
   }
 }
 
-export default (app: App) => {
+export const setupI18n = async (app: App) => {
   const options = createI18nOptions()
   i18n = createI18n(options)
   app.use(i18n)

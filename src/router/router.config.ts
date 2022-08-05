@@ -1,5 +1,7 @@
 import type { RouteRecordRaw } from 'vue-router'
 import BasicLayout from '~/layouts/BasicLayout/index.vue'
+// import { useI18n } from '~/hooks/useI18n'
+// const { t } = useI18n()
 
 // const icons: string[] = ['fanhui', 'facebook', 'twitter', 'xiangxia', 'youxiang']
 
