@@ -1,7 +1,8 @@
 import type { RouteRecordRaw } from 'vue-router'
 import BasicLayout from '~/layouts/BasicLayout/index.vue'
-// import { useI18n } from '~/hooks/useI18n'
-// const { t } = useI18n()
+import { useI18n } from '~/hooks/useI18n'
+
+const { t } = useI18n()
 
 // const icons: string[] = ['fanhui', 'facebook', 'twitter', 'xiangxia', 'youxiang']
 
@@ -26,7 +27,7 @@ export const accessRoutes: RouteRecordRaw[] = [
             path: '/app/home/antdv',
             name: 'antdv',
             component: () => import('~/pages/others/antdv/index.vue'),
-            meta: { title: '组件', keepAlive: true, breadcrumb: true, permission: 'home' },
+            meta: { title: t('component'), keepAlive: true, breadcrumb: true, permission: 'home' },
           },
         ],
       },

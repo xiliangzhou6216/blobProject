@@ -1,6 +1,6 @@
 import { useLocaleStoreWithOut } from '~/store/modules/locale'
 import { unref, computed } from 'vue'
-import { i18n, localesConfigs } from '~/modules/i18n'
+import { i18n, localesConfigs } from './i18n'
 import type { LocaleType } from '#/global'
 import { setHtmlPageLang, loadedLanguages } from './help'
 function setI18nLanguage(locale: LocaleType) {

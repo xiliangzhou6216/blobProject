@@ -9,14 +9,15 @@ import 'virtual:windi-devtools'
 
 import { createApp } from 'vue'
 import App from './App.vue'
+import { router } from './router'
+import { store } from './store'
 import { setupGlobDirectives } from './directives'
+console.log(router)
 import './router/permission'
 import { useUserStoreWithOut } from '~/store/modules/user'
 import { usePermissionStoreWithOut } from '~/store/modules/permission'
-import { setupI18n } from '~/modules/i18n'
-import { setupNprogress } from '~/modules/nprogress'
-import { setupStore } from '~/modules/pinia'
-import { setupRouter } from '~/modules/router'
+import { i18n } from '../locales/i18n'
+
 import { useLocaleStoreWithOut } from '~/store/modules/locale'
 
 // 工具类
@@ -24,30 +25,16 @@ import { parseTime } from '~/utils/parse-time'
 const useStore = useUserStoreWithOut()
 const usePermission = usePermissionStoreWithOut()
 
-// 批量处理文件
-const modules = import.meta.globEager('./modules/*.ts')
-console.log(modules)
-
 const app = createApp(App)
 
-// i18n pinna 插件自动加载注册
-// Object.values(modules).forEach((item) => {
-//   console.log(item.default, item)
-//   if (typeof item.default === 'function') {
-//     item.default(app)
-//   }
-// })
 // 初始化语言
 // const localeStore = useLocaleStoreWithOut()
 // localeStore.initLocale()
+app.use(store)
 
-setupNprogress()
-setupStore(app)
-;(async () => {
-  console.log(111)
-  await setupI18n(app)
-})()
-setupRouter(app)
+app.use(i18n)
+
+app.use(router)
 
 // Register global directive 指令
 setupGlobDirectives(app)

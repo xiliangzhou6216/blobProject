@@ -3,6 +3,7 @@ const whiteList = ['/login'] // 重定向白名单
 import { getToken, removeToken } from '~/utils/auth'
 import { usePermissionStoreWithOut } from '~/store/modules/permission'
 import { useMessage } from '~/hooks/useMessage'
+import NProgress from 'nprogress'
 const { createMessage } = useMessage()
 const permissioStore = usePermissionStoreWithOut()
 
@@ -10,6 +11,9 @@ const permissioStore = usePermissionStoreWithOut()
 let routeFlag: Boolean = false
 
 router.beforeEach(async (to, from, next) => {
+  if (!NProgress.isStarted()) {
+    NProgress.start()
+  }
   const hasToken = getToken()
   if (hasToken) {
     // 已登录
@@ -56,4 +60,8 @@ router.beforeEach(async (to, from, next) => {
       next('/login')
     }
   }
+})
+
+router.afterEach(() => {
+  NProgress.done()
 })
