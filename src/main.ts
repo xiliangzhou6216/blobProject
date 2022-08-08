@@ -27,9 +27,10 @@ const usePermission = usePermissionStoreWithOut()
 
 const app = createApp(App)
 
-// 初始化语言
+// // 初始化语言
 // const localeStore = useLocaleStoreWithOut()
 // localeStore.initLocale()
+
 app.use(store)
 
 app.use(i18n)

@@ -19,7 +19,7 @@ export const accessRoutes: RouteRecordRaw[] = [
         component: () => import('~/pages/home/index.vue'),
         name: 'home',
         meta: {
-          title: '分析管理',
+          title: t('analysisManagement'),
           icon: 'twitter',
         },
         children: [

@@ -13,6 +13,9 @@
 </template>
 
 <script setup lang="ts">
+// const { t } = useI18n()
+import { useI18n } from '~/hooks/useI18n'
+
 const { t } = useI18n()
 
 const visible = ref<boolean>(false)

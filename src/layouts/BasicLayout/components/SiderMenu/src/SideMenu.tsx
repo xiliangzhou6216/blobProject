@@ -3,7 +3,6 @@
 import Iconfont from '~/components/Iconfont/index'
 import { PropType } from 'vue'
 import { MenuItemData } from '../../../utils/types'
-// import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons-vue'
 import './style.less'
 
 export default defineComponent({

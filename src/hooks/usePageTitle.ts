@@ -15,7 +15,6 @@ export function usePageTitle() {
   watch(
     [() => currentRoute.value.path, () => localeStore.getLocale],
     () => {
-      console.log(666666)
       const route = unref(currentRoute)
       const tTitle = t(route?.meta?.title as string)
       pageTitle.value = tTitle ? `${tTitle} - ${APP_TITLE}` : APP_TITLE

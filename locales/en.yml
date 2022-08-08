@@ -5,6 +5,8 @@ about: about
 not-found: Notfound
 xxx: xxx
 component: component
+analysisManagement: analysisManagement 
+
 
 arr:
   - Ruby
