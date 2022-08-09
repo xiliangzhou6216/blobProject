@@ -2,7 +2,7 @@ import type { LocaleType } from '#/global'
 export const localeList = [
   {
     key: 'zh-CN',
-    text: '中文',
+    text: '简体中文',
   },
   {
     key: 'en',

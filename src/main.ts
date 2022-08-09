@@ -12,7 +12,6 @@ import App from './App.vue'
 import { router } from './router'
 import { store } from './store'
 import { setupGlobDirectives } from './directives'
-console.log(router)
 import './router/permission'
 import { useUserStoreWithOut } from '~/store/modules/user'
 import { usePermissionStoreWithOut } from '~/store/modules/permission'
