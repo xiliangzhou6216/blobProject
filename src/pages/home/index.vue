@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <a-card>
     {{ t('about') }}
-    {{t('nesting.sir')}}
+    {{ t('nesting.sir') }}
     <Icon icon="noto-v1:1st-place-medal" class="www" :size="50" />
     <a-button type="primary" @click="showModal">Open Modal</a-button>
     <a-modal v-model:visible="visible" title="Basic Modal" @ok="handleOk">
@@ -9,7 +9,8 @@
       <p>Some contents...</p>
       <p>Some contents...</p>
     </a-modal>
-  </div>
+    <div class="text-pink-300 min-h-800px">我是红色背景的白色文本</div>
+  </a-card>
 </template>
 
 <script setup lang="ts">

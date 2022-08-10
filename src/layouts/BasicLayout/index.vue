@@ -8,9 +8,9 @@
             <div class="title">admin</div>
           </div>
         </div>
-        <div class="sys-setting">
+        <div class="sys-setting cursor-pointer">
           <a-space>
-            <div class="cursor-pointer ml-6" @click="themeChange">Theme {{ theme }}</div>
+            <div class="cursor-pointer m-6" @click="toggleDark()">theme: {{ theme }}</div>
             <AppLocale/>
             <div class="cursor-pointer ml-6" @click="exitSystem">退出系统</div>
           </a-space>
@@ -23,24 +23,13 @@
             <Breadcrumb />
           </div>
           <a-layout-content class="basicLayout-main">
-            <a-card>
-              <router-view v-slot="{ Component, route }">
-                <!-- https://www.jianshu.com/p/399667ec9ef8  -->
-                <transition name="fade-slide" mode="out-in" appear>
-                  <div :key="route.name">
-                    <component :is="Component" />
-                  </div>
-                </transition>
-                <!-- <transition name="fade-slide" mode="out-in" appear>
-                  <suspense>
-                    <template #default>
-                      <component :is="Component" :key="route.name" />
-                    </template>
-                    <template #fallback> Loading... </template>
-                  </suspense>
-                </transition> -->
-              </router-view>
-            </a-card>
+            <router-view v-slot="{ Component, route }">
+              <transition name="fade-slide" mode="out-in" appear>
+                <div :key="route.name">
+                  <component :is="Component" />
+                </div>
+              </transition>
+            </router-view>
           </a-layout-content>
         </a-layout>
       </a-layout>
@@ -49,7 +38,7 @@
 </template>
 <script setup lang="ts">
 // 子组件 sfc interface 定义 emits  props
-import avatar from '~/assets/avatar.png'
+import avatar from '~/assets/logo.png'
 import SideMenu from './components/SiderMenu/src/SideMenu'
 import { clearMenuItem, filterRoutes } from './utils/index'
 import { useUserStoreWithOut } from '~/store/modules/user'
@@ -58,7 +47,7 @@ import useDarks from '~/composables/useDarks'
 const router = useRouter()
 const mdata = clearMenuItem(router.getRoutes()).filter(({ path }) => path.startsWith('/app/'))
 const menuData = filterRoutes(mdata)
-const layoutConf = reactive({ menuWidth: 208, theme: 'light', menuData })
+
 const userStore = useUserStoreWithOut()
 
 const exitSystem = () => {
@@ -66,12 +55,10 @@ const exitSystem = () => {
   console.log(userStore.token)
 }
 const { isDark, toggleDark } = useDarks()
-const theme = computed(() => (isDark.value ? 'Dark' : 'Light'))
-
-const themeChange = () => {
-  toggleDark()
-}
-</script>
+const theme = computed(() => (isDark.value ? 'dark' : 'light'))
+console.log(unref(theme))
+const layoutConf = reactive({ menuWidth: 208, theme: 'dark', menuData })
+</script> 
 <style scoped lang="less">
 .basicLayout-wrap {
   height: 100vh;
@@ -82,7 +69,7 @@ const themeChange = () => {
     display: flex;
     justify-content: space-between;
     color: #fff;
-    background: #fff;
+    // background: #fff;
     align-items: center;
     padding: 0 16px;
     box-shadow: 0 1px 4px #00152914;
@@ -97,13 +84,13 @@ const themeChange = () => {
         }
         .title {
           font-size: 20px;
-          color: black;
+          // color: black;
           padding: 0 10px;
         }
       }
     }
     .sys-setting {
-      color: black;
+      // color: black;
       // cursor: pointer;
     }
   }
