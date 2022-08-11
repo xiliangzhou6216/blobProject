@@ -9,6 +9,7 @@
       <p>Some contents...</p>
       <p>Some contents...</p>
     </a-modal>
+    <div class="option">555555555555555</div>
     <div class="text-pink-300 min-h-800px">我是红色背景的白色文本</div>
   </a-card>
 </template>
@@ -30,3 +31,9 @@ const handleOk = (e: MouseEvent) => {
   visible.value = false
 }
 </script>
+<style lang="less">
+  .option {
+    background: var(--prism-background);
+    color: var(--prism-foreground);
+  }
+</style>

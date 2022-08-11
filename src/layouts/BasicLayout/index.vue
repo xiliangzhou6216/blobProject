@@ -8,7 +8,7 @@
             <div class="title">admin</div>
           </div>
         </div>
-        <div class="sys-setting cursor-pointer">
+        <div class="cursor-pointer">
           <a-space>
             <div class="cursor-pointer m-6" @click="toggleDark()">theme: {{ theme }}</div>
             <AppLocale/>
@@ -56,9 +56,11 @@ const exitSystem = () => {
 }
 const { isDark, toggleDark } = useDarks()
 const theme = computed(() => (isDark.value ? 'dark' : 'light'))
-console.log(unref(theme))
 const layoutConf = reactive({ menuWidth: 208, theme: 'dark', menuData })
-</script> 
+watchEffect(() => {
+  layoutConf.theme = unref(theme)
+})
+</script>
 <style scoped lang="less">
 .basicLayout-wrap {
   height: 100vh;
@@ -68,8 +70,8 @@ const layoutConf = reactive({ menuWidth: 208, theme: 'dark', menuData })
   .ant-layout-header {
     display: flex;
     justify-content: space-between;
-    color: #fff;
-    // background: #fff;
+    background: var(--prism-background);
+    color: var(--prism-foreground);
     align-items: center;
     padding: 0 16px;
     box-shadow: 0 1px 4px #00152914;
@@ -89,10 +91,6 @@ const layoutConf = reactive({ menuWidth: 208, theme: 'dark', menuData })
         }
       }
     }
-    .sys-setting {
-      // color: black;
-      // cursor: pointer;
-    }
   }
   .basicLayout-section {
     height: calc(100vh - 64px);
@@ -105,11 +103,8 @@ const layoutConf = reactive({ menuWidth: 208, theme: 'dark', menuData })
   }
   .basicLayout-breadcrumb {
     padding: 12px;
-    background-color: #fff;
+    // background: var(--prism-background);
+    // color: var(--prism-foreground);
   }
-}
-
-.site-layout-background {
-  background: #fff;
 }
 </style>

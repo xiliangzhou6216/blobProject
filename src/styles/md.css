@@ -11,8 +11,8 @@
 }
 
 html:not(.dark) {
-  --prism-foreground: #393a34;
-  --prism-background: #f8f8f8;
+  --prism-foreground: rgba(0, 0, 0, 0.85);
+  --prism-background: #fff;
 
   --prism-comment: #868e96;
   --prism-namespace: #444444;
@@ -30,7 +30,7 @@ html:not(.dark) {
 
 html.dark {
   --prism-foreground: #d4d4d4;
-  --prism-background: #1e1e1e;
+  --prism-background: #001529;
 
   --prism-namespace: #aaaaaa;
   --prism-comment: #868e96;
