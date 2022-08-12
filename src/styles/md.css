@@ -30,7 +30,7 @@ html:not(.dark) {
 
 html.dark {
   --prism-foreground: #d4d4d4;
-  --prism-background: #001529;
+  --prism-background: #1f1f1f;
 
   --prism-namespace: #aaaaaa;
   --prism-comment: #868e96;

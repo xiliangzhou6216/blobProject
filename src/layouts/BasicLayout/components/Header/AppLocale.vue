@@ -2,7 +2,7 @@
   <Dropdown
     :selectedKeys="selectedKeys"
     placement="bottom"
-    :trigger="['hover']"
+    :trigger="['click']"
     :dropMenuList="localeList"
     @menuEvent="handleMenuEvent"
   >
@@ -26,6 +26,7 @@ const selectedKeys = ref<string[]>([])
 const toggleLocale = async (lang: LocaleType | string) => {
   await changeLocale(lang as LocaleType)
   selectedKeys.value = [lang as string]
+  location.reload() // 重新渲染左侧菜单国际化
 }
 
 const handleMenuEvent = (menu: DropMenuType) => {

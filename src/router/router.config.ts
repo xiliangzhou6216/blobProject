@@ -37,7 +37,7 @@ export const accessRoutes: RouteRecordRaw[] = [
         component: () => import('~/pages/BlankLayout.vue'),
         redirect: '/app/others/about',
         meta: {
-          title: '菜单管理',
+          title: t('menuManagement'),
           icon: 'facebook',
         },
         children: [
@@ -45,7 +45,7 @@ export const accessRoutes: RouteRecordRaw[] = [
             path: '/app/others/about',
             name: 'about',
             component: () => import('~/pages/others/about/index.vue'),
-            meta: { title: '关于', keepAlive: true, hiddenWrap: true, permission: 'others' },
+            meta: { title: t('about'), keepAlive: true, hiddenWrap: true, permission: 'others' },
           },
           {
             path: '/app/others/child',
@@ -53,7 +53,7 @@ export const accessRoutes: RouteRecordRaw[] = [
             component: () => import('~/pages/BlankLayout.vue'),
             redirect: '/app/others/child/aboutc',
             meta: {
-              title: '三级菜单',
+              title: t('childMenu'),
               icon: 'youxiang',
             },
             children: [
@@ -61,7 +61,7 @@ export const accessRoutes: RouteRecordRaw[] = [
                 path: '/app/others/child/aboutc',
                 name: 'aboutc',
                 component: () => import('~/pages/others/about/aboutc/index.vue'),
-                meta: { title: '组件c', permission: 'otherschild' },
+                meta: { title: t('componentC'), permission: 'otherschild' },
               },
             ],
           },

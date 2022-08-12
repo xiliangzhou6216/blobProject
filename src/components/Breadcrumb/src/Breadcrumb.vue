@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="basicLayout-breadcrumb">
     <a-breadcrumb :routes="routes">
       <template #itemRender="{ route, routes: any, paths }">
         <span v-if="routes.indexOf(route) === routes.length - 1">
@@ -41,4 +41,8 @@ const handleClick = (route: RouteLocationMatched, paths: string[], e: Event) => 
 }
 </script>
 
-<style scoped lang="less"></style>
+<style scoped lang="less">
+.basicLayout-breadcrumb {
+  padding: 15px;
+}
+</style>

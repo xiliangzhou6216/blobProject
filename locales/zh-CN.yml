@@ -3,9 +3,11 @@
 index: 主页
 about: 关于
 not-found: 未找到页面
-xxx: 喜喜
+componentC: 组件C
 component: 组件
 analysisManagement: 分析管理 
+menuManagement: 菜单管理
+childMenu: 子级菜单
 arr:
   - Ruby
   - Perl
