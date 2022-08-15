@@ -1,11 +1,37 @@
 # Vue 3 + Typescript + Vite
+## 图标
+- ant-desgin-vue 组件库 图标
+- Iconify 图标
 
-This template should help get you started developing with Vue 3 and Typescript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## 国际化
+- vscode插件 i18n Ally
+- 配置默认语言
+- 切换语言
+- 读取语言或者远程语言
+- 封装template外使用 useI18n
 
-## Recommended IDE Setup
+## 黑暗主题
 
-- [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
+`prism-theme-vars`  通过Html的class 进行暗黑主题切换  使用 CSS 变量
 
-## Type Support For `.vue` Imports in TS
+- useDark
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's `.vue` type support plugin by running `Volar: Switch TS Plugin on/off` from VSCode command palette.
+## 项目规范
+
+**作用**
+
+- 较少 bug 错误率
+- 高效的开发效率
+- 更高的可读性
+
+
+
+```
+
+- Eslint 用于校验代码格式规范
+- CommitLint  用于校验 git 提交信息规范
+- styleLint 用于校验 css/less 规范
+- Prettier 代码格式化
+- Git Hook  提交代码的时候进行代码风格校验
+
+```
