@@ -15,8 +15,15 @@
 </template>
 
 <script setup lang="ts">
+import axios from 'axios'
 // const { t } = useI18n()
 import { useI18n } from '~/hooks/useI18n'
+
+
+axios({
+  method:'get',
+  url:'http://127.0.0.1:8081/del_user',
+}).then(res => console.log(res.data, 1111) )
 
 // console.log(useI18n)
 const { t } = useI18n()
@@ -25,7 +32,6 @@ const visible = ref<boolean>(false)
 const showModal = () => {
   visible.value = true
 }
-
 const handleOk = (e: MouseEvent) => {
   console.log(e)
   visible.value = false
