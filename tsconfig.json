@@ -39,8 +39,6 @@
     }
   },
   "include": [
-    "srcipts",
-    "presets",
     "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.tsx",

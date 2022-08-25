@@ -39,16 +39,16 @@
   },
   "files.exclude": {
     "**/.cache": true,
+    "**/.DS_Store": true,
     "**/.editorconfig": true,
     "**/.eslintcache": true,
-    "**/bower_components": true,
-    "**/.idea": true,
-    "**/tmp": true,
-    "**/.git": true,
-    "**/.svn": true,
+    "**/.git": false,
     "**/.hg": true,
+    "**/.idea": true,
+    "**/.svn": true,
+    "**/bower_components": true,
     "**/CVS": true,
-    "**/.DS_Store": true
+    "**/tmp": true
   },
   "files.watcherExclude": {
     "**/.git/objects/**": true,

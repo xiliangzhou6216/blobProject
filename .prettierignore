@@ -1,3 +1,19 @@
 # 忽略格式化文件 (根据项目需要自行添加)
-node_modules
-dist
+**/*.svg
+**/*.ico
+package.json
+/dist
+.DS_Store
+.eslintignore
+*.png
+*.toml
+.editorconfig
+.gitignore
+.prettierignore
+LICENSE
+.eslintcache
+*.lock
+yarn-error.log
+/public
+**/node_modules/**
+.npmrc
