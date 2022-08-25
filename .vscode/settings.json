@@ -42,7 +42,7 @@
     "**/.DS_Store": true,
     "**/.editorconfig": true,
     "**/.eslintcache": true,
-    "**/.git": false,
+    "**/.git": true,
     "**/.hg": true,
     "**/.idea": true,
     "**/.svn": true,
