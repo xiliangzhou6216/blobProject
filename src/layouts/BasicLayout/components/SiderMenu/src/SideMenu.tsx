@@ -91,9 +91,9 @@ export default defineComponent({
         breakpoint='lg'
         onBreakpoint={(val: boolean) => (state.collapsed = val)}
       >
-        <div class="layout-logo-box">
-          <div class="layout-logo">
-          <img src={avatar} class="logo" alt="logo" />
+        <div class='layout-logo-box'>
+          <div class='layout-logo'>
+            <img src={avatar} class='logo' alt='logo' />
             {/* <div class="title">艾德</div> */}
           </div>
         </div>

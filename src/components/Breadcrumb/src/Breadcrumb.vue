@@ -1,7 +1,7 @@
 <template>
   <div class="basicLayout-breadcrumb">
     <a-breadcrumb :routes="routes">
-      <template #itemRender="{ route, routes, paths }">
+      <template #itemRender="{ route, paths }">
         <span v-if="routes.indexOf(route) === routes.length - 1">
           {{ route.meta.title }}
         </span>
@@ -17,7 +17,6 @@
 import type { RouteLocationMatched } from 'vue-router'
 const { currentRoute, push } = useRouter()
 const routes = ref<any>([])
-// const routes = ref<RouteLocationMatched[]>([])
 
 watchEffect(() => {
   // 过滤路由
