@@ -5,8 +5,6 @@
 declare module 'vue' {
   export interface GlobalComponents {
     ABreadcrumb: typeof import('ant-design-vue/es')['Breadcrumb']
-    AButton: typeof import('ant-design-vue/es')['Button']
-    ACard: typeof import('ant-design-vue/es')['Card']
     AConfigProvider: typeof import('ant-design-vue/es')['ConfigProvider']
     ADropdown: typeof import('ant-design-vue/es')['Dropdown']
     ALayout: typeof import('ant-design-vue/es')['Layout']
@@ -15,7 +13,6 @@ declare module 'vue' {
     ALayoutSider: typeof import('ant-design-vue/es')['LayoutSider']
     AMenu: typeof import('ant-design-vue/es')['Menu']
     AMenuItem: typeof import('ant-design-vue/es')['MenuItem']
-    AModal: typeof import('ant-design-vue/es')['Modal']
     ASpace: typeof import('ant-design-vue/es')['Space']
     ASubMenu: typeof import('ant-design-vue/es')['SubMenu']
     Breadcrumb: typeof import('./components/Breadcrumb/src/Breadcrumb.vue')['default']

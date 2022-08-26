@@ -3,12 +3,16 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
+    "bootstrap": "pnpm install",
     "dev": "vite",
     "dev:development": "vite --mode development",
     "test": "vitest",
     "dev:open": "vite --open",
     "dev:host": "vite --host",
     "build": "vue-tsc --noEmit && vite build",
+    "build:no-cache": "pnpm clean:cache && pnpm build",
+    "clean:cache": "rimraf node_modules/.cache/ && rimraf node_modules/.vite",
+    "clean:lib": "rimraf node_modules",
     "report": "cross-env REPORT=true npm run build",
     "preview": "vite preview --port 8080",
     "preview:open": "vite preview --open --port 8080",
@@ -17,7 +21,8 @@
     "prepare": "husky install",
     "typecheck": "vue-tsc --noEmit",
     "coverage": "vitest --coverage",
-    "analysis": "windicss-analysis"
+    "analysis": "windicss-analysis",
+    "reinstall": "rimraf yarn.lock && rimraf package.lock.json && rimraf node_modules && pnpm bootstrap"
   },
   "dependencies": {
     "@ant-design/icons-vue": "^6.1.0",
@@ -62,6 +67,7 @@
     "mockjs": "^1.1.0",
     "nprogress": "^0.2.0",
     "prettier": "^2.5.1",
+    "rimraf": "^3.0.2",
     "rollup-plugin-visualizer": "^5.7.0",
     "store": "^2.0.12",
     "typescript": "^4.5.4",

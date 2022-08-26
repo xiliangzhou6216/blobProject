@@ -9,7 +9,6 @@ Object.keys(modules).forEach((key) => {
   }
   mockModules.push(...modules[key].default)
 })
-console.log(modules, 111)
 
 /**
  * Used in a production environment. Need to manually import all modules
