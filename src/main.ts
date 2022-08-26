@@ -17,7 +17,7 @@ import { useUserStoreWithOut } from '~/store/modules/user'
 import { usePermissionStoreWithOut } from '~/store/modules/permission'
 import { i18n } from '../locales/i18n'
 
-import { useLocaleStoreWithOut } from '~/store/modules/locale'
+// import { useLocaleStoreWithOut } from '~/store/modules/locale'
 
 // 工具类
 import { parseTime } from '~/utils/parse-time'

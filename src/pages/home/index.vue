@@ -10,7 +10,7 @@
       <p>Some contents...</p>
     </a-modal>
     <div class="option">555555555555555</div>
-    <div class="text-pink-300 min-h-800px">我是红色背景的白色文本</div>
+    <div class="text-pink-300 min-h-800px">我是红色背景的白色文本11</div>
   </a-card>
 </template>
 
@@ -19,11 +19,10 @@ import axios from 'axios'
 // const { t } = useI18n()
 import { useI18n } from '~/hooks/useI18n'
 
-
 axios({
-  method:'get',
-  url:'http://127.0.0.1:8081/del_user',
-}).then(res => console.log(res.data, 1111) )
+  method: 'get',
+  url: 'http://127.0.0.1:8081/del_user',
+}).then((res) => console.log(res.data, 1111))
 
 // console.log(useI18n)
 const { t } = useI18n()

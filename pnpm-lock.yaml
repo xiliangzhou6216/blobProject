@@ -29,6 +29,7 @@ specifiers:
   eslint-plugin-jest: ^26.1.2
   eslint-plugin-prettier: ^4.0.0
   eslint-plugin-vue: ^8.4.1
+  husky: ^8.0.1
   ityped: ^1.0.3
   less: ^4.1.2
   lodash-es: ^4.17.21
@@ -103,6 +104,7 @@ devDependencies:
   eslint-plugin-jest: 26.1.2_d3422a4c349e66034f7fb0df0ef16865
   eslint-plugin-prettier: 4.0.0_9f62b85ce3ce02949dbd2ccffcebe95f
   eslint-plugin-vue: 8.4.1_eslint@8.9.0
+  husky: 8.0.1
   ityped: 1.0.3
   less: 4.1.2
   markdown-it-link-attributes: 4.0.0
@@ -4182,6 +4184,12 @@ packages:
   /human-signals/2.1.0:
     resolution: {integrity: sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw==}
     engines: {node: '>=10.17.0'}
+    dev: true
+
+  /husky/8.0.1:
+    resolution: {integrity: sha512-xs7/chUH/CKdOCs7Zy0Aev9e/dKOMZf3K1Az1nar3tzlv0jfqnYtu235bstsWTmXOR0EfINrPa97yy4Lz6RiKw==}
+    engines: {node: '>=14'}
+    hasBin: true
     dev: true
 
   /iconv-lite/0.4.24:

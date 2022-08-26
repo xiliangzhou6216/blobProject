@@ -4,7 +4,7 @@
     placement="bottom"
     :trigger="['click']"
     :dropMenuList="localeList"
-    @menuEvent="handleMenuEvent"
+    @menu-event="handleMenuEvent"
   >
     <span class="cursor-pointer flex items-center">
       <Icon icon="ion:language" :size="20" />
