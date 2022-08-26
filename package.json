@@ -13,7 +13,7 @@
     "preview": "vite preview --port 8080",
     "preview:open": "vite preview --open --port 8080",
     "lint": "eslint src --fix --ext .ts,.tsx,.vue,.js,.jsx",
-    "prettier": "prettier --write .",
+    "prettier": "prettier --write \"src/**/*.{js,json,tsx,css,less,scss,vue,html,md}\"",
     "prepare": "husky install",
     "typecheck": "vue-tsc --noEmit",
     "coverage": "vitest --coverage",
@@ -100,7 +100,8 @@
       "pnpm lint",
       "prettier --write",
       "git add"
-    ]
+    ],
+    "*.{scss,less,style,html}": ["prettier --write"]
   },
   "pnpm": {
     "peerDependencyRules": {
