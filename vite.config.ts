@@ -1,4 +1,5 @@
 import { defineConfig, loadEnv } from 'vite'
+import type { UserConfig, ConfigEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { resolve } from 'path'
 import Pages from 'vite-plugin-pages'
@@ -42,11 +43,11 @@ function configVisualizerConfig() {
 }
 
 // https://vitejs.dev/config/
-export default defineConfig(({ command, mode }) => {
+export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
   const isBuild = command === 'build'
   // console.log(command, mode, 555)
-  const env = loadEnv(mode, process.cwd(), '')
-  console.log(1111, env, 3333)
+  // const env = loadEnv(mode, process.cwd(), '')
+  console.log(mode === 'production', mode, isBuild, loadEnv)
   return {
     plugins: [
       // 将包信息文件作为 vite 的配置文件之一，为 vite-plugin-optimize-persist 所用
@@ -154,8 +155,15 @@ export default defineConfig(({ command, mode }) => {
       hmr: { overlay: false }, // 禁用或配置 HMR 连接 设置 server.hmr.overlay 为 false 可以禁用服务器错误遮罩层
       // 服务配置
       port: VITE_PORT, // 类型： number 指定服务器端口;
-      open: false, // 类型： boolean | string在服务器启动时自动在浏览器中打开应用程序；
-      cors: false, // 类型： boolean | CorsOptions 为开发服务器配置 CORS。默认启用并允许任何源
+      proxy: isBuild
+        ? {
+            '/api': {
+              target: 'http://blob-project-xiliangzhou6216.vercel.app/',
+              changeOrigin: true, // 就会把请求 API header 中的 origin，改成跟 target 里边的域名一样了
+              rewrite: (path) => path.replace(/^\/api/, ''), // localhost:5002/api/user/permission  localhost:3001/user/permission
+            },
+          }
+        : {},
       // proxy: {
       //   '/api': {
       //     target: 'http://localhost:3001',

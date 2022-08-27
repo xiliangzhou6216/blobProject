@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import constantRoutes from './router.config'
-console.log(constantRoutes)
+// console.log(constantRoutes)
 export const router = createRouter({
   routes: constantRoutes, // // 这里路由默认使用 constantRoutes
   // 解决 二级路径存在时，路径地址路由不匹配的问题
