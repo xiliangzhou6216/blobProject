@@ -81,7 +81,7 @@ const columns = reactive<TableColumnsType>([
   { title: 'Column 8', dataIndex: 'address', key: '8', fixed: 'right' },
 ])
 const res = await createUserRequest()
-console.log(res, 666)
+console.log(res)
 const searchInput = ref()
 console.log(searchInput)
 </script>
