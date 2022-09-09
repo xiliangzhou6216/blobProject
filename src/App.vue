@@ -9,5 +9,6 @@ import { useLocaleHook } from '../locales/useLocale'
 import { usePageTitle } from '~/hooks/usePageTitle'
 // 支持多语言
 const { getAntdLocale } = useLocaleHook()
+console.log('my config env: ', import.meta.env, import.meta.env.PROD)
 usePageTitle()
 </script>

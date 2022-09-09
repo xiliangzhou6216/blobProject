@@ -12,7 +12,7 @@ export const VITE_PORT = 5002
 // // prefix
 // export const API_PREFIX = '/api'
 
-// // serve
+// // serve·
 // export const API_BASE_URL = '/api'
 // export const API_TARGET_URL = 'http://localhost:3000'
 
@@ -30,4 +30,4 @@ export const ANALYSIS = false
 export const COMPRESSION = true
 
 // 删除 console
-export const VITE_DROP_CONSOLE = true
+export const VITE_DROP_CONSOLE = false
