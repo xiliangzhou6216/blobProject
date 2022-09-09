@@ -1,5 +1,6 @@
 <template>
   <Dropdown
+    ref="child"
     :selectedKeys="selectedKeys"
     placement="bottom"
     :trigger="['click']"
@@ -39,5 +40,9 @@ const handleMenuEvent = (menu: DropMenuType) => {
 
 watchEffect(() => {
   selectedKeys.value = [unref(getLocale)]
+})
+const child = ref<any>(null)
+onMounted(() => {
+  console.log(child.value)
 })
 </script>

@@ -17,3 +17,9 @@ nesting:
   sir: man
   lady: lady
   hi: hello，{name}
+# [{"name": "dog", "age": 1},{"name": "cat", "age": 2}]
+names:
+  - name: dog
+    age: 1
+  - name: cat 
+    age: 2   

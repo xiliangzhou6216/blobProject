@@ -28,8 +28,8 @@ export function createFakeUserList() {
         {
           action: 'post',
           module: 'otherschild',
-          name: 'otherschild三级菜单',
-          url: '/api/user/permission',
+          name: '用户列表',
+          url: '/api/createUser',
         },
       ],
       is_admin: 1,

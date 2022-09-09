@@ -154,6 +154,7 @@
         "ant-design-vue/es/row/style",
         "ant-design-vue/es/select/style",
         "ant-design-vue/es/space/style",
+        "ant-design-vue/es/table/style",
         "axios",
         "ityped",
         "lodash-es",

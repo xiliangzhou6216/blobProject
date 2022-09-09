@@ -36,6 +36,7 @@ const props = defineProps({
   },
 })
 
+// 注册
 const emit = defineEmits(['menuEvent'])
 
 const onClick: MenuProps['onClick'] = ({ key }) => {
@@ -44,6 +45,14 @@ const onClick: MenuProps['onClick'] = ({ key }) => {
 }
 // 小技巧 把属性绑定表达式
 const getAttr = (key: string) => ({ key })
+
+const a = 1
+const b = ref(2)
+
+defineExpose({
+  a,
+  b,
+})
 </script>
 
 <style lang="less" scoped></style>
