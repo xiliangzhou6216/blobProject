@@ -76,9 +76,9 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
         prodEnabled: isBuild, //为了演示，线上开启 mock，实际开发请关闭，会影响打包体积
         // injectCode 只受prodEnabled影响
         // https://github.com/anncwb/vite-plugin-mock/issues/9
-        // 下面这段代码会被注入 main.ts
+        // 下面这段代码会被注入 main.ts   默认src/main.{ts,js}在项目根目录下
         injectCode: `
-           import { setupProdMockServer } from '../mock/_createProdMockServer';
+           import { setupProdMockServer } from './_createProdMockServer';
      
            setupProdMockServer();
            `,
@@ -157,11 +157,11 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
       port: VITE_PORT, // 类型： number 指定服务器端口;
       proxy: isBuild
         ? {
-            '/api': {
-              target: 'http://blob-project-xiliangzhou6216.vercel.app/',
-              changeOrigin: true, // 就会把请求 API header 中的 origin，改成跟 target 里边的域名一样了
-              rewrite: (path) => path.replace(/^\/api/, ''), // localhost:5002/api/user/permission  localhost:3001/user/permission
-            },
+            // '/api': {
+            //   target: 'http://blob-project-xiliangzhou6216.vercel.app/',
+            //   changeOrigin: true, // 就会把请求 API header 中的 origin，改成跟 target 里边的域名一样了
+            //   rewrite: (path) => path.replace(/^\/api/, ''), // localhost:5002/api/user/permission  localhost:3001/user/permission
+            // },
           }
         : {},
       // proxy: {
