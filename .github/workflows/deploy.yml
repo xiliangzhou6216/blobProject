@@ -1,22 +1,22 @@
 name: Deploy CI
 
 on:
-  push:
+  push: # 事件触发
     branches:
-      - master
+      - main
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest
-    steps:
+    runs-on: ubuntu-latest  # 表示任务的执行环境
+    steps: # 表明任务要如何执行
       - name: checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2 # 使用市场上发布的 actions
 
       - name: build
-        run: pnpm install && pnpm build:github # 部署至GitHub需要配置，base路径
+        run: pnpm install && pnpm build:github #  执行脚本命令 部署至GitHub需要配置，base路径
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
-        with:
+        with: # 传递参数给使用的 action
           github_token: ${{ secrets.GITHUB_TOKEN  }}
           publish_dir: ./dist

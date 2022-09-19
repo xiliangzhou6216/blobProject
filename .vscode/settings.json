@@ -138,5 +138,8 @@
     "brotli",
     "tailwindcss",
     "sider"
-  ]
+  ],
+  "yaml.schemas": {
+    "https://json.schemastore.org/github-workflow.json": "file:///e%3A/workspace/vue3/blobProject/.github/workflows/deploy.yml"
+  }
 }
