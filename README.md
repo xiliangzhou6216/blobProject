@@ -34,3 +34,12 @@
 - Git Hook  提交代码的时候进行代码风格校验
 
 ```
+
+## 计划
+
+- [ ] 集成单元测试（vitest）
+- [ ] 集成storybook
+- [ ] 使用github actions实现自动化 cicd
+- [ ] 内置了开发调试环境(可直接引用src中的代码，方便调试)
+- [ ] 使用tsup(npm run build)去构建npm package
+- [ ] 发布的npm package支持cjs/esm
