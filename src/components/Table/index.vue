@@ -1,87 +1,94 @@
 <template>
   <div>
     <a-table
-      :dataSource="dataSource"
       :columns="columns"
-      ref="searchInput"
-      tableLayout="fixed"
-      :scroll="{ x: 1300, y: 540 }"
+      :data-source="listData"
+      :row-key="(record) => record.login.uuid"
+      :pagination="pagination"
+      :loading="loading"
+      @change="handleTableChange"
     >
-      <template #bodyCell="{ column }">
-        <template v-if="column.key === 'name'">
-          <a>xixi</a>
-        </template>
+      <template #bodyCell="{ column, text }">
+        <template v-if="column.dataIndex === 'name'">{{ text.first }} {{ text.last }}</template>
       </template>
     </a-table>
-
-    <div ref="p">6666</div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { createUserRequest } from '~/api/account'
+// import { createUserRequest } from '~/api/account'
+import type { TableProps } from 'ant-design-vue'
 import type { TableColumnsType } from 'ant-design-vue'
-const dataSource = reactive(
-  [...Array(100)].map((_, i) => ({
-    key: i,
-    name: `Edward King军军军军军军军军所 ${i}`,
-    age: 32,
-    address: `London, Park Lane no. ${i}`,
-    address1: `London, Park Lane no. ${i}`,
-    address2: `London, Park Lane no. ${i}`,
-    address3: `London, Park Lane no. ${i}`,
-  }))
-)
+import { usePagination } from 'vue-request'
+import axios from 'axios'
 
-const columns = reactive<TableColumnsType>([
+const columns: TableColumnsType = [
   {
-    title: '姓名',
+    title: 'Name',
     dataIndex: 'name',
-    key: 'name',
-    width: 100,
-    fixed: 'left',
+    sorter: true,
+    width: '20%',
   },
   {
-    title: '年龄',
-    dataIndex: 'age',
-    key: 'age',
-    width: 100,
-    fixed: 'left',
+    title: 'Gender',
+    dataIndex: 'gender',
+    filters: [
+      { text: 'Male', value: 'male' },
+      { text: 'Female', value: 'female' },
+    ],
+    width: '20%',
   },
   {
-    title: '住址',
-    dataIndex: 'address',
-    key: 'address',
+    title: 'Email',
+    dataIndex: 'email',
   },
-  {
-    title: '住址14',
-    dataIndex: 'address1',
-    key: 'address1',
-    width: 200,
+]
+type apiParams = {
+  results: number
+  page?: number
+  sortField?: string
+  sortOrder?: number
+  [key: string]: any
+}
+
+type apiResult = {
+  results: {
+    gender: 'female' | 'male'
+    name: string
+    email: string
+  }[]
+}
+const queryData = (params: apiParams) => {
+  return axios.get<apiResult>('https://randomuser.me/api?noinfo', { params })
+}
+
+const {
+  data: dataSource,
+  run,
+  loading,
+  current,
+  pageSize,
+} = usePagination(queryData, {
+  pagination: {
+    currentKey: 'page',
+    pageSizeKey: 'results',
   },
-  {
-    title: '住址133',
-    dataIndex: 'address2',
-    key: 'address2',
-    width: 200,
-  },
-  {
-    title: '住址2',
-    dataIndex: 'address3',
-    key: 'address3',
-    width: 200,
-  },
-  { title: 'Column 1', dataIndex: 'address', key: '1' },
-  { title: 'Column 2', dataIndex: 'address', key: '2' },
-  { title: 'Column 3', dataIndex: 'address', key: '3' },
-  { title: 'Column 4', dataIndex: 'address', key: '4' },
-  { title: 'Column 5', dataIndex: 'address', key: '5' },
-  { title: 'Column 6', dataIndex: 'address', key: '6' },
-  { title: 'Column 7', dataIndex: 'address', key: '7' },
-  { title: 'Column 8', dataIndex: 'address', key: '8', fixed: 'right' },
-])
-const res = await createUserRequest()
-console.log(res)
-const searchInput = ref()
-console.log(searchInput)
+})
+
+const listData = computed(() => dataSource.value?.data.results || [])
+const pagination = computed(() => ({
+  total: 200,
+  current: current.value,
+  pageSize: pageSize.value,
+}))
+
+const handleTableChange: TableProps['onChange'] = (pag: any, filters: any, sorter: any) => {
+  run({
+    results: pag.pageSize,
+    page: pag?.current,
+    sortField: sorter.field,
+    sortOrder: sorter.order,
+    ...filters,
+  })
+}
 </script>
