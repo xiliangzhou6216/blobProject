@@ -12,7 +12,7 @@
  *    - optimize: 优化构建工具或运行时性能
  *    - perf: 优化相关，比如提升性能、体验
  *    - refactor: 代码重构
- *    - revert: 回滚到上一个版本
+ *    - revert: 回滚到上一个 版本
  *    - style: 代码格式修改, 注意不是 css 修改
  *    - test: 测试用例修改
  *    - update: 更新某功能

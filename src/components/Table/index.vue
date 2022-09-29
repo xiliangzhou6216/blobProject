@@ -1,6 +1,7 @@
 <template>
   <div>
     <a-table
+      :class="['ant-table-striped', { border: hasBordered }]"
       :columns="columns"
       :data-source="listData"
       :row-key="(record) => record.login.uuid"
@@ -14,53 +15,38 @@
     </a-table>
   </div>
 </template>
-
 <script setup lang="ts">
-// import { createUserRequest } from '~/api/account'
+import type { PropType } from 'vue'
 import type { TableProps } from 'ant-design-vue'
-import type { TableColumnsType } from 'ant-design-vue'
 import { usePagination } from 'vue-request'
-import axios from 'axios'
 
-const columns: TableColumnsType = [
-  {
-    title: 'Name',
-    dataIndex: 'name',
-    sorter: true,
-    width: '20%',
+const props = defineProps({
+  columns: {
+    /* Table组件：columns不包含操作列 */
+    type: Array as PropType<TableProps['columns']>,
+    default: () => [],
   },
-  {
-    title: 'Gender',
-    dataIndex: 'gender',
-    filters: [
-      { text: 'Male', value: 'male' },
-      { text: 'Female', value: 'female' },
-    ],
-    width: '20%',
+  url: {
+    /* 请求接口 Promise  */
+    type: Function as PropType<(...arg: any[]) => Promise<any>>,
+    default: null,
   },
-  {
-    title: 'Email',
-    dataIndex: 'email',
+  actionColumn: {
+    /* Table组件：操作列 */
+    type: Object as PropType<any>,
+    default: null,
   },
-]
-type apiParams = {
-  results: number
-  page?: number
-  sortField?: string
-  sortOrder?: number
-  [key: string]: any
-}
-
-type apiResult = {
-  results: {
-    gender: 'female' | 'male'
-    name: string
-    email: string
-  }[]
-}
-const queryData = (params: apiParams) => {
-  return axios.get<apiResult>('https://randomuser.me/api?noinfo', { params })
-}
+  scroll: {
+    /* 设置水平或垂直滚动​​，也可用于指定滚动区域的宽度和高度 */
+    type: Object as PropType<{ x?: number; y?: number }>,
+    default: null,
+  },
+  bordered: {
+    /* 边框样式 */
+    type: Boolean,
+    default: null,
+  },
+})
 
 const {
   data: dataSource,
@@ -68,13 +54,22 @@ const {
   loading,
   current,
   pageSize,
-} = usePagination(queryData, {
+  refresh,
+  total,
+} = usePagination(props.url, {
   pagination: {
     currentKey: 'page',
     pageSizeKey: 'results',
   },
 })
+const b = ref(2)
+defineExpose({
+  b,
+  refresh,
+  total,
+})
 
+const hasBordered = computed(() => props.bordered ?? true)
 const listData = computed(() => dataSource.value?.data.results || [])
 const pagination = computed(() => ({
   total: 200,
@@ -92,3 +87,28 @@ const handleTableChange: TableProps['onChange'] = (pag: any, filters: any, sorte
   })
 }
 </script>
+<style lang="less" scoped>
+.ant-table-striped :deep(.table-striped) td {
+  background-color: #fafafa;
+}
+.ant-table-striped :deep(.ant-table-pagination.ant-pagination) {
+  margin: 30px auto;
+  width: 100%;
+  text-align: center;
+  .ant-pagination-prev,
+  .ant-pagination-next {
+    .anticon {
+      vertical-align: 1.5px;
+    }
+  }
+}
+.ant-table-striped :deep(.ant-pagination-item-active) {
+  background: #3860f4;
+  a {
+    color: #ffffff;
+  }
+}
+.border {
+  border: 0.5px solid rgba(210, 210, 210, 0.5);
+}
+</style>
