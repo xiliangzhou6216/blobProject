@@ -21,27 +21,15 @@ import Legacy from '@vitejs/plugin-legacy'
 import Icons from 'unplugin-icons/vite' //自动按需引入icons
 import { viteMockServe } from 'vite-plugin-mock'
 import PurgeIcons from 'vite-plugin-purge-icons'
-import visualizer from 'rollup-plugin-visualizer'
 import { configManualChunk } from './config/vite/optimizer'
 import { configStyleImportPlugin } from './config/vite/plugin/styleImport'
+import { configVisualizerConfig } from './config/vite/plugin/visualizer'
 import { VITE_DROP_CONSOLE, VITE_PORT } from './config/constant'
 
 import { AntDesignVueResolver, VueUseComponentsResolver } from 'unplugin-vue-components/resolvers'
 
 const markdownWrapperClasses =
   'prose md:prose-lg lg:prose-lg dark:prose-invert text-left p-10 prose-slate prose-img:rounded-xl prose-headings:underline prose-a:text-blue-600'
-
-function configVisualizerConfig() {
-  if (process.env.REPORT === 'true') {
-    return visualizer({
-      filename: './node_modules/.cache/visualizer/stats.html',
-      open: true,
-      gzipSize: true,
-      brotliSize: true,
-    }) as Plugin
-  }
-  return []
-}
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
@@ -144,7 +132,7 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
       // 包依赖分析可视化
       configVisualizerConfig(),
       // vite-plugin-style-import
-      // configStyleImportPlugin(isBuild),
+      configStyleImportPlugin(isBuild),
     ],
     // CSS 预处理器  支持 less 样式
     css: {

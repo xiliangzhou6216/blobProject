@@ -43,6 +43,10 @@
     "src/**/*.d.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
+    "config/**/*.ts",
+    "config/**/*.d.ts",
+    "types/**/*.d.ts",
+    "types/**/*.ts",
     "vite.config.ts",
     "mock/**/*.ts"
   ],

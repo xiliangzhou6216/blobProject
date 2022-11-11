@@ -1,7 +1,7 @@
 // import type { TableColumnsType } from 'ant-design-vue'
 import { ColumnProps } from 'ant-design-vue/es/table'
 import { Tag } from 'ant-design-vue'
-import 'ant-design-vue/es/tag/style' // 加载 LESS
+// import 'ant-design-vue/es/tag/style' // 加载 LESS
 export const columns: ColumnProps[] = [
   {
     title: 'Name',

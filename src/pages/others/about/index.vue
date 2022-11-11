@@ -5,7 +5,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import type { TableColumnsType } from 'ant-design-vue'
+// import type { TableColumnsType } from 'ant-design-vue'
 import axios from 'axios'
 import { columns } from './constant'
 

@@ -13,7 +13,7 @@
     "build:no-cache": "pnpm clean:cache && pnpm build",
     "clean:cache": "rimraf node_modules/.cache/ && rimraf node_modules/.vite",
     "clean:lib": "rimraf node_modules",
-    "report": "cross-env REPORT=true npm run build",
+    "report": "cross-env REPORT=true pnpm build",
     "preview": "vite preview --port 8080",
     "preview:open": "vite preview --open --port 8080",
     "lint": "eslint src --fix --ext .ts,.tsx,.vue,.js,.jsx",
@@ -53,6 +53,7 @@
     "@vueuse/components": "^7.7.0",
     "@vueuse/core": "^7.7.0",
     "@vueuse/head": "^0.7.5",
+    "consola": "^2.15.3",
     "cross-env": "^7.0.3",
     "eslint": "^8.9.0",
     "eslint-config-prettier": "^8.4.0",
@@ -109,8 +110,12 @@
       "prettier --write",
       "git add"
     ],
-    "package.json": ["prettier --write"],
-    "*.{scss,less,styl,html}": ["prettier --write"]
+    "package.json": [
+      "prettier --write"
+    ],
+    "*.{scss,less,styl,html}": [
+      "prettier --write"
+    ]
   },
   "pnpm": {
     "peerDependencyRules": {
@@ -133,13 +138,18 @@
         "ant-design-vue/es/breadcrumb/style",
         "ant-design-vue/es/button/style",
         "ant-design-vue/es/card/style",
+        "ant-design-vue/es/checkbox/style",
+        "ant-design-vue/es/col/style",
         "ant-design-vue/es/config-provider/style",
         "ant-design-vue/es/dropdown/style",
+        "ant-design-vue/es/form/style",
+        "ant-design-vue/es/input/style",
         "ant-design-vue/es/layout/style",
         "ant-design-vue/es/menu/style",
         "ant-design-vue/es/message/style",
         "ant-design-vue/es/modal/style",
         "ant-design-vue/es/notification/style",
+        "ant-design-vue/es/row/style",
         "ant-design-vue/es/space/style",
         "ant-design-vue/es/table/style",
         "ant-design-vue/es/tag/style",
