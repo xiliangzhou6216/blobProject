@@ -108,7 +108,9 @@
       "pnpm lint",
       "prettier --write",
       "git add"
-    ]
+    ],
+    "package.json": ["prettier --write"],
+    "*.{scss,less,styl,html}": ["prettier --write"]
   },
   "pnpm": {
     "peerDependencyRules": {
