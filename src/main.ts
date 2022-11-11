@@ -67,6 +67,6 @@ app.config.errorHandler = (err: unknown, instance: any, info: string) => {
   useStore.setErrorLog(data)
 }
 
-// 全局挂载
+// 全局挂载方法、变量
 
 app.config.globalProperties.defaultData = { name: 'xiLiang' }

@@ -4,7 +4,7 @@
       :class="['ant-table-striped', { border: hasBordered }]"
       :columns="columns"
       :data-source="listData"
-      :row-key="(record) => record.login.uuid"
+      :row-key="(record:any) => record.login.uuid"
       :pagination="pagination"
       :loading="loading"
       @change="handleTableChange"

@@ -3,6 +3,9 @@
 - ant-desgin-vue 组件库 图标
 - Iconify 图标
 
+## UI组件
+- `vite-plugin-style-import`按需导入组件库样式的插件 1. 有性能问题 2. 这个插件只能处理组件。其他如消息应手动加载
+
 ## 国际化
 - vscode插件 i18n Ally
 - 配置默认语言

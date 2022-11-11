@@ -23,6 +23,7 @@ import { viteMockServe } from 'vite-plugin-mock'
 import PurgeIcons from 'vite-plugin-purge-icons'
 import visualizer from 'rollup-plugin-visualizer'
 import { configManualChunk } from './config/vite/optimizer'
+import { configStyleImportPlugin } from './config/vite/plugin/styleImport'
 import { VITE_DROP_CONSOLE, VITE_PORT } from './config/constant'
 
 import { AntDesignVueResolver, VueUseComponentsResolver } from 'unplugin-vue-components/resolvers'
@@ -115,7 +116,7 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
         imports: ['vue', 'vue-router', 'vue-i18n', '@vueuse/head', '@vueuse/core'],
         dts: 'src/auto-imports.d.ts',
       }),
-      // 组件自动按需引入  设计原理是根据  vue template 模板中的组件使用进行处理的,函数式调用时插件查询不到,message.success('xx')可以创建 DOM元素，但是没有相关样式代码
+      // 组件自动按需引入 自动引入组件  设计原理是根据  vue template 模板中的组件使用进行处理的,函数式调用时插件查询不到,message.success('xx')可以创建 DOM元素，但是没有相关样式代码
       Components({
         extensions: ['vue', 'md', 'tsx'],
         include: [/\.md$/, /\.vue$/, /\.tsx$/],
@@ -142,6 +143,8 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
       viteCompression(),
       // 包依赖分析可视化
       configVisualizerConfig(),
+      // vite-plugin-style-import
+      // configStyleImportPlugin(isBuild),
     ],
     // CSS 预处理器  支持 less 样式
     css: {

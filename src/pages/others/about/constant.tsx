@@ -1,6 +1,8 @@
-import type { TableColumnsType } from 'ant-design-vue'
-import { Tag, Tooltip } from 'ant-design-vue'
-export const columns: TableColumnsType = [
+// import type { TableColumnsType } from 'ant-design-vue'
+import { ColumnProps } from 'ant-design-vue/es/table'
+import { Tag } from 'ant-design-vue'
+import 'ant-design-vue/es/tag/style' // 加载 LESS
+export const columns: ColumnProps[] = [
   {
     title: 'Name',
     dataIndex: 'name',
@@ -27,8 +29,15 @@ export const columns: TableColumnsType = [
     title: 'date',
     dataIndex: 'registered',
     customRender: ({ text, record }) => {
-      console.log(record)
-      return record.registered.date
+      return <div class='date'> record.registered.date</div>
+    },
+  },
+  {
+    title: 'Action',
+    dataIndex: 'Action',
+    customRender: ({}) => {
+      const color = 'green'
+      return <Tag color={color}>{() => 'ceshi'}</Tag>
     },
   },
 ]
