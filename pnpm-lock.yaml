@@ -25,6 +25,7 @@ specifiers:
   axios: ^0.27.2
   consola: ^2.15.3
   cross-env: ^7.0.3
+  dayjs: ^1.11.6
   eslint: ^8.9.0
   eslint-config-prettier: ^8.4.0
   eslint-plugin-jest: ^26.1.2
@@ -103,6 +104,7 @@ devDependencies:
   '@vueuse/head': 0.7.5_vue@3.2.31
   consola: 2.15.3
   cross-env: 7.0.3
+  dayjs: 1.11.6
   eslint: 8.9.0
   eslint-config-prettier: 8.4.0_eslint@8.9.0
   eslint-plugin-jest: 26.1.2_d3422a4c349e66034f7fb0df0ef16865
@@ -1640,8 +1642,8 @@ packages:
       - supports-color
     dev: true
 
-  /@intlify/bundle-utils/3.2.1_vue-i18n@9.1.9:
-    resolution: {integrity: sha512-rf4cLBOnbqmpXVcCdcYHilZpMt1m82syh3WLBJlZvGxN2KkH9HeHVH4+bnibF/SDXCHNh6lM6wTpS/qw+PkcMg==}
+  /@intlify/bundle-utils/3.4.0_vue-i18n@9.1.9:
+    resolution: {integrity: sha512-2UQkqiSAOSPEHMGWlybqWm4G2K0X+FyYho5AwXz6QklSX1EY5EDmOSxZmwscn2qmKBnp6OYsme5kUrnN9xrWzQ==}
     engines: {node: '>= 12'}
     peerDependencies:
       petite-vue-i18n: '*'
@@ -1733,7 +1735,7 @@ packages:
       vue-i18n:
         optional: true
     dependencies:
-      '@intlify/bundle-utils': 3.2.1_vue-i18n@9.1.9
+      '@intlify/bundle-utils': 3.4.0_vue-i18n@9.1.9
       '@intlify/shared': 9.3.0-beta.6
       '@rollup/pluginutils': 4.1.2
       debug: 4.3.3
@@ -2534,7 +2536,7 @@ packages:
       '@simonwep/pickr': 1.8.2
       array-tree-filter: 2.1.0
       async-validator: 4.2.5
-      dayjs: 1.11.3
+      dayjs: 1.11.6
       dom-align: 1.12.3
       dom-scroll-into-view: 2.0.1
       lodash: 4.17.21
@@ -3127,9 +3129,8 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /dayjs/1.11.3:
-    resolution: {integrity: sha512-xxwlswWOlGhzgQ4TKzASQkUhqERI3egRNqgV4ScR8wlANA/A9tZ7miXa44vTTKEq5l7vWoL5G57bG3zA+Kow0A==}
-    dev: false
+  /dayjs/1.11.6:
+    resolution: {integrity: sha512-zZbY5giJAinCG+7AGaw0wIhNZ6J8AhWuSXKvuc1KAyMiRsvGQWqh4L+MomvhdAYjN+lqvVCMq1I41e3YHvXkyQ==}
 
   /debug/2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}

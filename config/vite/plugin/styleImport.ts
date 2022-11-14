@@ -3,13 +3,14 @@
  * https://github.com/anncwb/vite-plugin-style-import
  * 依赖 consola 需要在package.json中直接声明依赖
  */
-import { createStyleImportPlugin } from 'vite-plugin-style-import'
+import { createStyleImportPlugin, AndDesignVueResolve } from 'vite-plugin-style-import'
 
 export function configStyleImportPlugin(_isBuild: boolean) {
   if (!_isBuild) {
     return []
   }
   const styleImportPlugin = createStyleImportPlugin({
+    resolves: [AndDesignVueResolve()],
     libs: [
       {
         libraryName: 'ant-design-vue',

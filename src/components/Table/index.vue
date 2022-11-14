@@ -9,8 +9,22 @@
       :loading="loading"
       @change="handleTableChange"
     >
-      <template #bodyCell="{ column, text }">
-        <template v-if="column.dataIndex === 'name'">{{ text.first }} {{ text.last }}</template>
+      <template #bodyCell="{ column, index, record, text }">
+        <template v-if="column.key === 'toIndex'">
+          <span>
+            {{ index + 1 }}
+          </span>
+        </template>
+        <template v-if="column.key === 'toDate'">
+          <span>
+            {{ record?.registered?.date ? formatDate(record.registered.date) : '--' }}
+          </span>
+        </template>
+        <template v-if="column.key === 'toDateTime'">
+          <span>
+            {{ record.registered.date ? formatDate(record.registered.date, 'time') : '--' }}
+          </span>
+        </template>
       </template>
     </a-table>
   </div>
@@ -18,6 +32,7 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
 import type { TableProps } from 'ant-design-vue'
+import { formatToDate, formatToDateTime } from '~/utils/dateUtil'
 import { usePagination } from 'vue-request'
 
 const props = defineProps({
@@ -85,6 +100,17 @@ const handleTableChange: TableProps['onChange'] = (pag: any, filters: any, sorte
     sortOrder: sorter.order,
     ...filters,
   })
+}
+
+/**
+ * @description  日期格式化
+ * @param str
+ * @param type
+ */
+const formatDate = (str: string, type: 'date' | 'time' = 'date') => {
+  const formatFn = type === 'date' ? formatToDate : formatToDateTime
+  // dayjs格式化 毫秒数需要13位
+  return str.length === 10 ? formatFn(Number(str) * 1000) : formatFn(str)
 }
 </script>
 <style lang="less" scoped>

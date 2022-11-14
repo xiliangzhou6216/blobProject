@@ -132,9 +132,9 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
       // 包依赖分析可视化
       configVisualizerConfig(),
       // vite-plugin-style-import
-      configStyleImportPlugin(isBuild),
+      configStyleImportPlugin(true), // 打开dev 按需引入样式
     ],
-    // CSS 预处理器  支持 less 样式
+    // CSS 预处理器  支持 less 样式 如果使用的是ant-design 系列的 需要配置这个
     css: {
       preprocessorOptions: {
         less: {

@@ -1,12 +1,22 @@
 // import type { TableColumnsType } from 'ant-design-vue'
 import { ColumnProps } from 'ant-design-vue/es/table'
-import { Tag } from 'ant-design-vue'
+import { Tag, Tooltip, Space } from 'ant-design-vue'
+import { QuestionCircleOutlined } from '@ant-design/icons-vue'
 // import 'ant-design-vue/es/tag/style' // 加载 LESS
 export const columns: ColumnProps[] = [
   {
-    title: 'Name',
-    dataIndex: 'name',
+    title: '序号',
+    dataIndex: 'index',
+    key: 'toIndex',
     sorter: true,
+  },
+  {
+    title: 'Name',
+    dataIndex: ['name', 'first'], // 数组查询嵌套路径
+  },
+  {
+    title: 'City',
+    dataIndex: ['location', 'city'], // 数组查询嵌套路径
   },
   {
     title: 'Gender',
@@ -17,19 +27,40 @@ export const columns: ColumnProps[] = [
     ],
   },
   {
-    title: 'Email',
+    title: (
+      <Tooltip placement='topLeft' title='邮箱'>
+        <Space align='center'>
+          <span>邮箱</span>
+          <QuestionCircleOutlined style='vertical-align:2px' />
+        </Space>
+      </Tooltip>
+    ),
     dataIndex: 'email',
-    ellipsis: true,
   },
   {
     title: 'Cell',
     dataIndex: 'cell',
+    customRender: ({ text }) => {
+      return (
+        <Tooltip placement='topLeft' title={text}>
+          {text}
+        </Tooltip>
+      )
+    },
   },
   {
-    title: 'date',
-    dataIndex: 'registered',
-    customRender: ({ text, record }) => {
-      return <div class='date'> record.registered.date</div>
+    title: '日期',
+    key: 'toDate',
+  },
+  {
+    title: '日期时间',
+    key: 'toDateTime',
+  },
+  {
+    title: 'picture',
+    dataIndex: 'picture',
+    customRender: ({ record }: any) => {
+      return <img src={record.picture.medium}></img>
     },
   },
   {
@@ -37,7 +68,7 @@ export const columns: ColumnProps[] = [
     dataIndex: 'Action',
     customRender: ({}) => {
       const color = 'green'
-      return <Tag color={color}>{() => 'ceshi'}</Tag>
+      return <Tag color={color}>{() => '操作'}</Tag>
     },
   },
 ]

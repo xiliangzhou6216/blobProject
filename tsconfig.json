@@ -26,6 +26,7 @@
     "skipLibCheck": true,
     "isolatedModules": true,
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "lib": ["esnext", "dom"],
     "resolveJsonModule": true,
     "moduleResolution": "node",
