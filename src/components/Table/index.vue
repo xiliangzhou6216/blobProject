@@ -1,14 +1,8 @@
 <template>
   <div>
-    <a-table
-      :class="['ant-table-striped', { border: hasBordered }]"
-      :columns="columns"
-      :data-source="listData"
-      :row-key="(record:any) => record.login.uuid"
-      :pagination="pagination"
-      :loading="loading"
-      @change="handleTableChange"
-    >
+    <a-table :class="['ant-table-striped', { border: hasBordered }]" :columns="columns" :data-source="listData"
+      :row-key="(record: any) => record.login.uuid" :pagination="pagination" :loading="loading"
+      @change="handleTableChange">
       <template #bodyCell="{ column, index, record, text }">
         <template v-if="column.key === 'toIndex'">
           <span>
@@ -25,6 +19,19 @@
             {{ record.registered.date ? formatDate(record.registered.date, 'time') : '--' }}
           </span>
         </template>
+        <!-- 操作列 -->
+        <template v-if="column.key === 'action'">
+          <div v-for="(item, index) in getActions" :key="`${index}-${item.label}`">
+            <a-popconfirm
+              v-if="item.enable"
+              :title="item?.title"
+              @confirm="item?.onConfirm(record)"
+              @cancel="item?.onCancel(record)"
+            >
+              <a @click.prevent="() => {}" :type="item.type">{{ item.label }}</a>
+            </a-popconfirm>
+          </div>
+        </template>
       </template>
     </a-table>
   </div>
@@ -32,6 +39,7 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
 import type { TableProps } from 'ant-design-vue'
+import { ActionItem } from './type'
 import { formatToDate, formatToDateTime } from '~/utils/dateUtil'
 import { usePagination } from 'vue-request'
 
@@ -46,9 +54,9 @@ const props = defineProps({
     type: Function as PropType<(...arg: any[]) => Promise<any>>,
     default: null,
   },
-  actionColumn: {
+  actions: {
     /* Table组件：操作列 */
-    type: Object as PropType<any>,
+    type: Object as PropType<ActionItem[]>,
     default: null,
   },
   scroll: {
@@ -83,7 +91,19 @@ defineExpose({
   refresh,
   total,
 })
-
+const getActions = computed(() => {
+  return (toRaw(props.actions) || []).map((item) => {
+    return {
+      type: 'link',
+      ...item,
+      ...(item.popConfirm || {}),
+      onConfirm: item?.popConfirm?.onConfirm || (() => {}),
+      onCancel: item?.popConfirm?.onCancel || (() => {}),
+      enable: !!item.popConfirm,
+    }
+  })
+})
+// console.log(props.actions, getActions.value)
 const hasBordered = computed(() => props.bordered ?? true)
 const listData = computed(() => dataSource.value?.data.results || [])
 const pagination = computed(() => ({
@@ -117,10 +137,12 @@ const formatDate = (str: string, type: 'date' | 'time' = 'date') => {
 .ant-table-striped :deep(.table-striped) td {
   background-color: #fafafa;
 }
+
 .ant-table-striped :deep(.ant-table-pagination.ant-pagination) {
   margin: 30px auto;
   width: 100%;
   text-align: center;
+
   .ant-pagination-prev,
   .ant-pagination-next {
     .anticon {
@@ -128,12 +150,15 @@ const formatDate = (str: string, type: 'date' | 'time' = 'date') => {
     }
   }
 }
+
 .ant-table-striped :deep(.ant-pagination-item-active) {
   background: #3860f4;
+
   a {
     color: #ffffff;
   }
 }
+
 .border {
   border: 0.5px solid rgba(210, 210, 210, 0.5);
 }

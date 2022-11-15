@@ -71,4 +71,8 @@ export const columns: ColumnProps[] = [
       return <Tag color={color}>{() => '操作'}</Tag>
     },
   },
+  {
+    title: '操作',
+    key: 'action',
+  },
 ]

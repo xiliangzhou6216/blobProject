@@ -14,10 +14,10 @@
 </template>
 
 <script setup lang="ts">
-import type { DropMenuType } from '~/components/Dropdown/type'
+import { DropMenuType } from '~/components/Dropdown/type'
 // import { useLocaleHook } from '../../../../../locales/useLocale'
 import { useLocaleHook } from '/locales/useLocale'
-import type { LocaleType } from '#/global'
+import { LocaleType } from '#/global'
 import { localeList } from '~/settings/localeSetting'
 
 const { changeLocale, getLocale } = useLocaleHook()

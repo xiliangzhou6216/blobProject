@@ -3,7 +3,7 @@ import { store } from '~/store/index'
 import storage from 'store'
 import { LOCALE_KEY } from '~/enums/cacheEnum'
 import { LocaleDefault } from '~/settings/localeSetting'
-import type { LocaleType, LocaleState } from '#/global'
+import type { LocaleType, LocaleState } from '#/config'
 const { locale } = LocaleDefault
 const localeConfigs = {
   showPicker: true,

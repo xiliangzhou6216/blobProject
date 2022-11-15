@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Table ref="ELRef" :columns="columns" :url="queryData" />
+    <Table ref="ELRef" :columns="columns" :url="queryData" :actions="tableActions" />
     <a-button @click="handleSubmit">刷新</a-button>
   </div>
 </template>
@@ -29,36 +29,29 @@ const queryData = (params: apiParams) => {
   return axios.get<apiResult>('https://randomuser.me/api?noinfo', { params })
 }
 
-// const columns: TableColumnsType = [
-//   {
-//     title: 'Name',
-//     dataIndex: 'name',
-//     sorter: true,
-//   },
-//   {
-//     title: 'Gender',
-//     dataIndex: 'gender',
-//     filters: [
-//       { text: 'Male', value: 'male' },
-//       { text: 'Female', value: 'female' },
-//     ],
-//   },
-//   {
-//     title: 'Email',
-//     dataIndex: 'email',
-//     customRender: (value) => {
-//       return value
-//     },
-//   },
-//   {
-//     title: 'Cell',
-//     dataIndex: 'cell',
-//   },
-//   {
-//     title: 'date',
-//     dataIndex: 'registered',
-//   },
-// ]
+// table actions
+const tableActions = reactive([
+  {
+    label: '点击',
+    // auth: AuthEnum.user_update,
+    onClick: async (row) => {
+      console.log(row)
+    },
+  },
+  {
+    label: '删除',
+    popConfirm: {
+      title: '确认删除吗？',
+      onConfirm: async (row) => {
+        console.log('row', row)
+      },
+      onCancel: async (row) => {
+        console.log('row', row)
+      },
+    },
+  },
+])
+
 // 获取组件实例
 const ELRef = ref<any>()
 const refresh = () => ELRef.value?.refresh()

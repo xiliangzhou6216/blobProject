@@ -150,6 +150,7 @@
         "ant-design-vue/es/message/style",
         "ant-design-vue/es/modal/style",
         "ant-design-vue/es/notification/style",
+        "ant-design-vue/es/popconfirm/style",
         "ant-design-vue/es/row/style",
         "ant-design-vue/es/space/style",
         "ant-design-vue/es/table/style",
