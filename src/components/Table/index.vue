@@ -1,8 +1,14 @@
 <template>
   <div>
-    <a-table :class="['ant-table-striped', { border: hasBordered }]" :columns="columns" :data-source="listData"
-      :row-key="(record: any) => record.login.uuid" :pagination="pagination" :loading="loading"
-      @change="handleTableChange">
+    <a-table
+      :class="['ant-table-striped', { border: hasBordered }]"
+      :columns="columns"
+      :data-source="listData"
+      :row-key="(record: any) => record.login.uuid"
+      :pagination="pagination"
+      :loading="loading"
+      @change="handleTableChange"
+    >
       <template #bodyCell="{ column, index, record, text }">
         <template v-if="column.key === 'toIndex'">
           <span>
@@ -21,16 +27,28 @@
         </template>
         <!-- 操作列 -->
         <template v-if="column.key === 'action'">
-          <div v-for="(item, index) in getActions" :key="`${index}-${item.label}`">
+          <template v-for="(item, index) in getActions" :key="`${index}-${item.label}`">
+            <!-- 气泡确认框 -->
             <a-popconfirm
               v-if="item.enable"
               :title="item?.title"
-              @confirm="item?.onConfirm(record)"
-              @cancel="item?.onCancel(record)"
+              @confirm="item.onConfirm(record)"
+              @cancel="item.onCancel(record)"
             >
-              <a @click.prevent="() => {}" :type="item.type">{{ item.label }}</a>
+              <a @click.prevent="() => {}" :class="{ 'mr-2': !!item.label }" :type="item.type">{{
+                item.label
+              }}</a>
             </a-popconfirm>
-          </div>
+            <!-- 普通按钮 -->
+            <a
+              v-else
+              @click="item?.onClick(record)"
+              :class="{ 'mr-2': !!item.label }"
+              :type="item.type"
+              >{{ item.label }}
+            </a>
+            <a-divider v-if="index < getActions.length - 1" type="vertical" />
+          </template>
         </template>
       </template>
     </a-table>
@@ -42,6 +60,8 @@ import type { TableProps } from 'ant-design-vue'
 import { ActionItem } from './type'
 import { formatToDate, formatToDateTime } from '~/utils/dateUtil'
 import { usePagination } from 'vue-request'
+import { usePermission } from '~/hooks/usePermission'
+import { isBoolean } from '~/utils/is'
 
 const props = defineProps({
   columns: {
@@ -86,24 +106,43 @@ const {
   },
 })
 const b = ref(2)
+
+// 暴露 Table提供的API
 defineExpose({
   b,
   refresh,
   total,
+  run,
 })
+
+// 按钮业务控制显示
+function isIfShow(val: boolean | undefined): boolean {
+  const ifShow = val
+  let flag = true
+  if (isBoolean(ifShow)) {
+    flag = ifShow
+  }
+  return flag
+}
+
+const { hasPermission } = usePermission()
 const getActions = computed(() => {
-  return (toRaw(props.actions) || []).map((item) => {
-    return {
-      type: 'link',
-      ...item,
-      ...(item.popConfirm || {}),
-      onConfirm: item?.popConfirm?.onConfirm || (() => {}),
-      onCancel: item?.popConfirm?.onCancel || (() => {}),
-      enable: !!item.popConfirm,
-    }
-  })
+  return (toRaw(props.actions) || [])
+    .filter((item) => hasPermission(item.permission) && isIfShow(item?.ifShow))
+    .map((item) => {
+      const { popConfirm } = item
+      return {
+        type: 'link',
+        ...item,
+        ...(item.popConfirm || {}),
+        onClick: item?.onClick || (() => {}),
+        onConfirm: popConfirm?.onConfirm || (() => {}),
+        onCancel: popConfirm?.onCancel || (() => {}),
+        enable: !!item.popConfirm,
+      }
+    })
 })
-// console.log(props.actions, getActions.value)
+console.log(props.actions)
 const hasBordered = computed(() => props.bordered ?? true)
 const listData = computed(() => dataSource.value?.data.results || [])
 const pagination = computed(() => ({

@@ -14,14 +14,14 @@ type modulesState = {
 
 export function usePermission() {
   const permissionStore = usePermissionStore()
-  function hasPermission(value?: string | string[]): boolean {
+  function hasPermission(value?: string | string[], def = true): boolean {
     if (!value) {
-      return true
+      return def
     }
     // 管理员不验证
-    if (permissionStore.getIsAdmin === 1) {
-      return true
-    }
+    // if (permissionStore.getIsAdmin === 1) {
+    //   return true
+    // }
     if (Array.isArray(value)) {
       for (const iterator of value) {
         const [module, action] = iterator.split('.')
@@ -31,6 +31,7 @@ export function usePermission() {
       }
     }
     if (!Array.isArray(value)) {
+      debugger
       return permissionStore.getModules.some(
         (item: modulesState) =>
           item.module === value.split('.')[0] && item.action === value.split('.')[1]
