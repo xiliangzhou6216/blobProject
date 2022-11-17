@@ -31,7 +31,6 @@ export function usePermission() {
       }
     }
     if (!Array.isArray(value)) {
-      debugger
       return permissionStore.getModules.some(
         (item: modulesState) =>
           item.module === value.split('.')[0] && item.action === value.split('.')[1]

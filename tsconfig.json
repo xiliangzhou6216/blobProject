@@ -1,27 +1,10 @@
-// {
-//   "compilerOptions": {
-//     "target": "esnext",
-//     "useDefineForClassFields": true,
-//     "module": "esnext",
-//     "moduleResolution": "node",
-//     "strict": true,
-//     "jsx": "preserve",
-//     "sourceMap": true,
-//     "resolveJsonModule": true,
-//     "esModuleInterop": true,
-//     "lib": ["esnext", "dom"]
-//   },
-//   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
-//   "references": [{ "path": "./tsconfig.node.json" }]
-// }
-
 // https://lq782655835.github.io/blogs/project/ts-tsconfig.html
 {
   "compilerOptions": {
     "strict": true,
     "jsx": "preserve",
     "target": "esnext", // 编译的目标版本 es最新的特性
-    "module": "esnext",
+    "module": "esnext", // 使用 ES Module 格式打包编译后的文件
     "sourceMap": true,
     "skipLibCheck": true,
     "isolatedModules": true,

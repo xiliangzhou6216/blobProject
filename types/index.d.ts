@@ -8,3 +8,7 @@ declare interface Fn<T = any, R = T> {
 declare interface PromiseFn<T = any, R = T> {
   (...args: T[]): Promise<R>
 }
+
+declare module 'ityped'
+
+declare type Recordable<T = any> = Record<string, T>
