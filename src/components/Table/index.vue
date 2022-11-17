@@ -7,6 +7,7 @@
       :row-key="(record: any) => record.login.uuid"
       :pagination="pagination"
       :loading="loading"
+      :scroll="scroll"
       @change="handleTableChange"
     >
       <template #bodyCell="{ column, index, record, text }">
@@ -17,12 +18,12 @@
         </template>
         <template v-if="column.key === 'toDate'">
           <span>
-            {{ record?.registered?.date ? formatDate(record.registered.date) : '--' }}
+            {{ text ? formatDate(text) : '--' }}
           </span>
         </template>
         <template v-if="column.key === 'toDateTime'">
           <span>
-            {{ record.registered.date ? formatDate(record.registered.date, 'time') : '--' }}
+            {{ text ? formatDate(text, 'time') : '--' }}
           </span>
         </template>
         <!-- 操作列 -->

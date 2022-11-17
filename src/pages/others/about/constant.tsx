@@ -51,10 +51,12 @@ export const columns: ColumnProps[] = [
   {
     title: '日期',
     key: 'toDate',
+    dataIndex: ['registered', 'date'],
   },
   {
     title: '日期时间',
     key: 'toDateTime',
+    dataIndex: ['registered', 'date'],
   },
   {
     title: 'picture',
