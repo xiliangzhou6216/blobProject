@@ -78,7 +78,7 @@ const props = defineProps({
   actions: {
     /* Table组件：操作列 */
     type: Object as PropType<ActionItem[]>,
-    default: null,
+    default: () => null,
   },
   scroll: {
     /* 设置水平或垂直滚动​​，也可用于指定滚动区域的宽度和高度 */
@@ -88,7 +88,11 @@ const props = defineProps({
   bordered: {
     /* 边框样式 */
     type: Boolean,
-    default: null,
+    default: () => true,
+  },
+  resKey: {
+    type: Array as PropType<string[]>,
+    default: () => [],
   },
 })
 
@@ -107,6 +111,7 @@ const {
   },
 })
 const b = ref(2)
+console.log(dataSource)
 
 // 暴露 Table提供的API
 defineExpose({
@@ -143,13 +148,30 @@ const getActions = computed(() => {
       }
     })
 })
-console.log(props.actions)
+const getResults = computed(() => {
+  const { resKey } = props
+  const pathList = unref(props.resKey)
+  // if (pathList?.length) {
+  //   let res = dataSource.value?.data
+  //   for (let i = 0; i < pathList.length; i++) {
+  //     res = res[pathList[i]]
+  //   }
+  //   console.log(res, dataSource.value?.data)
+  //   // return result || []
+  // }
+  return (dataSource.value?.data as Recordable)?.['results'] || []
+})
+console.log(props.resKey, unref(props.resKey), getResults.value)
 const hasBordered = computed(() => props.bordered ?? true)
-const listData = computed(() => dataSource.value?.data.results || [])
+const listData = computed(() => getResults.value)
 const pagination = computed(() => ({
   total: 200,
   current: current.value,
   pageSize: pageSize.value,
+  showQuickJumper: true,
+  showSizeChanger: true,
+  // showTotal: (total: any) => h('span', {}, `共 ${total} 条`),
+  showTotal: (total: number) => `总 ${total} 条`,
 }))
 
 const handleTableChange: TableProps['onChange'] = (pag: any, filters: any, sorter: any) => {
