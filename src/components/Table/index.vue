@@ -91,6 +91,7 @@ const props = defineProps({
     default: () => true,
   },
   resKey: {
+    // ['a', 'b']
     type: Array as PropType<string[]>,
     default: () => [],
   },
@@ -149,19 +150,17 @@ const getActions = computed(() => {
     })
 })
 const getResults = computed(() => {
-  const { resKey } = props
-  const pathList = unref(props.resKey)
+  // const pathList = unref(props.resKey)
   // if (pathList?.length) {
   //   let res = dataSource.value?.data
   //   for (let i = 0; i < pathList.length; i++) {
   //     res = res[pathList[i]]
   //   }
   //   console.log(res, dataSource.value?.data)
-  //   // return result || []
+  //   return res
   // }
   return (dataSource.value?.data as Recordable)?.['results'] || []
 })
-console.log(props.resKey, unref(props.resKey), getResults.value)
 const hasBordered = computed(() => props.bordered ?? true)
 const listData = computed(() => getResults.value)
 const pagination = computed(() => ({

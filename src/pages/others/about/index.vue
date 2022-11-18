@@ -5,7 +5,6 @@
       :columns="columns"
       :url="queryData"
       :actions="tableActions"
-      :resKey="['result', 'data']"
     />
     <a-modal v-bind="modalState" @ok="handleSubmit" @cancel="handleCancel">
       <a-form
