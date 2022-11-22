@@ -12,3 +12,13 @@ declare interface PromiseFn<T = any, R = T> {
 declare module 'ityped'
 
 declare type Recordable<T = any> = Record<string, T>
+
+// * 内部模块
+declare module 'internal-module' {
+  interface XXX {
+    user: string
+  }
+  interface XX {
+    user: string
+  }
+}

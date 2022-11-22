@@ -90,6 +90,11 @@ const props = defineProps({
     type: Boolean,
     default: () => true,
   },
+  isPagination: {
+    /* 展示分页 */
+    type: Boolean,
+    default: () => true,
+  },
   resKey: {
     // ['a', 'b']
     type: Array as PropType<string[]>,
@@ -111,16 +116,6 @@ const {
     pageSizeKey: 'results',
   },
 })
-const b = ref(2)
-console.log(dataSource)
-
-// 暴露 Table提供的API
-defineExpose({
-  b,
-  refresh,
-  total,
-  run,
-})
 
 // 按钮业务控制显示
 function isIfShow(val: boolean | undefined): boolean {
@@ -133,6 +128,8 @@ function isIfShow(val: boolean | undefined): boolean {
 }
 
 const { hasPermission } = usePermission()
+
+// 表格操作
 const getActions = computed(() => {
   return (toRaw(props.actions) || [])
     .filter((item) => hasPermission(item.permission) && isIfShow(item?.ifShow))
@@ -149,6 +146,7 @@ const getActions = computed(() => {
       }
     })
 })
+
 const getResults = computed(() => {
   // const pathList = unref(props.resKey)
   // if (pathList?.length) {
@@ -162,17 +160,27 @@ const getResults = computed(() => {
   return (dataSource.value?.data as Recordable)?.['results'] || []
 })
 const hasBordered = computed(() => props.bordered ?? true)
-const listData = computed(() => getResults.value)
-const pagination = computed(() => ({
-  total: 200,
-  current: current.value,
-  pageSize: pageSize.value,
-  showQuickJumper: true,
-  showSizeChanger: true,
-  // showTotal: (total: any) => h('span', {}, `共 ${total} 条`),
-  showTotal: (total: number) => `总 ${total} 条`,
-}))
 
+// 数据
+const listData = computed(() => getResults.value)
+
+// 分页
+const pagination = computed(() => {
+  return props.isPagination
+    ? {
+        total: 200,
+        hideOnSinglePage: true,
+        current: current.value,
+        pageSize: pageSize.value,
+        showQuickJumper: true,
+        showSizeChanger: true,
+        // showTotal: (total: any) => h('span', {}, `共 ${total} 条`),
+        showTotal: (total: number) => `总 ${total} 条`,
+      }
+    : false
+})
+
+// 表格 分页、排序、筛选变化
 const handleTableChange: TableProps['onChange'] = (pag: any, filters: any, sorter: any) => {
   run({
     results: pag.pageSize,
@@ -193,6 +201,18 @@ const formatDate = (str: string, type: 'date' | 'time' = 'date') => {
   // dayjs格式化 毫秒数需要13位
   return str.length === 10 ? formatFn(Number(str) * 1000) : formatFn(str)
 }
+
+const b = ref(2)
+console.log(dataSource, props.actions)
+
+// 暴露 Table提供的API
+defineExpose({
+  b,
+  refresh,
+  total,
+  run,
+})
+
 </script>
 <style lang="less" scoped>
 .ant-table-striped :deep(.table-striped) td {

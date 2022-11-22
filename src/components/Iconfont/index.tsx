@@ -5,6 +5,7 @@ const MyIcon = createFromIconfontCN({
   scriptUrl: '//at.alicdn.com/t/font_8d5l8fzk5b87iudi.js', // 在 iconfont.cn 官方生成的 现在暂时不能用自己生成symbol连接
 })
 export default defineComponent({
+  name: 'Iconfont',
   props: {
     type: {
       type: String,
