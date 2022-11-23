@@ -34,9 +34,9 @@ declare module 'vue' {
     Filter: typeof import('./components/Filter/index.vue')['default']
     Icon: typeof import('./components/Icon/index.vue')['default']
     Iconfont: typeof import('./components/Iconfont/index.tsx')['default']
-    'Index copy': typeof import('./components/Table/index copy.vue')['default']
+    SearchForm: typeof import('./components/SearchForm/index.vue')['default']
     Table: typeof import('./components/Table/index.vue')['default']
   }
 }
 
-export { }
+export {}

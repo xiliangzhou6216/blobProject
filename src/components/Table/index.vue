@@ -1,5 +1,13 @@
 <template>
   <div>
+    <SearchForm
+      :search="tableFilterSearch"
+      :reset="tableFilterReset"
+      :searchParam="tableFilterSearchParam"
+      :columns="tableFilterSearchColumns"
+      :colConfig="tableFilterSearchCol"
+      v-show="isShowSearch"
+    />
     <a-table
       :class="['ant-table-striped', { border: hasBordered }]"
       :columns="columns"
@@ -10,6 +18,8 @@
       :scroll="scroll"
       @change="handleTableChange"
     >
+      <!-- 默认插槽 -->
+      <slot></slot>
       <template #bodyCell="{ column, index, record, text }">
         <template v-if="column.key === 'toIndex'">
           <span>
@@ -63,6 +73,7 @@ import { formatToDate, formatToDateTime } from '~/utils/dateUtil'
 import { usePagination } from 'vue-request'
 import { usePermission } from '~/hooks/usePermission'
 import { isBoolean } from '~/utils/is'
+import { BreakPoint } from '~/components/SearchForm/type'
 
 const props = defineProps({
   columns: {
@@ -99,6 +110,31 @@ const props = defineProps({
     // ['a', 'b']
     type: Array as PropType<string[]>,
     default: () => [],
+  },
+  isToolButton: {
+    /* 显示表格功能按钮 */
+    type: Boolean,
+    default: () => true,
+  },
+  isShowSearch: {
+    /* 显示表格查询按钮 */
+    type: Boolean,
+    default: () => true,
+  },
+  tableFilterSearchCol: {
+    /* 表格搜索项 每列占比配置 */
+    type: Object as PropType<Record<BreakPoint, number>>,
+    default: () => ({ xs: 8, sm: 16, md: 24, lg: 32 }),
+  },
+  tableFilterSearchColumns: {
+    /* 搜索配置列 */
+    type: Array,
+    default: () => [],
+  },
+  tableFilterSearchParam: {
+    /*  搜索参数 */
+    type: Object as PropType<Record<string, any>>,
+    default: () => ({}),
   },
 })
 
@@ -205,6 +241,9 @@ const formatDate = (str: string, type: 'date' | 'time' = 'date') => {
 const b = ref(2)
 console.log(dataSource, props.actions)
 
+const tableFilterSearch = () => { }
+const tableFilterReset = () => { }
+
 // 暴露 Table提供的API
 defineExpose({
   b,
@@ -212,7 +251,6 @@ defineExpose({
   total,
   run,
 })
-
 </script>
 <style lang="less" scoped>
 .ant-table-striped :deep(.table-striped) td {

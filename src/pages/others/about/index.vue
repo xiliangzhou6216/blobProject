@@ -52,6 +52,7 @@ function editUser(val: any) {
   })
 }
 
+// 打开弹窗（新增/编辑/查看）
 const modalRef = ref()
 const openModal = (title: string, rowData: any) => {
   let params = {
@@ -86,7 +87,7 @@ const tableActions = reactive([
     label: '查看',
     permission: ['home.post'],
     onClick: async (row) => {
-      openModal('查看', { mobile: '44444444445454', role_id: 2 })
+      openModal('查看', { mobile: '18787777777', role_id: 2 })
       console.log(row, modalRef.value)
     },
   },
@@ -95,7 +96,7 @@ const tableActions = reactive([
     permission: ['home.post'],
     // ifShow: false,
     onClick: async (row) => {
-      openModal('编辑', { mobile: '44444444445454', role_id: 2 })
+      openModal('编辑', { mobile: '2222222222222', role_id: 2 })
       console.log(row, modalRef.value)
     },
   },
