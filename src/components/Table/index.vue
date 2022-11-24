@@ -1,10 +1,10 @@
 <template>
   <div>
     <SearchForm
-      :search="tableFilterSearch"
-      :reset="tableFilterReset"
-      :searchParam="tableFilterSearchParam"
-      :columns="tableFilterSearchColumns"
+      :search="search"
+      :reset="reset"
+      :searchParams="searchParams"
+      :searchColumns="searchColumns"
       :colConfig="tableFilterSearchCol"
       v-show="isShowSearch"
     />
@@ -128,10 +128,10 @@ const props = defineProps({
   },
   tableFilterSearchColumns: {
     /* 搜索配置列 */
-    type: Array,
+    type: Array as PropType<any>,
     default: () => [],
   },
-  tableFilterSearchParam: {
+  tableFilterSearchParams: {
     /*  搜索参数 */
     type: Object as PropType<Record<string, any>>,
     default: () => ({}),
@@ -148,8 +148,8 @@ const {
   total,
 } = usePagination(props.url, {
   pagination: {
-    currentKey: 'page',
-    pageSizeKey: 'results',
+    currentKey: 'page', // 当前页
+    pageSizeKey: 'results', //页条数
   },
 })
 
@@ -239,10 +239,22 @@ const formatDate = (str: string, type: 'date' | 'time' = 'date') => {
 }
 
 const b = ref(2)
-console.log(dataSource, props.actions)
+console.log(dataSource, props)
 
-const tableFilterSearch = () => { }
-const tableFilterReset = () => { }
+// SearchFrom
+const searchParams = computed(() => props.tableFilterSearchParams)
+const searchColumns = computed(() => props.tableFilterSearchColumns)
+
+const search = () => {
+  const args = toRaw(searchParams.value) || {}
+  // 日期格式处理
+  if (args) {
+
+  }
+  run({ results: pageSize.value, page: current.value, ...args })
+  console.log(111)
+}
+const reset = () => {}
 
 // 暴露 Table提供的API
 defineExpose({

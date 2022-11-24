@@ -1,6 +1,13 @@
 <template>
   <div>
-    <Table ref="tableRef" :columns="columns" :url="queryData" :actions="tableActions" />
+    <Table
+      ref="tableRef"
+      :columns="columns"
+      :url="queryData"
+      :tableFilterSearchParam="tableFilterSearchParam"
+      :tableFilterSearchParams="tableFilterSearchParams"
+      :actions="tableActions"
+    />
     <UserModal ref="modalRef" />
   </div>
 </template>
@@ -120,7 +127,32 @@ const tableActions = reactive([
   },
 ])
 
+// table search
+const roleOptions = computed(() => [
+  { label: '管理员', value: 1 },
+  { label: '普通', value: 2 },
+])
+
+const tableFilterSearchParam = [
+  {
+    type: 'select', // 元素类型
+    name: 'role_id', // 字段
+    placeholder: '请选择角色',
+    col: 3, // 栅格占比
+    defaultValue: [], // 默认值
+    options: roleOptions.value, // 数据
+    fieldNames: { label: 'label', value: 'value' }, // select下拉 字段名字
+  },
+  {
+    type: 'search',
+    name: 'search',
+    placeholder: '请输入姓名或账号进行查询',
+  },
+]
+
+const tableFilterSearchParams = reactive({ role_id: undefined, search: '' })
 onMounted(() => {
+  // console.log(reactiveFoo, toRaw(reactiveFoo))
   // console.log(tableRef.value, unref(tableRef.value.b))
 })
 </script>

@@ -142,6 +142,7 @@
         "ant-design-vue/es/checkbox/style",
         "ant-design-vue/es/col/style",
         "ant-design-vue/es/config-provider/style",
+        "ant-design-vue/es/date-picker/style",
         "ant-design-vue/es/divider/style",
         "ant-design-vue/es/dropdown/style",
         "ant-design-vue/es/form/style",
