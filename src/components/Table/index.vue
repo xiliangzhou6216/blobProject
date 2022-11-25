@@ -9,6 +9,7 @@
       v-show="isShowSearch"
     />
     <a-table
+      ref="tableElRef"
       :class="['ant-table-striped', { border: hasBordered }]"
       :columns="columns"
       :data-source="listData"
@@ -69,7 +70,7 @@
 import type { PropType } from 'vue'
 import type { TableProps } from 'ant-design-vue'
 import { ActionItem } from './type'
-import { formatToDate, formatToDateTime } from '~/utils/dateUtil'
+import { formatToDate, formatToDateTime, dateUtil } from '~/utils/dateUtil'
 import { usePagination } from 'vue-request'
 import { usePermission } from '~/hooks/usePermission'
 import { isBoolean } from '~/utils/is'
@@ -138,6 +139,12 @@ const props = defineProps({
   },
 })
 
+// 表格DOM
+const tableElRef = ref<any>()
+
+const filteredInfo = ref()
+const sortedInfo = ref()
+
 const {
   data: dataSource,
   run,
@@ -147,6 +154,13 @@ const {
   refresh,
   total,
 } = usePagination(props.url, {
+  defaultParams: [
+    // 默认参数
+    {
+      results: 5,
+      page: 1,
+    },
+  ],
   pagination: {
     currentKey: 'page', // 当前页
     pageSizeKey: 'results', //页条数
@@ -218,6 +232,8 @@ const pagination = computed(() => {
 
 // 表格 分页、排序、筛选变化
 const handleTableChange: TableProps['onChange'] = (pag: any, filters: any, sorter: any) => {
+  filteredInfo.value = filters
+  sortedInfo.value = sorter
   run({
     results: pag.pageSize,
     page: pag?.current,
@@ -248,16 +264,22 @@ const searchColumns = computed(() => props.tableFilterSearchColumns)
 const search = () => {
   const args = toRaw(searchParams.value) || {}
   // 日期格式处理
-  if (args) {
-
+  if (Object.keys(args).length) {
+    Object.keys(args).map((key) => {
+      if (args[key] && dateUtil.isDayjs(args[key])) {
+        args[key] = formatToDate(args[key])
+      }
+    })
   }
   run({ results: pageSize.value, page: current.value, ...args })
-  console.log(111)
+  // console.log(tableElRef, tableElRef.value.$el)
 }
+
 const reset = () => {}
 
 // 暴露 Table提供的API
 defineExpose({
+  element: tableElRef,
   b,
   refresh,
   total,

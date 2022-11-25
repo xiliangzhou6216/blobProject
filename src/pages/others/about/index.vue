@@ -4,7 +4,7 @@
       ref="tableRef"
       :columns="columns"
       :url="queryData"
-      :tableFilterSearchParam="tableFilterSearchParam"
+      :tableFilterSearchColumns="tableFilterSearchColumns"
       :tableFilterSearchParams="tableFilterSearchParams"
       :actions="tableActions"
     />
@@ -40,6 +40,7 @@ const tableRef = ref<any>()
 const refresh = () => tableRef.value?.refresh()
 
 const queryData = (params: apiParams) => {
+  params = { name: 'xiliang', ...params }
   return axios.get<apiResult>('https://randomuser.me/api?noinfo', { params })
 }
 // 打开modal(新增/查看/编辑)
@@ -133,10 +134,11 @@ const roleOptions = computed(() => [
   { label: '普通', value: 2 },
 ])
 
-const tableFilterSearchParam = [
+const tableFilterSearchColumns = [
   {
     type: 'select', // 元素类型
     name: 'role_id', // 字段
+    label: '角色',
     placeholder: '请选择角色',
     col: 3, // 栅格占比
     defaultValue: [], // 默认值
@@ -144,15 +146,16 @@ const tableFilterSearchParam = [
     fieldNames: { label: 'label', value: 'value' }, // select下拉 字段名字
   },
   {
-    type: 'search',
+    type: 'input',
+    label: '账号',
     name: 'search',
     placeholder: '请输入姓名或账号进行查询',
   },
 ]
 
-const tableFilterSearchParams = reactive({ role_id: undefined, search: '' })
+const tableFilterSearchParams = reactive({ role_id: 1, search: '121212' })
 onMounted(() => {
-  // console.log(reactiveFoo, toRaw(reactiveFoo))
+  // console.log(tableRef)
   // console.log(tableRef.value, unref(tableRef.value.b))
 })
 </script>
