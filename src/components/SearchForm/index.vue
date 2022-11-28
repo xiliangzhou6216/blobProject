@@ -5,12 +5,12 @@
         <template v-for="item in getSearchColumns" :key="item.name">
           <a-col :span="item?.col">
             <a-form-item :label="`${item.label}`" :name="item.name">
-              <component 
+              <!-- <component 
                 v-if="item.type"
                 :is="`${Input}`"
                 v-model:value="getSearchParams[item.name]"
                 :placeholder="item.placeholder">
-              </component>
+              </component> -->
               <FormItem />
               <!-- <a-input
                 v-if="item.type === 'input'"
