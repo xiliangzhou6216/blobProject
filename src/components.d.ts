@@ -31,6 +31,7 @@ declare module 'vue' {
     ASubMenu: typeof import('ant-design-vue/es')['SubMenu']
     ATable: typeof import('ant-design-vue/es')['Table']
     Breadcrumb: typeof import('./components/Breadcrumb/src/Breadcrumb.vue')['default']
+    ComponentMap: typeof import('./components/SearchForm/componentMap.tsx')['default']
     Dropdown: typeof import('./components/Dropdown/index.vue')['default']
     Filter: typeof import('./components/Filter/index.vue')['default']
     Icon: typeof import('./components/Icon/index.vue')['default']

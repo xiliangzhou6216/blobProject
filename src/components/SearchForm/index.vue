@@ -5,7 +5,14 @@
         <template v-for="item in getSearchColumns" :key="item.name">
           <a-col :span="item?.col">
             <a-form-item :label="`${item.label}`" :name="item.name">
-              <a-input
+              <component 
+                v-if="item.type"
+                :is="`${Input}`"
+                v-model:value="getSearchParams[item.name]"
+                :placeholder="item.placeholder">
+              </component>
+              <FormItem />
+              <!-- <a-input
                 v-if="item.type === 'input'"
                 v-model:value="getSearchParams[item.name]"
                 :placeholder="item.placeholder"
@@ -14,25 +21,10 @@
                 v-if="item.type === 'select'"
                 v-model:value="getSearchParams[item.name]"
                 :options="item.options"
-              />
+              /> -->
             </a-form-item>
           </a-col>
         </template>
-        <!-- <a-col>
-          <a-form-item label="Activity">
-            <a-input v-model:value="formState.name1" />
-          </a-form-item>
-        </a-col>
-        <a-col>
-          <a-form-item label="Activity444">
-            <a-input v-model:value="formState.name1" />
-          </a-form-item>
-        </a-col>
-        <a-col>
-          <a-form-item label="创建时间">
-            <a-date-picker v-model:value="formState.value1" @change="change" />
-          </a-form-item>
-        </a-col> -->
         <a-col>
           <a-button type="primary" @click="search">点击</a-button>
           <a-button @click="reset">重置</a-button>
@@ -43,8 +35,10 @@
 </template>
 
 <script setup lang="ts">
+import { Input } from 'ant-design-vue';
 import { BreakPoint } from './type'
 import { formatToDate } from '~/utils/dateUtil'
+import { FormItem } from './componentMap'
 interface TableProps {
   searchColumns?: []
   searchParams?: { [key: string]: any } // 搜索参数
