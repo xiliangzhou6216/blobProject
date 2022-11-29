@@ -5,23 +5,13 @@
         <template v-for="item in getSearchColumns" :key="item.name">
           <a-col :span="item?.col">
             <a-form-item :label="`${item.label}`" :name="item.name">
-              <!-- <component 
+              <component
                 v-if="item.type"
-                :is="`${Input}`"
-                v-model:value="getSearchParams[item.name]"
-                :placeholder="item.placeholder">
-              </component> -->
-              <FormItem />
-              <!-- <a-input
-                v-if="item.type === 'input'"
+                :is="componentMap[item.type]"
+                :options="item?.options"
                 v-model:value="getSearchParams[item.name]"
                 :placeholder="item.placeholder"
               />
-              <a-select
-                v-if="item.type === 'select'"
-                v-model:value="getSearchParams[item.name]"
-                :options="item.options"
-              /> -->
             </a-form-item>
           </a-col>
         </template>
@@ -35,10 +25,9 @@
 </template>
 
 <script setup lang="ts">
-import { Input } from 'ant-design-vue';
 import { BreakPoint } from './type'
 import { formatToDate } from '~/utils/dateUtil'
-import { FormItem } from './componentMap'
+import { Input, Select } from 'ant-design-vue'
 interface TableProps {
   searchColumns?: []
   searchParams?: { [key: string]: any } // 搜索参数
@@ -52,15 +41,23 @@ const props = withDefaults(defineProps<TableProps>(), {
   searchColumns: () => [],
   searchParams: () => ({}),
 })
-console.log(props)
 
 // 查询类型
 const getSearchColumns = computed(() => {
-  return props.searchColumns.map((item: any) => ({ type: 'input', ...item }))
+  return props.searchColumns.map((item: any) => {
+    return {
+      ...item,
+      type: item.type,
+    }
+  })
 })
-console.log(getSearchColumns.value, props.searchColumns)
-
 const getSearchParams = reactive(props.searchParams || {})
+console.log(Input)
+// 表单组件类型
+const componentMap: any = {
+  Input,
+  Select,
+}
 // 获取栅格占位格数
 const getgetResponsive = (item) => {
   return {
@@ -72,10 +69,4 @@ const getgetResponsive = (item) => {
 const change = (_val) => {
   console.log(_val, formatToDate(_val))
 }
-
-// const formState = reactive({
-//   name: '',
-//   name1: '',
-//   value1: ref(),
-// })
 </script>

@@ -136,7 +136,7 @@ const roleOptions = computed(() => [
 
 const tableFilterSearchColumns = [
   {
-    type: 'select', // 元素类型
+    type: 'Select', // 元素类型
     name: 'role_id', // 字段
     label: '角色',
     placeholder: '请选择角色',
@@ -146,7 +146,7 @@ const tableFilterSearchColumns = [
     fieldNames: { label: 'label', value: 'value' }, // select下拉 字段名字
   },
   {
-    type: 'input',
+    type: 'Input',
     label: '账号',
     name: 'search',
     placeholder: '请输入姓名或账号进行查询',
