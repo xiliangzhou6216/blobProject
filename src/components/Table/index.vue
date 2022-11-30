@@ -70,11 +70,12 @@
 import type { PropType } from 'vue'
 import type { TableProps } from 'ant-design-vue'
 import { ActionItem } from './type'
-import { formatToDate, formatToDateTime, dateUtil } from '~/utils/dateUtil'
+import { formatToDate, dateUtil, formatDate } from '~/utils/dateUtil'
 import { usePagination } from 'vue-request'
 import { usePermission } from '~/hooks/usePermission'
 import { isBoolean } from '~/utils/is'
 import { BreakPoint } from '~/components/SearchForm/type'
+import { cloneDeep } from 'lodash-es'
 
 const props = defineProps({
   columns: {
@@ -141,7 +142,6 @@ const props = defineProps({
 
 // 表格DOM
 const tableElRef = ref<any>()
-
 const filteredInfo = ref()
 const sortedInfo = ref()
 
@@ -157,7 +157,7 @@ const {
   defaultParams: [
     // 默认参数
     {
-      results: 5,
+      results: 10,
       page: 1,
     },
   ],
@@ -230,7 +230,12 @@ const pagination = computed(() => {
     : false
 })
 
-// 表格 分页、排序、筛选变化
+/**
+ * @description 表格 分页、排序、筛选变化
+ * @param pag
+ * @param filters
+ * @param sorter  descend 降序 ascend 升序
+ */
 const handleTableChange: TableProps['onChange'] = (pag: any, filters: any, sorter: any) => {
   filteredInfo.value = filters
   sortedInfo.value = sorter
@@ -240,27 +245,27 @@ const handleTableChange: TableProps['onChange'] = (pag: any, filters: any, sorte
     sortField: sorter.field,
     sortOrder: sorter.order,
     ...filters,
+    ...props.tableFilterSearchParams, // 表单查询参数
   })
 }
-
-/**
- * @description  日期格式化
- * @param str
- * @param type
- */
-const formatDate = (str: string, type: 'date' | 'time' = 'date') => {
-  const formatFn = type === 'date' ? formatToDate : formatToDateTime
-  // dayjs格式化 毫秒数需要13位
-  return str.length === 10 ? formatFn(Number(str) * 1000) : formatFn(str)
-}
-
-const b = ref(2)
-console.log(dataSource, props)
 
 // SearchFrom
 const searchParams = computed(() => props.tableFilterSearchParams)
 const searchColumns = computed(() => props.tableFilterSearchColumns)
 
+// 重新查询
+const runSearch = (args: any) => {
+  run({
+    results: pageSize.value,
+    page: current.value,
+    sortField: sortedInfo.value?.field,
+    sortOrder: sortedInfo.value?.order,
+    ...args,
+    ...filteredInfo.value,
+  })
+}
+
+// 重置请求
 const search = () => {
   const args = toRaw(searchParams.value) || {}
   // 日期格式处理
@@ -271,19 +276,30 @@ const search = () => {
       }
     })
   }
-  run({ results: pageSize.value, page: current.value, ...args })
-  // console.log(tableElRef, tableElRef.value.$el)
+  runSearch(args)
 }
 
-const reset = () => {}
+const initParams = cloneDeep(props.tableFilterSearchParams)
+
+// 重置请求
+const reset = () => {
+  // const initObj: any = {}
+  // Object.keys(props.tableFilterSearchParams).forEach((item: string) => {
+  //   initObj[item] = initParams[item]
+  // })
+  // console.log(initObj)
+  filteredInfo.value = null
+  sortedInfo.value = null
+  run({ results: 10, page: 1, ...initParams })
+}
 
 // 暴露 Table提供的API
 defineExpose({
   element: tableElRef,
-  b,
   refresh,
   total,
   run,
+  runSearch,
 })
 </script>
 <style lang="less" scoped>

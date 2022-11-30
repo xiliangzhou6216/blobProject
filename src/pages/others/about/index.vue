@@ -140,7 +140,9 @@ const tableFilterSearchColumns = [
     name: 'role_id', // 字段
     label: '角色',
     placeholder: '请选择角色',
-    col: 3, // 栅格占比
+    col: {
+      span: 12,
+    }, // 栅格占比
     defaultValue: [], // 默认值
     options: roleOptions.value, // 数据
     fieldNames: { label: 'label', value: 'value' }, // select下拉 字段名字
@@ -150,10 +152,30 @@ const tableFilterSearchColumns = [
     label: '账号',
     name: 'search',
     placeholder: '请输入姓名或账号进行查询',
+    col: {
+      span: 12,
+    },
+  },
+  {
+    type: 'Input',
+    label: '菜单',
+    name: 'menu',
+    placeholder: '请输入姓名或账号进行查询',
+    col: {
+      span: 4,
+    },
+  },
+  {
+    type: 'Input',
+    label: '菜单1',
+    name: 'menu1',
+    placeholder: '请输入姓名或账号进行查询',
+    col: {
+      // span: 6,
+    },
   },
 ]
-
-const tableFilterSearchParams = reactive({ role_id: 1, search: '121212' })
+const tableFilterSearchParams = reactive({ role_id: 1, search: 'xixi', menu: '', menu1: 'menu1' })
 onMounted(() => {
   // console.log(tableRef)
   // console.log(tableRef.value, unref(tableRef.value.b))
