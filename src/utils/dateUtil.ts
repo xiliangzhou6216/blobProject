@@ -38,4 +38,19 @@ export const formatDate = (str: string, type: 'date' | 'time' = 'date') => {
   return str.length === 10 ? formatFn(Number(str) * 1000) : formatFn(str)
 }
 
+/**
+ * @description  判断参数符合日期格式的 处理成'YYYY-MM-DD' (包括 year quarter month week )
+ * @param str
+ * @param type
+ */
+export function paramsHandleToDate(params: any) {
+  if (Object.keys(params).length) {
+    Object.keys(params).map((key) => {
+      if (params[key] && dayjs.isDayjs(params[key])) {
+        params[key] = formatToDate(params[key])
+      }
+    })
+  }
+  return params
+}
 export const dateUtil = dayjs

@@ -13,6 +13,7 @@
 </template>
 <script setup lang="ts">
 // import type { TableColumnsType } from 'ant-design-vue'
+import { dateUtil, paramsHandleToDate } from '~/utils/dateUtil'
 import axios from 'axios'
 import { columns } from './constant'
 import { useMessage } from '~/hooks/useMessage'
@@ -40,7 +41,8 @@ const tableRef = ref<any>()
 const refresh = () => tableRef.value?.refresh()
 
 const queryData = (params: apiParams) => {
-  params = { name: 'xiliang', ...params }
+  // 处理日期格式
+  params = paramsHandleToDate({ name: 'xiliang', ...params })
   return axios.get<apiResult>('https://randomuser.me/api?noinfo', { params })
 }
 // 打开modal(新增/查看/编辑)
@@ -59,6 +61,7 @@ function editUser(val: any) {
     }, 2000)
   })
 }
+
 
 // 打开弹窗（新增/编辑/查看）
 const modalRef = ref()
@@ -143,7 +146,7 @@ const tableFilterSearchColumns = [
     col: {
       span: 12,
     }, // 栅格占比
-    defaultValue: [], // 默认值
+    // defaultValue: [], // 默认值
     options: roleOptions.value, // 数据
     fieldNames: { label: 'label', value: 'value' }, // select下拉 字段名字
   },
@@ -151,31 +154,46 @@ const tableFilterSearchColumns = [
     type: 'Input',
     label: '账号',
     name: 'search',
-    placeholder: '请输入姓名或账号进行查询',
+    placeholder: '请输入姓名',
     col: {
-      span: 12,
+      span: 7,
     },
   },
   {
     type: 'Input',
     label: '菜单',
     name: 'menu',
-    placeholder: '请输入姓名或账号进行查询',
+    placeholder: '请输入姓名',
     col: {
-      span: 4,
+      span: 8,
     },
   },
   {
-    type: 'Input',
-    label: '菜单1',
-    name: 'menu1',
-    placeholder: '请输入姓名或账号进行查询',
+    type: 'DatePicker',
+    label: '创建时间',
+    name: 'date',
+    placeholder: '时间',
     col: {
-      // span: 6,
+      span: 8,
+    },
+  },
+  {
+    type: 'MonthPicker',
+    label: '选择月份',
+    name: 'month',
+    placeholder: '时间',
+    col: {
+      span: 8,
     },
   },
 ]
-const tableFilterSearchParams = reactive({ role_id: 1, search: 'xixi', menu: '', menu1: 'menu1' })
+const tableFilterSearchParams = reactive({
+  role_id: 1,
+  search: 'xixi',
+  menu: '',
+  date: dateUtil('2022/12/01'),
+  month: dateUtil('2022/11'),
+})
 onMounted(() => {
   // console.log(tableRef)
   // console.log(tableRef.value, unref(tableRef.value.b))

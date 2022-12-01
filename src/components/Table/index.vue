@@ -70,7 +70,7 @@
 import type { PropType } from 'vue'
 import type { TableProps } from 'ant-design-vue'
 import { ActionItem } from './type'
-import { formatToDate, dateUtil, formatDate } from '~/utils/dateUtil'
+import { formatDate } from '~/utils/dateUtil'
 import { usePagination } from 'vue-request'
 import { usePermission } from '~/hooks/usePermission'
 import { isBoolean } from '~/utils/is'
@@ -135,7 +135,7 @@ const props = defineProps({
   },
   tableFilterSearchParams: {
     /*  搜索参数 */
-    type: Object as PropType<Record<string, any>>,
+    type: Object as PropType<Recordable>,
     default: () => ({}),
   },
 })
@@ -254,43 +254,34 @@ const searchParams = computed(() => props.tableFilterSearchParams)
 const searchColumns = computed(() => props.tableFilterSearchColumns)
 
 // 重新查询
-const runSearch = (args: any) => {
+const runSearch = (initParams: object) => {
   run({
     results: pageSize.value,
     page: current.value,
     sortField: sortedInfo.value?.field,
     sortOrder: sortedInfo.value?.order,
-    ...args,
+    ...initParams,
     ...filteredInfo.value,
   })
 }
 
-// 重置请求
+// 请求
 const search = () => {
-  const args = toRaw(searchParams.value) || {}
-  // 日期格式处理
-  if (Object.keys(args).length) {
-    Object.keys(args).map((key) => {
-      if (args[key] && dateUtil.isDayjs(args[key])) {
-        args[key] = formatToDate(args[key])
-      }
-    })
-  }
+  const args = searchParams.value || {}
   runSearch(args)
 }
 
-const initParams = cloneDeep(props.tableFilterSearchParams)
+const initSearchParams = cloneDeep(props.tableFilterSearchParams)
 
 // 重置请求
 const reset = () => {
-  // const initObj: any = {}
-  // Object.keys(props.tableFilterSearchParams).forEach((item: string) => {
-  //   initObj[item] = initParams[item]
-  // })
-  // console.log(initObj)
+  // 初始化参数
+  Object.keys(props.tableFilterSearchParams).forEach((item: string) => {
+    ;(props.tableFilterSearchParams as Recordable)[item] = initSearchParams[item]
+  })
   filteredInfo.value = null
   sortedInfo.value = null
-  run({ results: 10, page: 1, ...initParams })
+  run({ results: 10, page: 1, ...initSearchParams })
 }
 
 // 暴露 Table提供的API

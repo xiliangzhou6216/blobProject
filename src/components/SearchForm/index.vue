@@ -1,9 +1,9 @@
 <template>
   <a-card v-if="!isHidden" :body-style="{ padding: '24px 24px 0 24px' }" :bordered="false">
-    <a-form :model="getSearchParams">
+    <a-form name="search_columns" :model="getSearchParams">
       <a-row type="flex" :gutter="[{ xs: 8, sm: 16, md: 24, lg: 32 }]">
-        <template v-for="item in getSearchColumns" :key="item.name">
-          <a-col v-bind="getResponsive(item)">
+        <template v-for="(item, i) in getSearchColumns" :key="item.name">
+          <a-col v-show="expand || i <= expandFindIndex" v-bind="getResponsive(item)">
             <a-form-item :label="`${item.label}`" :name="item.name">
               <component
                 v-if="item.type"
@@ -15,7 +15,7 @@
             </a-form-item>
           </a-col>
         </template>
-        <a-col :span="4" :class="showExpand ? 'mb-6' : ''">
+        <a-col :span="4" :class="colSpanTotal > 20 ? 'mb-6' : ''">
           <a-space>
             <a-button type="primary" @click="search">点击</a-button>
             <a-button @click="reset">重置</a-button>
@@ -38,8 +38,7 @@
 
 <script setup lang="ts">
 import { BreakPoint } from './type'
-import { formatToDate } from '~/utils/dateUtil'
-import { Input, Select } from 'ant-design-vue'
+import { Input, Select, DatePicker, MonthPicker, RangePicker } from 'ant-design-vue'
 import { DownOutlined, UpOutlined } from '@ant-design/icons-vue'
 interface TableProps {
   searchColumns?: []
@@ -49,12 +48,25 @@ interface TableProps {
   reset: (params: any) => void // 重置方法
 }
 
+// const labelCol = { style: { width: '80px' } }
+// const labelCol = { span: 6 }
+
+// 表单组件类型
+const componentMap: any = {
+  Input,
+  Select,
+  DatePicker,
+  MonthPicker,
+  RangePicker,
+}
+
 // 默认值
 const props = withDefaults(defineProps<TableProps>(), {
   searchColumns: () => [],
   searchParams: () => ({}),
 })
 
+// 隐藏查询表单列
 const isHidden = ref<boolean>(true)
 watchEffect(() => {
   isHidden.value = props.searchColumns.length ? false : true
@@ -70,12 +82,6 @@ const getSearchColumns = computed(() => {
   })
 })
 const getSearchParams = reactive(props.searchParams || {})
-console.log(Input)
-// 表单组件类型
-const componentMap: any = {
-  Input,
-  Select,
-}
 
 // 默认栅格宽度
 const SPAN_WIDTH = 4
@@ -92,31 +98,42 @@ const getResponsive = (item: any) => {
   }
 }
 
+// 默认展开不显示
 const expand = ref<boolean>(false)
-const showExpand = computed(() => {
-  const spanTotal = props.searchColumns.reduce((pre: number, item: any) => {
+
+// 查询列 栅格占比数
+const colSpanTotal = computed(() => {
+  return props.searchColumns.reduce((pre: number, item: any) => {
     pre += item?.col?.span ?? SPAN_WIDTH
     return pre
   }, 0)
-  return spanTotal > 20 ? true : false
 })
+// 显示展开/收起
+const showExpand = computed(() => (colSpanTotal.value > 24 ? true : false))
 
-let len: any = unref(props.searchColumns)
-const findIndex = () => {
+let columnsList: any = unref(props.searchColumns)
+
+// 栅格显示最小数
+const expandFindIndex = computed((defaultV = 0) => {
+  const len = columnsList.length
+  if (!columnsList) return 0
   let num = 0
-  for (let i = 0; i < len.length; i++) {
-    num += len[i]?.col?.span ?? SPAN_WIDTH
-    if (num > 20) {
-      console.log(i)
-      // break
-      // return i
+  for (let i = 0; i < len; i++) {
+    num += columnsList[i].col?.span ?? SPAN_WIDTH
+    if (num >= 20) {
+      // 栅格布局占比大于24时 需要隐藏计算时最后一个
+      if (num > 24) {
+        return i - 1
+      }
+      return i
     }
   }
-}
-console.log(findIndex(), 9999)
-const change = (_val) => {
-  console.log(_val, formatToDate(_val))
-}
+  // 栅格布局占比小于20
+  if (num <= 20) return len - 1
+  // 兜底 防止其他条件不满足时
+  return defaultV
+})
+console.log(expandFindIndex.value, 9999)
 </script>
 <style lang="less" scoped>
 .search-isOpen {
