@@ -94,7 +94,7 @@ const props = defineProps({
     default: () => null,
   },
   scroll: {
-    /* 设置水平或垂直滚动​​，也可用于指定滚动区域的宽度和高度 */
+    /* 设置水平或垂直滚动​​，也可用于指定滚动区域的宽度和高度  宽度必须大于表格本身占比宽度 才会滚动效果*/
     type: Object as PropType<{ x?: number; y?: number }>,
     default: null,
   },
@@ -311,7 +311,7 @@ defineExpose({
   }
 }
 
-.ant-table-striped :deep(.ant-pagination-item-active) {
+.ant-table-striped /deep/ .ant-pagination-item-active {
   background: #3860f4;
 
   a {

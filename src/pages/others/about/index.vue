@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="qwe">
     <Table
       ref="tableRef"
       :columns="columns"
@@ -7,6 +7,7 @@
       :tableFilterSearchColumns="tableFilterSearchColumns"
       :tableFilterSearchParams="tableFilterSearchParams"
       :actions="tableActions"
+      :scroll="{ x: 1900 }"
     />
     <UserModal ref="modalRef" />
   </div>
@@ -61,7 +62,6 @@ function editUser(val: any) {
     }, 2000)
   })
 }
-
 
 // 打开弹窗（新增/编辑/查看）
 const modalRef = ref()
@@ -174,7 +174,7 @@ const tableFilterSearchColumns = [
     name: 'date',
     placeholder: '时间',
     col: {
-      span: 8,
+      span: 6,
     },
   },
   {
@@ -183,7 +183,7 @@ const tableFilterSearchColumns = [
     name: 'month',
     placeholder: '时间',
     col: {
-      span: 8,
+      span: 6,
     },
   },
 ]

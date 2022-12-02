@@ -1,6 +1,6 @@
 <template>
   <a-card v-if="!isHidden" :body-style="{ padding: '24px 24px 0 24px' }" :bordered="false">
-    <a-form name="search_columns" :model="getSearchParams">
+    <a-form name="search_columns" id="search_columns" :model="getSearchParams">
       <a-row type="flex" :gutter="[{ xs: 8, sm: 16, md: 24, lg: 32 }]">
         <template v-for="(item, i) in getSearchColumns" :key="item.name">
           <a-col v-show="expand || i <= expandFindIndex" v-bind="getResponsive(item)">
@@ -10,6 +10,7 @@
                 :is="componentMap[item.type]"
                 :options="item?.options"
                 v-model:value="getSearchParams[item.name]"
+                allowClear
                 :placeholder="item.placeholder"
               />
             </a-form-item>
@@ -136,6 +137,9 @@ const expandFindIndex = computed((defaultV = 0) => {
 console.log(expandFindIndex.value, 9999)
 </script>
 <style lang="less" scoped>
+#search_columns .ant-picker {
+  width: 100%;
+}
 .search-isOpen {
   display: inline-flex;
   align-items: center;

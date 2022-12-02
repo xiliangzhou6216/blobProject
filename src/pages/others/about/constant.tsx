@@ -9,6 +9,7 @@ export const columns: ColumnProps[] = [
     dataIndex: 'index',
     key: 'toIndex',
     sorter: true,
+    width: 100,
   },
   {
     title: 'Name',
@@ -36,6 +37,7 @@ export const columns: ColumnProps[] = [
       </Tooltip>
     ),
     dataIndex: 'email',
+    width: 220,
   },
   {
     title: 'Cell',
@@ -50,12 +52,14 @@ export const columns: ColumnProps[] = [
   },
   {
     title: '日期',
+    width: 150,
     key: 'toDate',
     dataIndex: ['registered', 'date'],
   },
   {
     title: '日期时间',
     key: 'toDateTime',
+    width: 200,
     dataIndex: ['registered', 'date'],
   },
   {
@@ -70,11 +74,13 @@ export const columns: ColumnProps[] = [
     dataIndex: 'Action',
     customRender: ({}) => {
       const color = 'green'
-      return <Tag color={color}>{() => '操作'}</Tag>
+      return <Tag color={color}>{() => 'tag'}</Tag>
     },
   },
   {
     title: '操作',
+    width: 250,
+    fixed: 'right',
     key: 'action',
   },
 ]
