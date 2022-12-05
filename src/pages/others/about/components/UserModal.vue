@@ -45,7 +45,7 @@ const FormRef = ref<FormInstance>()
 // form
 interface FormState {
   mobile: string
-  role_id: unknown
+  role_id: number
 }
 
 interface modalProps {

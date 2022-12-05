@@ -1,13 +1,13 @@
 # 中文
 # yml文件 专门写配置文件的语言
 index: 主页
-about: 关于
+about: 表格
 not-found: 未找到页面
 componentC: 组件C
 component: 组件
-analysisManagement: 分析管理 
+analysisManagement: 组件管理 
 menuManagement: 菜单管理
-childMenu: 子级菜单
+childMenu: 菜单嵌套
 arr:
   - Ruby
   - Perl

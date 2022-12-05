@@ -8,62 +8,88 @@
       :colConfig="tableFilterSearchCol"
       v-show="isShowSearch"
     />
-    <a-table
-      ref="tableElRef"
-      :class="['ant-table-striped', { border: hasBordered }]"
-      :columns="columns"
-      :data-source="listData"
-      :row-key="(record: any) => record.login.uuid"
-      :pagination="pagination"
-      :loading="loading"
-      :scroll="scroll"
-      @change="handleTableChange"
-    >
-      <!-- 默认插槽 -->
-      <slot></slot>
-      <template #bodyCell="{ column, index, record, text }">
-        <template v-if="column.key === 'toIndex'">
-          <span>
-            {{ index + 1 }}
-          </span>
-        </template>
-        <template v-if="column.key === 'toDate'">
-          <span>
-            {{ text ? formatDate(text) : '--' }}
-          </span>
-        </template>
-        <template v-if="column.key === 'toDateTime'">
-          <span>
-            {{ text ? formatDate(text, 'time') : '--' }}
-          </span>
-        </template>
-        <!-- 操作列 -->
-        <template v-if="column.key === 'action'">
-          <template v-for="(item, index) in getActions" :key="`${index}-${item.label}`">
-            <!-- 气泡确认框 -->
-            <a-popconfirm
-              v-if="item.enable"
-              :title="item?.title"
-              @confirm="item.onConfirm(record)"
-              @cancel="item.onCancel(record)"
-            >
-              <a @click.prevent="() => {}" :class="{ 'mr-2': !!item.label }" :type="item.type">{{
-                item.label
-              }}</a>
-            </a-popconfirm>
-            <!-- 普通按钮 -->
-            <a
-              v-else
-              @click="item?.onClick(record)"
-              :class="{ 'mr-2': !!item.label }"
-              :type="item.type"
-              >{{ item.label }}
-            </a>
-            <a-divider v-if="index < getActions.length - 1" type="vertical" />
+    <div class="table-el">
+      <a-card>
+        <div class="table-el-header">
+          <div class="table-el-header-button-left">
+            <slot name="tableHeader"></slot>
+          </div>
+          <div class="table-el-header-button-right">
+            <a-space>
+              <a-button>
+                <template #icon>
+                  <setting-outlined />
+                </template>
+              </a-button>
+              <a-button>
+                <template #icon>
+                  <download-outlined />
+                </template>
+              </a-button>
+            </a-space>
+          </div>
+        </div>
+        <a-table
+          ref="tableElRef"
+          :class="['ant-table-striped', { border: hasBordered }]"
+          :columns="columns"
+          :data-source="listData"
+          :row-key="(record: any) => record.login.uuid"
+          :pagination="pagination"
+          :loading="loading"
+          :scroll="scroll"
+          @change="handleTableChange"
+        >
+          <!-- 默认插槽 -->
+          <slot></slot>
+          <template #bodyCell="{ column, index, record, text }">
+            <template v-if="column.key === 'toIndex'">
+              <span>
+                {{ index + 1 }}
+              </span>
+            </template>
+            <template v-if="column.key === 'toDate'">
+              <span>
+                {{ text ? formatDate(text) : '--' }}
+              </span>
+            </template>
+            <template v-if="column.key === 'toDateTime'">
+              <span>
+                {{ text ? formatDate(text, 'time') : '--' }}
+              </span>
+            </template>
+            <!-- 操作列 -->
+            <template v-if="column.key === 'action'">
+              <template v-for="(item, index) in getActions" :key="`${index}-${item.label}`">
+                <!-- 气泡确认框 -->
+                <a-popconfirm
+                  v-if="item.enable"
+                  :title="item?.title"
+                  @confirm="item.onConfirm(record)"
+                  @cancel="item.onCancel(record)"
+                >
+                  <a
+                    @click.prevent="() => {}"
+                    :class="{ 'mr-2': !!item.label }"
+                    :type="item.type"
+                    >{{ item.label }}</a
+                  >
+                </a-popconfirm>
+                <!-- 普通按钮 -->
+                <a
+                  v-else
+                  @click="item?.onClick(record)"
+                  :class="{ 'mr-2': !!item.label }"
+                  :type="item.type"
+                  >{{ item.label }}
+                </a>
+                <a-divider v-if="index < getActions.length - 1" type="vertical" />
+              </template>
+            </template>
           </template>
-        </template>
-      </template>
-    </a-table>
+        </a-table>
+      </a-card>
+    </div>
   </div>
 </template>
 <script setup lang="ts">
@@ -76,6 +102,7 @@ import { usePermission } from '~/hooks/usePermission'
 import { isBoolean } from '~/utils/is'
 import { BreakPoint } from '~/components/SearchForm/type'
 import { cloneDeep } from 'lodash-es'
+import { DownloadOutlined, SettingOutlined } from '@ant-design/icons-vue'
 
 const props = defineProps({
   columns: {
@@ -125,7 +152,7 @@ const props = defineProps({
   },
   tableFilterSearchCol: {
     /* 表格搜索项 每列占比配置 */
-    type: Object as PropType<Record<BreakPoint, number>>,
+    type: Object as PropType<Partial<Record<BreakPoint, number>>>,
     default: () => ({ xs: 8, sm: 16, md: 24, lg: 32 }),
   },
   tableFilterSearchColumns: {
@@ -230,6 +257,10 @@ const pagination = computed(() => {
     : false
 })
 
+// SearchFrom
+const searchParams = computed(() => props.tableFilterSearchParams)
+const searchColumns = computed(() => props.tableFilterSearchColumns)
+
 /**
  * @description 表格 分页、排序、筛选变化
  * @param pag
@@ -241,17 +272,13 @@ const handleTableChange: TableProps['onChange'] = (pag: any, filters: any, sorte
   sortedInfo.value = sorter
   run({
     results: pag.pageSize,
-    page: pag?.current,
+    page: pag.current,
     sortField: sorter.field,
     sortOrder: sorter.order,
     ...filters,
-    ...props.tableFilterSearchParams, // 表单查询参数
+    ...searchParams.value, // 表单查询参数
   })
 }
-
-// SearchFrom
-const searchParams = computed(() => props.tableFilterSearchParams)
-const searchColumns = computed(() => props.tableFilterSearchColumns)
 
 // 重新查询
 const runSearch = (initParams: object) => {
@@ -294,32 +321,43 @@ defineExpose({
 })
 </script>
 <style lang="less" scoped>
-.ant-table-striped :deep(.table-striped) td {
-  background-color: #fafafa;
-}
-
-.ant-table-striped :deep(.ant-table-pagination.ant-pagination) {
-  margin: 30px auto;
-  width: 100%;
-  text-align: center;
-
-  .ant-pagination-prev,
-  .ant-pagination-next {
-    .anticon {
-      vertical-align: 1.5px;
+.table-el {
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    &-button-left {
+    }
+    &-button-right {
     }
   }
-}
-
-.ant-table-striped /deep/ .ant-pagination-item-active {
-  background: #3860f4;
-
-  a {
-    color: #ffffff;
+  .ant-table-striped :deep(.table-striped) td {
+    background-color: #fafafa;
   }
-}
 
-.border {
-  border: 0.5px solid rgba(210, 210, 210, 0.5);
+  .ant-table-striped :deep(.ant-table-pagination.ant-pagination) {
+    margin: 30px auto;
+    width: 100%;
+    text-align: center;
+
+    .ant-pagination-prev,
+    .ant-pagination-next {
+      .anticon {
+        vertical-align: 1.5px;
+      }
+    }
+  }
+
+  .ant-table-striped :deep(.ant-pagination-item-active) {
+    background: #3860f4;
+
+    a {
+      color: #ffffff;
+    }
+  }
+
+  .border {
+    border: 0.5px solid rgba(210, 210, 210, 0.5);
+  }
 }
 </style>

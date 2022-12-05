@@ -21,7 +21,7 @@
           <Breadcrumb />
           <router-view v-slot="{ Component, route }">
             <transition name="fade-slide" mode="out-in" appear>
-              <div :key="route.name" class="mt-3">
+              <div :key="route.name">
                 <component :is="Component" />
               </div>
             </transition>
@@ -59,6 +59,7 @@ watchEffect(() => {
 .basicLayout-wrap {
   height: 100vh;
   overflow: hidden;
+
   .ant-layout-header {
     display: flex;
     justify-content: end;
@@ -68,9 +69,10 @@ watchEffect(() => {
     box-shadow: 0 1px 4px #00152914;
     z-index: 1;
   }
+
   .basicLayout-main {
     overflow-y: auto;
-    padding: 12px;
+    padding: 0px 12px 12px;
   }
 }
 </style>

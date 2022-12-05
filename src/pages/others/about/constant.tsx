@@ -1,7 +1,7 @@
 // import type { TableColumnsType } from 'ant-design-vue'
 import { ColumnProps } from 'ant-design-vue/es/table'
 import { Tag, Tooltip, Space } from 'ant-design-vue'
-import { QuestionCircleOutlined } from '@ant-design/icons-vue'
+import { QuestionCircleOutlined, TwitterOutlined, YoutubeOutlined } from '@ant-design/icons-vue'
 // import 'ant-design-vue/es/tag/style' // 加载 LESS
 export const columns: ColumnProps[] = [
   {
@@ -26,6 +26,15 @@ export const columns: ColumnProps[] = [
       { text: 'Male', value: 'male' },
       { text: 'Female', value: 'female' },
     ],
+    customRender: ({ text }) => {
+      const color = text === 'female' ? 'green' : '#cd201f'
+      const com = text === 'female' ? TwitterOutlined : YoutubeOutlined
+      return (
+        <Tag color={color} icon={<com />}>
+          {() => text}
+        </Tag>
+      )
+    },
   },
   {
     title: (
@@ -37,7 +46,7 @@ export const columns: ColumnProps[] = [
       </Tooltip>
     ),
     dataIndex: 'email',
-    width: 220,
+    width: 230,
   },
   {
     title: 'Cell',
@@ -67,14 +76,6 @@ export const columns: ColumnProps[] = [
     dataIndex: 'picture',
     customRender: ({ record }: any) => {
       return <img src={record.picture.medium}></img>
-    },
-  },
-  {
-    title: 'Action',
-    dataIndex: 'Action',
-    customRender: ({}) => {
-      const color = 'green'
-      return <Tag color={color}>{() => 'tag'}</Tag>
     },
   },
   {

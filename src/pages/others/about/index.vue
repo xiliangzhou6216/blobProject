@@ -1,5 +1,5 @@
 <template>
-  <div class="qwe">
+  <div>
     <Table
       ref="tableRef"
       :columns="columns"
@@ -7,8 +7,15 @@
       :tableFilterSearchColumns="tableFilterSearchColumns"
       :tableFilterSearchParams="tableFilterSearchParams"
       :actions="tableActions"
-      :scroll="{ x: 1900 }"
-    />
+      :scroll="{ x: 2000 }"
+    >
+      <template #tableHeader>
+        <a-space>
+          <a-button>新增</a-button>
+          <a-button>审核</a-button>
+        </a-space>
+      </template>
+    </Table>
     <UserModal ref="modalRef" />
   </div>
 </template>
@@ -89,7 +96,7 @@ const tableActions = reactive([
   {
     label: '新增',
     permission: ['home.post'],
-    onClick: async (row) => {
+    onClick: async (row: object) => {
       openModal('新增', {})
       console.log(row, modalRef.value)
     },
@@ -97,7 +104,7 @@ const tableActions = reactive([
   {
     label: '查看',
     permission: ['home.post'],
-    onClick: async (row) => {
+    onClick: async (row: object) => {
       openModal('查看', { mobile: '18787777777', role_id: 2 })
       console.log(row, modalRef.value)
     },
@@ -106,7 +113,7 @@ const tableActions = reactive([
     label: '编辑',
     permission: ['home.post'],
     // ifShow: false,
-    onClick: async (row) => {
+    onClick: async (row: any) => {
       openModal('编辑', { mobile: '2222222222222', role_id: 2 })
       console.log(row, modalRef.value)
     },
@@ -116,7 +123,7 @@ const tableActions = reactive([
     permission: ['others.post'],
     popConfirm: {
       title: '确认删除吗？',
-      onConfirm: async (row) => {
+      onConfirm: async (row: any) => {
         const res = await mock(1)
         if (res) {
           createMessage.success('删除成功')
@@ -124,7 +131,7 @@ const tableActions = reactive([
         }
         console.log('row', row, res)
       },
-      onCancel: async (row) => {
+      onCancel: async (row: any) => {
         console.log('row', row)
       },
     },
