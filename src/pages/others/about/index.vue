@@ -8,10 +8,11 @@
       :tableFilterSearchParams="tableFilterSearchParams"
       :actions="tableActions"
       :scroll="{ x: 2000 }"
+      selectId="login.uuid"
     >
       <template #tableHeader>
         <a-space>
-          <a-button>新增</a-button>
+          <a-button @click="addClick">新增</a-button>
           <a-button>审核</a-button>
         </a-space>
       </template>
@@ -37,9 +38,6 @@ type apiParams = {
 
 type apiResult = {
   results: {
-    gender: 'female' | 'male'
-    name: string
-    email: string
     [key: string]: any
   }[]
 }
@@ -48,11 +46,21 @@ const { createMessage } = useMessage()
 const tableRef = ref<any>()
 const refresh = () => tableRef.value?.refresh()
 
-const queryData = (params: apiParams) => {
+// 初始化参数
+const initParams = reactive({
+  name: 'xiliang',
+})
+
+const queryData = async (params: apiParams) => {
   // 处理日期格式
-  params = paramsHandleToDate({ name: 'xiliang', ...params })
-  return axios.get<apiResult>('https://randomuser.me/api?noinfo', { params })
+  params = paramsHandleToDate({ ...initParams, ...params })
+  const data = await axios.get<apiResult>('https://randomuser.me/api?noinfo', { params })
+  return {
+    list: data.data.results || [],
+    total: 100,
+  }
 }
+
 // 打开modal(新增/查看/编辑)
 function addUser(val: any) {
   return new Promise((res) => {
@@ -89,6 +97,10 @@ function mock(val: any) {
       res(val)
     }, 1000)
   })
+}
+
+const addClick = () => {
+  openModal('新增', {})
 }
 
 // table actions

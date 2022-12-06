@@ -10,21 +10,26 @@
     />
     <div class="table-el">
       <a-card>
+        <!-- 表格header 按钮 -->
         <div class="table-el-header">
+          <!-- 新增 导出 按钮 -->
           <div class="table-el-header-button-left">
             <slot name="tableHeader"></slot>
           </div>
+          <!-- 表格下载 列设置按钮 -->
           <div class="table-el-header-button-right">
             <a-space>
               <a-button>
                 <template #icon>
                   <setting-outlined />
                 </template>
+                列设置
               </a-button>
               <a-button>
                 <template #icon>
                   <download-outlined />
                 </template>
+                下载
               </a-button>
             </a-space>
           </div>
@@ -34,13 +39,14 @@
           :class="['ant-table-striped', { border: hasBordered }]"
           :columns="columns"
           :data-source="listData"
-          :row-key="(record: any) => record.login.uuid"
+          :row-key="getRowKeys"
+          :row-selection="rowSelection"
           :pagination="pagination"
           :loading="loading"
           :scroll="scroll"
           @change="handleTableChange"
         >
-          <!-- 默认插槽 -->
+          <!-- 表格默认插槽 -->
           <slot></slot>
           <template #bodyCell="{ column, index, record, text }">
             <template v-if="column.key === 'toIndex'">
@@ -103,6 +109,7 @@ import { isBoolean } from '~/utils/is'
 import { BreakPoint } from '~/components/SearchForm/type'
 import { cloneDeep } from 'lodash-es'
 import { DownloadOutlined, SettingOutlined } from '@ant-design/icons-vue'
+import { useSelection } from '~/hooks/useSelection'
 
 const props = defineProps({
   columns: {
@@ -133,7 +140,7 @@ const props = defineProps({
   isPagination: {
     /* 展示分页 */
     type: Boolean,
-    default: () => true,
+    default: true,
   },
   resKey: {
     // ['a', 'b']
@@ -165,6 +172,11 @@ const props = defineProps({
     type: Object as PropType<Recordable>,
     default: () => ({}),
   },
+  selectkey: {
+    /* 选中key */
+    type: String,
+    default: () => 'key',
+  },
 })
 
 // 表格DOM
@@ -189,11 +201,12 @@ const {
     },
   ],
   pagination: {
-    currentKey: 'page', // 当前页
-    pageSizeKey: 'results', //页条数
+    currentKey: 'page', // 指定接口当前页参数的属性值
+    pageSizeKey: 'results', //每页条数
   },
 })
 
+const { hasPermission } = usePermission()
 // 按钮业务控制显示
 function isIfShow(val: boolean | undefined): boolean {
   const ifShow = val
@@ -204,9 +217,7 @@ function isIfShow(val: boolean | undefined): boolean {
   return flag
 }
 
-const { hasPermission } = usePermission()
-
-// 表格操作
+// 表格action操作
 const getActions = computed(() => {
   return (toRaw(props.actions) || [])
     .filter((item) => hasPermission(item.permission) && isIfShow(item?.ifShow))
@@ -224,28 +235,40 @@ const getActions = computed(() => {
     })
 })
 
-const getResults = computed(() => {
-  // const pathList = unref(props.resKey)
-  // if (pathList?.length) {
-  //   let res = dataSource.value?.data
-  //   for (let i = 0; i < pathList.length; i++) {
-  //     res = res[pathList[i]]
-  //   }
-  //   console.log(res, dataSource.value?.data)
-  //   return res
-  // }
-  return (dataSource.value?.data as Recordable)?.['results'] || []
+// 表格多选操作
+const { selectedRowKeys, onSelectChange, getRowKeys } = useSelection(props.selectkey)
+
+const rowSelection = computed(() => {
+  return {
+    selectedRowKeys: unref(selectedRowKeys),
+    onChange: onSelectChange,
+  }
 })
+
+// loadsh_get 获取对象路径
+// const getResults = computed(() => {
+//   const pathList = unref(props.resKey)
+//   if (pathList?.length) {
+//     let res = dataSource.value?.data
+//     for (let i = 0; i < pathList.length; i++) {
+//       res = res[pathList[i]]
+//     }
+//     console.log(res, dataSource.value?.data)
+//     return res
+//   }
+//   return (dataSource.value?.list as Recordable) || []
+// })
+
 const hasBordered = computed(() => props.bordered ?? true)
 
 // 数据
-const listData = computed(() => getResults.value)
+const listData = computed(() => dataSource.value?.list)
 
 // 分页
 const pagination = computed(() => {
   return props.isPagination
     ? {
-        total: 200,
+        total: dataSource.value?.total,
         hideOnSinglePage: true,
         current: current.value,
         pageSize: pageSize.value,
@@ -322,6 +345,9 @@ defineExpose({
 </script>
 <style lang="less" scoped>
 .table-el {
+  .ant-card:deep(.anticon) {
+    vertical-align: 1.5px;
+  }
   &-header {
     display: flex;
     justify-content: space-between;
@@ -343,7 +369,7 @@ defineExpose({
     .ant-pagination-prev,
     .ant-pagination-next {
       .anticon {
-        vertical-align: 1.5px;
+        // vertical-align: 1.5px;
       }
     }
   }
