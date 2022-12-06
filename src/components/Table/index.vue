@@ -14,7 +14,12 @@
         <div class="table-el-header">
           <!-- 新增 导出 按钮 -->
           <div class="table-el-header-button-left">
-            <slot name="tableHeader"></slot>
+            <slot
+              name="tableHeader"
+              :selectedRows="selectedRows"
+              :selectedRowKeys="selectedRowKeys"
+              :isSelected="isSelected"
+            ></slot>
           </div>
           <!-- 表格下载 列设置按钮 -->
           <div class="table-el-header-button-right">
@@ -236,7 +241,9 @@ const getActions = computed(() => {
 })
 
 // 表格多选操作
-const { selectedRowKeys, onSelectChange, getRowKeys } = useSelection(props.selectkey)
+const { selectedRowKeys, onSelectChange, getRowKeys, selectedRows, isSelected } = useSelection(
+  props.selectkey
+)
 
 const rowSelection = computed(() => {
   return {

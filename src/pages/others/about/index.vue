@@ -8,7 +8,7 @@
       :tableFilterSearchParams="tableFilterSearchParams"
       :actions="tableActions"
       :scroll="{ x: 2000 }"
-      selectId="login.uuid"
+      selectkey="login.uuid"
     >
       <template #tableHeader>
         <a-space>
