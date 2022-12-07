@@ -1,9 +1,9 @@
-// import type { TableColumnsType } from 'ant-design-vue'
-import { ColumnProps } from 'ant-design-vue/es/table'
+import type { TableColumnsType } from 'ant-design-vue'
+// import { ColumnProps } from 'ant-design-vue/es/table'
 import { Tag, Tooltip, Space } from 'ant-design-vue'
 import { QuestionCircleOutlined, TwitterOutlined, YoutubeOutlined } from '@ant-design/icons-vue'
 // import 'ant-design-vue/es/tag/style' // 加载 LESS
-export const columns: ColumnProps[] = [
+export const columns: TableColumnsType = [
   {
     title: '序号',
     dataIndex: 'index',

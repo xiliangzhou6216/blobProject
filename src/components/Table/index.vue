@@ -16,6 +16,7 @@
           <div class="table-el-header-button-left">
             <slot
               name="tableHeader"
+              :selectedAllRowKeys="selectedAllRowKeys"
               :selectedRows="selectedRows"
               :selectedRowKeys="selectedRowKeys"
               :isSelected="isSelected"
@@ -157,6 +158,11 @@ const props = defineProps({
     type: Boolean,
     default: () => true,
   },
+  isSelection: {
+    /* 显示自定义选择项 */
+    type: Boolean,
+    default: () => true,
+  },
   isShowSearch: {
     /* 显示表格查询按钮 */
     type: Boolean,
@@ -177,7 +183,7 @@ const props = defineProps({
     type: Object as PropType<Recordable>,
     default: () => ({}),
   },
-  selectkey: {
+  rowKey: {
     /* 选中key */
     type: String,
     default: () => 'key',
@@ -241,16 +247,21 @@ const getActions = computed(() => {
 })
 
 // 表格多选操作
-const { selectedRowKeys, onSelectChange, getRowKeys, selectedRows, isSelected } = useSelection(
-  props.selectkey
-)
+const {
+  selectedRowKeys,
+  onSelectChange,
+  getRowKeys,
+  selectedRows,
+  isSelected,
+  selectedAllRowKeys,
+} = useSelection(props.rowKey)
 
-const rowSelection = computed(() => {
-  return {
-    selectedRowKeys: unref(selectedRowKeys),
-    onChange: onSelectChange,
-  }
-})
+const rowSelection = props.isSelection
+  ? computed(() => ({
+      selectedRowKeys: unref(selectedRowKeys),
+      onChange: (rowKeys: any, Rows: any) => onSelectChange(rowKeys, Rows, unref(current)),
+    }))
+  : undefined
 
 // loadsh_get 获取对象路径
 // const getResults = computed(() => {
@@ -355,15 +366,19 @@ defineExpose({
   .ant-card:deep(.anticon) {
     vertical-align: 1.5px;
   }
+
   &-header {
     display: flex;
     justify-content: space-between;
     margin-bottom: 15px;
+
     &-button-left {
     }
+
     &-button-right {
     }
   }
+
   .ant-table-striped :deep(.table-striped) td {
     background-color: #fafafa;
   }

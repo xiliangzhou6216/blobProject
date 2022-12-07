@@ -8,12 +8,20 @@
       :tableFilterSearchParams="tableFilterSearchParams"
       :actions="tableActions"
       :scroll="{ x: 2000 }"
-      selectkey="login.uuid"
+      rowKey="login.uuid"
     >
-      <template #tableHeader>
+      <template #tableHeader="{ isSelected, selectedAllRowKeys }">
         <a-space>
           <a-button @click="addClick">新增</a-button>
-          <a-button>审核</a-button>
+          <a-button @click="processClick(selectedAllRowKeys)" :disabled="!isSelected"
+            >批量审核</a-button
+          >
+          <a-button @click="deleteClick(selectedAllRowKeys)" :disabled="!isSelected"
+            >批量删除</a-button
+          >
+          <a-button @click="selectedAllClick(selectedAllRowKeys)" :disabled="!isSelected"
+            >跨页多选</a-button
+          >
         </a-space>
       </template>
     </Table>
@@ -97,10 +105,6 @@ function mock(val: any) {
       res(val)
     }, 1000)
   })
-}
-
-const addClick = () => {
-  openModal('新增', {})
 }
 
 // table actions
@@ -206,6 +210,7 @@ const tableFilterSearchColumns = [
     },
   },
 ]
+
 const tableFilterSearchParams = reactive({
   role_id: 1,
   search: 'xixi',
@@ -213,6 +218,26 @@ const tableFilterSearchParams = reactive({
   date: dateUtil('2022/12/01'),
   month: dateUtil('2022/11'),
 })
+
+// 新增
+const addClick = () => {
+  openModal('新增', {})
+}
+
+// 审核
+const processClick = (val: any) => {
+  createMessage.success(`审核所选${toRaw(val).join('------')}用户信息成功`)
+}
+
+// 删除
+const deleteClick = (val: any) => {
+  createMessage.success(`删除所选${val.join('------')}用户信息成功`)
+}
+// 多选全选
+const selectedAllClick = (val: any) => {
+  createMessage.success(`跨页勾选所选${val.join('------')}用户信息成功`)
+}
+
 onMounted(() => {
   // console.log(tableRef)
   // console.log(tableRef.value, unref(tableRef.value.b))
