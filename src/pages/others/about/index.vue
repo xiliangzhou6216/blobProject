@@ -10,6 +10,12 @@
       :scroll="{ x: 2000 }"
       rowKey="login.uuid"
     >
+      <template #headerCell="column">
+        <template v-if="column.dataIndex === 'gender'">
+          <smile-outlined />
+          {{ column.title }}
+        </template>
+      </template>
       <template #tableHeader="{ isSelected, selectedAllRowKeys }">
         <a-space>
           <a-button @click="addClick">新增</a-button>
@@ -30,6 +36,7 @@
 </template>
 <script setup lang="ts">
 // import type { TableColumnsType } from 'ant-design-vue'
+import { SmileOutlined } from '@ant-design/icons-vue'
 import { dateUtil, paramsHandleToDate } from '~/utils/dateUtil'
 import axios from 'axios'
 import { columns } from './constant'

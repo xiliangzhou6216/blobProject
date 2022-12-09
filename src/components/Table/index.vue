@@ -1,6 +1,7 @@
 <template>
   <div>
     <SearchForm
+      ref="searchFormElRef"
       :search="search"
       :reset="reset"
       :searchParams="searchParams"
@@ -54,6 +55,11 @@
         >
           <!-- 表格默认插槽 -->
           <slot></slot>
+          <!-- header头部单元格 -->
+          <template #headerCell="{ column }">
+            <slot name="headerCell" v-bind="column"></slot>
+          </template>
+          <!-- column单元格 -->
           <template #bodyCell="{ column, index, record, text }">
             <template v-if="column.key === 'toIndex'">
               <span>
@@ -190,6 +196,7 @@ const props = defineProps({
   },
 })
 
+const searchFormElRef = ref()
 // 表格DOM
 const tableElRef = ref<any>()
 const filteredInfo = ref()
@@ -354,11 +361,12 @@ const reset = () => {
 
 // 暴露 Table提供的API
 defineExpose({
-  element: tableElRef,
+  searchFormEl: searchFormElRef,
   refresh,
   total,
   run,
   runSearch,
+  reset,
 })
 </script>
 <style lang="less" scoped>

@@ -20,7 +20,7 @@ export const columns: TableColumnsType = [
     dataIndex: ['location', 'city'], // 数组查询嵌套路径
   },
   {
-    title: 'Gender',
+    title: '自定义',
     dataIndex: 'gender',
     filters: [
       { text: 'Male', value: 'male' },
@@ -38,9 +38,9 @@ export const columns: TableColumnsType = [
   },
   {
     title: (
-      <Tooltip placement='topLeft' title='邮箱'>
+      <Tooltip placement='topLeft' title='tsx邮箱'>
         <Space align='center'>
-          <span>邮箱</span>
+          <span>tsx邮箱</span>
           <QuestionCircleOutlined style='vertical-align:2px' />
         </Space>
       </Tooltip>

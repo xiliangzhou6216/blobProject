@@ -1,4 +1,6 @@
-@import './md.css';
+@import './themes.css';
+
+
 /* @import '~/assets/iconfont/iconfont.css'; */
 /* <i className="iconfont icon-github"></i>  */
 html,
@@ -9,8 +11,8 @@ body,
 }
 
 html.dark {
-  color: #e5e7eb;
-  background: #121212;
+  /* color: #e5e7eb;
+  background: #121212; */
 }
 
 .prose {

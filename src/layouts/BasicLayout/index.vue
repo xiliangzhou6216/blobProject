@@ -63,8 +63,8 @@ watchEffect(() => {
   .ant-layout-header {
     display: flex;
     justify-content: end;
-    background: var(--prism-background);
-    color: var(--prism-foreground);
+    // background: var(--prism-background);
+    // color: var(--prism-foreground);
     align-items: center;
     box-shadow: 0 1px 4px #00152914;
     z-index: 1;

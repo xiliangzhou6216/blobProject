@@ -11,9 +11,10 @@
 }
 
 html:not(.dark) {
+  --prism-text-color:rgba(0, 0, 0, 0.85);
+  --prism-bg-color: #fff;
   --prism-foreground: rgba(0, 0, 0, 0.85);
   --prism-background: #fff;
-
   --prism-comment: #868e96;
   --prism-namespace: #444444;
   --prism-string: #bc8671;
@@ -29,9 +30,10 @@ html:not(.dark) {
 }
 
 html.dark {
+  --prism-text-color: #d4d4d4;
+  --prism-bg-color: #1f1f1f;
   --prism-foreground: #d4d4d4;
   --prism-background: #1f1f1f;
-
   --prism-namespace: #aaaaaa;
   --prism-comment: #868e96;
   --prism-namespace: #444444;
@@ -46,6 +48,38 @@ html.dark {
   --prism-property: #ce9178;
   --prism-regex: #ad502b;
 }
+
+.border-color {
+  color: var(--prism-foreground);
+}
+.basicLayout-wrap {
+  .ant-layout-header {
+    background: var(--prism-background);
+    color: var(--prism-foreground);
+    /* border-bottom-color: var(--prism-foreground); */
+  }
+  .ant-layout-content {
+    .ant-card {
+      background: var(--prism-background);
+      color: var(--prism-foreground);
+    }
+    .ant-table {
+      /* .ant-table-header {
+        
+      } */
+      background: var(--prism-background);
+      color: var(--prism-foreground);
+    }
+  }
+
+  .ant-breadcrumb {
+    color: var(--prism-foreground);
+    .ant-breadcrumb-link, .router-link-active{
+      color: var(--prism-foreground);
+    }
+  }
+}
+
 ol {
   padding-left: 15px;
 }
