@@ -2,8 +2,8 @@
 import 'virtual:windi-base.css'
 import 'virtual:windi-components.css'
 // 自定义的 css
-import './styles/main.css'
-
+import './styles/main.less'
+import 'ant-design-vue/dist/antd.variable.min.css'
 import 'virtual:windi-utilities.css'
 import 'virtual:windi-devtools'
 

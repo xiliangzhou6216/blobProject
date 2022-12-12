@@ -1,0 +1,127 @@
+@import 'prism-theme-vars/base.css';
+@import './variables.less';
+
+.prose {
+  --prism-font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif,
+    Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+}
+
+.prose pre {
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+html:not(.dark) {
+  --ant-text-color: rgba(0, 0, 0, 0.85);
+  --ant-bg-color: #fff;
+  --ant-fill-color: #f5f7fa;
+}
+
+html.dark {
+  --ant-text-color: #fff;
+  --ant-bg-color: #1f1f1f;
+  --ant-fill-color: #f5f7fa;
+}
+
+.basicLayout-wrap {
+  .ant-layout-header {
+    // background: var(--ant-bg-color);
+    // color: var(--ant-text-color);
+  }
+
+  .ant-layout-content {
+    // .ant-card {
+    //   background: var(--ant-bg-color);
+    //   color: var(--ant-text-color);
+    // }
+
+    // .ant-table {
+    //   background: var(--ant-bg-color);
+    //   color: var(--ant-text-color);
+    //   .ant-table-tbody {
+    //     .ant-table-cell-fix-left, .ant-table-cell-fix-right{
+    //       background: var(--ant-bg-color);
+    //       color: var(--ant-text-color);
+    //     }
+    //     .ant-checkbox-inner {
+    //       background: var(--ant-bg-color);
+    //       color: var(--ant-text-color);
+    //     }
+    //     .ant-table-cell-row-hover {
+    //        background: var(--prism-fill-color);
+    //     }
+
+    //   }
+    //   .ant-table-thead {
+    //     .ant-checkbox-inner {
+    //       background: var(--ant-bg-color);
+    //       color: var(--ant-text-color);
+    //     }
+    //   }
+    //   .ant-table-thead > tr > th{
+    //     background: var(--ant-bg-color);
+    //     color: var(--ant-text-color);
+    //   }
+    // }
+
+    // .ant-pagination {
+    //   background: var(--ant-bg-color);
+    //   color: var(--ant-text-color);
+    //   .ant-pagination-prev,
+    //   .ant-pagination-next,
+    //   .ant-pagination-item-link,
+    //   .ant-pagination-item{
+    //   }
+    //   .ant-pagination-item-active{
+    //     background: @primary-color;
+    //     a {
+    //       color: var(--ant-text-color);
+    //     }
+    //   }
+    // }
+
+  }
+
+  // .ant-breadcrumb {
+  //   color: var(--ant-text-color);
+  //   .ant-breadcrumb-link, .router-link-active{
+  //     color: var(--ant-text-color);
+  //   }
+  // }
+}
+
+ol {
+  padding-left: 15px;
+}
+
+.prose blockquote p:first-of-type::before {
+  content: none;
+}
+
+.prose pre {
+  color: #495057;
+  background: #f8f9fa;
+}
+
+.prose-sm p {
+  font-weight: 500;
+}
+
+.prose blockquote {
+  margin: 0;
+  font-style: normal;
+}
+
+html.dark .prose blockquote {
+  color: white;
+}
+
+html.dark .prose pre {
+  color: #f8f9fa;
+  background: #495057;
+}
+
+.token.comment {
+  font-style: normal;
+  font-size: 0.5rem;
+}

@@ -33,6 +33,7 @@
 </template>
 <script setup lang="ts">
 // 子组件 sfc interface 定义 emits  props
+import { ConfigProvider } from 'ant-design-vue'
 import SideMenu from './components/SiderMenu/src/SideMenu'
 import { clearMenuItem, filterRoutes } from './utils/index'
 import { useUserStoreWithOut } from '~/store/modules/user'
@@ -41,6 +42,20 @@ import useDarks from '~/composables/useDarks'
 const router = useRouter()
 const mdata = clearMenuItem(router.getRoutes()).filter(({ path }) => path.startsWith('/app/'))
 const menuData = filterRoutes(mdata)
+const colorState = reactive({
+  primaryColor: '#faad14',
+  linkColor: 'red',
+  errorColor: '#ff4d4f',
+  warningColor: '#faad14',
+  successColor: '#52c41a',
+  infoColor: '#1890ff',
+})
+ConfigProvider.config({
+  theme: colorState,
+})
+// const colorState = reactive({
+//   primaryColor: '#25b864',
+// })
 
 const userStore = useUserStoreWithOut()
 
@@ -49,9 +64,26 @@ const exitSystem = () => {
   console.log(userStore.token)
 }
 const { isDark, toggleDark } = useDarks()
-const theme = computed(() => (isDark.value ? 'dark' : 'light'))
+const theme = computed(() => {
+  console.log(666666, ConfigProvider)
+  // if (isDark.value) {
+  //   ConfigProvider.config({
+  //     theme: {
+  //       primaryColor: '#25b864',
+  //     },
+  //   })
+  // } else {
+  //   ConfigProvider.config({
+  //     theme: {
+  //       primaryColor: '#faad14',
+  //     },
+  //   })
+  // }
+  return isDark.value ? 'dark' : 'light'
+})
 const layoutConf = reactive({ menuWidth: 208, theme: 'dark', menuData })
 watchEffect(() => {
+  console.log(99999)
   layoutConf.theme = unref(theme)
 })
 </script>
@@ -63,8 +95,6 @@ watchEffect(() => {
   .ant-layout-header {
     display: flex;
     justify-content: end;
-    // background: var(--prism-background);
-    // color: var(--prism-foreground);
     align-items: center;
     box-shadow: 0 1px 4px #00152914;
     z-index: 1;

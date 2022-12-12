@@ -68,7 +68,7 @@ const handleOk = (e: MouseEvent) => {
 </script>
 <style lang="less">
 .option {
-  background: var(--prism-background);
-  color: var(--prism-foreground);
+  background: var(--prism-bg-color);
+  color: var(--prism-text-color);
 }
 </style>

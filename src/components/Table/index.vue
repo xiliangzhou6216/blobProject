@@ -387,30 +387,30 @@ defineExpose({
     }
   }
 
-  .ant-table-striped :deep(.table-striped) td {
-    background-color: #fafafa;
-  }
+  // .ant-table-striped :deep(.table-striped) td {
+  //   background-color: #fafafa;
+  // }
 
-  .ant-table-striped :deep(.ant-table-pagination.ant-pagination) {
-    margin: 30px auto;
-    width: 100%;
-    text-align: center;
+  // .ant-table-striped :deep(.ant-table-pagination.ant-pagination) {
+  //   margin: 30px auto;
+  //   width: 100%;
+  //   text-align: center;
 
-    .ant-pagination-prev,
-    .ant-pagination-next {
-      .anticon {
-        // vertical-align: 1.5px;
-      }
-    }
-  }
+  //   .ant-pagination-prev,
+  //   .ant-pagination-next {
+  //     .anticon {
+  //       // vertical-align: 1.5px;
+  //     }
+  //   }
+  // }
 
-  .ant-table-striped :deep(.ant-pagination-item-active) {
-    background: #3860f4;
+  // .ant-table-striped :deep(.ant-pagination-item-active) {
+  //   background: #3860f4;
 
-    a {
-      color: #ffffff;
-    }
-  }
+  //   a {
+  //     color: #ffffff;
+  //   }
+  // }
 
   .border {
     border: 0.5px solid rgba(210, 210, 210, 0.5);
