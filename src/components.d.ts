@@ -26,6 +26,7 @@ declare module 'vue' {
     ASelect: typeof import('ant-design-vue/es')['Select']
     ASpace: typeof import('ant-design-vue/es')['Space']
     ASubMenu: typeof import('ant-design-vue/es')['SubMenu']
+    ASwitch: typeof import('ant-design-vue/es')['Switch']
     ATable: typeof import('ant-design-vue/es')['Table']
     Breadcrumb: typeof import('./components/Breadcrumb/src/Breadcrumb.vue')['default']
     ComponentMap: typeof import('./components/SearchForm/componentMap.tsx')['default']

@@ -156,6 +156,7 @@
         "ant-design-vue/es/row/style",
         "ant-design-vue/es/select/style",
         "ant-design-vue/es/space/style",
+        "ant-design-vue/es/switch/style",
         "ant-design-vue/es/table/style",
         "ant-design-vue/es/tag/style",
         "axios",

@@ -114,7 +114,7 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
         // ui库解析器，也可以自定义
         resolvers: [
           IconsResolver(),
-          AntDesignVueResolver({ importStyle: false }), // 自定义主题 如果是less主题时 设置自定义样式 开启 importStyle: 'less'
+          AntDesignVueResolver({ importStyle: 'less' }), // 自定义主题 如果是less主题时 设置自定义样式 开启 importStyle: 'less'
           VueUseComponentsResolver(),
         ],
       }),
