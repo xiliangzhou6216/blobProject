@@ -3,6 +3,7 @@ import { store } from '~/store/index'
 import { getToken, setToken, removeToken } from '~/utils/auth'
 import { loginRequest } from '~/api/user/index'
 import { router } from '~/router/index'
+const isDark = useDark()
 
 // 全局错误拦截
 interface log {
@@ -13,11 +14,17 @@ interface log {
   name: string
   type: string
 }
+interface themeConfigType {
+  primary: string
+  isDark: boolean
+}
+
 interface UserState {
   count: number
   token: string
   auths: string[]
   errorLog: log[]
+  themeConfig: themeConfigType
 }
 
 export const useUserStore = defineStore('app-user', {
@@ -26,8 +33,17 @@ export const useUserStore = defineStore('app-user', {
     token: '',
     auths: [],
     errorLog: [],
+    themeConfig: {
+      // 默认 primary 主题颜色
+      primary: '#1890ff',
+      // 深色模式
+      isDark: isDark.value,
+    },
   }),
   getters: {
+    getThemeConfig(): themeConfigType {
+      return this.themeConfig
+    },
     getCount(): number {
       return this.count
     },
@@ -39,6 +55,9 @@ export const useUserStore = defineStore('app-user', {
     },
   },
   actions: {
+    setThemeConfig(themeConfig: themeConfigType) {
+      this.themeConfig = themeConfig
+    },
     setErrorLog(info: log) {
       this.errorLog.push(info)
     },

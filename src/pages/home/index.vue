@@ -13,18 +13,13 @@
     </a-modal>
     <div class="option">555555555555555</div>
     <div class="s">666666666</div>
-    <a-switch v-model:checked="checked" />
     <div class="text-red-400 dark:text-blue-400">8888888888888</div>
     <div class="text-pink-300 min-h-800px">我是红色背景的白色文本11</div>
   </a-card>
 </template>
 
 <script setup lang="ts">
-import dark from '~/styles/themes/dark.less'
-import light from '~/styles/themes/light.less'
 import { useI18n } from '~/hooks/useI18n'
-
-// console.log(useI18n)
 const { t } = useI18n()
 
 const visible = ref<boolean>(false)
@@ -36,36 +31,6 @@ const handleOk = (e: MouseEvent) => {
   visible.value = false
 }
 
-const changeTheme = (theme: string) => {
-  const head = document.head
-  document.getElementById('theme')?.remove()
-  const styleDom = document.createElement('style')
-  styleDom.id = 'theme'
-  styleDom.innerHTML = theme
-  head.appendChild(styleDom)
-}
-
-const changeCss = (css: string, value: string) => {
-  const body = document.body.style
-  body.setProperty(css, value)
-}
-
-const DarkMode = (isDark: boolean) => {
-  if (isDark) {
-    changeTheme(dark)
-    changeCss('--prism-background', '#141414')
-  } else {
-    changeTheme(light)
-    changeCss('--prism-background', 'white')
-  }
-}
-
-const checked = ref<boolean>(false)
-
-watch(checked, (val, old) => {
-  DarkMode(val)
-  console.log(val, old)
-})
 // const state = reactive({
 //   data: [1],
 // })

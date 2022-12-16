@@ -37,20 +37,24 @@ import SideMenu from './components/SiderMenu/src/SideMenu'
 import { clearMenuItem, filterRoutes } from './utils/index'
 import { useUserStoreWithOut } from '~/store/modules/user'
 import AppLocale from './components/Header/AppLocale.vue'
-import useDarks from '~/composables/useDarks'
+import { useTheme } from '~/hooks/useTheme'
 const router = useRouter()
 const mdata = clearMenuItem(router.getRoutes()).filter(({ path }) => path.startsWith('/app/'))
 const menuData = filterRoutes(mdata)
 const userStore = useUserStoreWithOut()
 
+const { darkMode } = useTheme()
 const exitSystem = () => {
   userStore.logout()
   console.log(userStore.token)
 }
-const { isDark, toggleDark } = useDarks()
+const isDark = useDark()
+const toggleDark = useToggle(isDark)
 const theme = computed(() => (isDark.value ? 'dark' : 'light'))
 const layoutConf = reactive({ menuWidth: 208, theme: 'dark', menuData })
 watchEffect(() => {
+  darkMode(unref(isDark))
+  console.log(unref(isDark))
   layoutConf.theme = unref(theme)
 })
 </script>
