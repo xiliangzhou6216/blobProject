@@ -12,7 +12,6 @@
       <p>Some contents...</p>
     </a-modal>
     <div class="option">555555555555555</div>
-    <div class="s">666666666</div>
     <div class="text-red-400 dark:text-blue-400">8888888888888</div>
     <div class="text-pink-300 min-h-800px">我是红色背景的白色文本11</div>
   </a-card>
@@ -67,10 +66,6 @@ const handleOk = (e: MouseEvent) => {
 </script>
 <style lang="less">
 .option {
-  background: var(--prism-bg-color);
-  color: var(--prism-text-color);
-}
-.s {
-  background-color: var(--prism-background);
+  background: var(--ant-primary-color);
 }
 </style>

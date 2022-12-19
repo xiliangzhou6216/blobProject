@@ -54,7 +54,6 @@ const theme = computed(() => (isDark.value ? 'dark' : 'light'))
 const layoutConf = reactive({ menuWidth: 208, theme: 'dark', menuData })
 watchEffect(() => {
   darkMode(unref(isDark))
-  console.log(unref(isDark))
   layoutConf.theme = unref(theme)
 })
 </script>
