@@ -38,7 +38,7 @@ export const useLocaleStore = defineStore('app-locale', {
   },
 })
 
-// 需要在设置之外使用
+// 需要在setup之外使用
 export function useLocaleStoreWithOut() {
   return useLocaleStore(store)
 }

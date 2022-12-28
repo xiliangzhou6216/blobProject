@@ -22,6 +22,7 @@ import Icons from 'unplugin-icons/vite' //自动按需引入icons
 import { viteMockServe } from 'vite-plugin-mock'
 import PurgeIcons from 'vite-plugin-purge-icons'
 import { configManualChunk } from './config/vite/optimizer'
+import { optimizeInclude } from './config/vite/build/optimize'
 import { configStyleImportPlugin } from './config/vite/plugin/styleImport'
 import { configVisualizerConfig } from './config/vite/plugin/visualizer'
 import { VITE_DROP_CONSOLE, VITE_PORT } from './config/constant'
@@ -186,7 +187,7 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
       },
       // Turning off brotliSize display can slightly reduce packaging time
       brotliSize: false,
-      chunkSizeWarningLimit: 2000, // 块大小警告的限制
+      chunkSizeWarningLimit: 4000, // 块大小警告的限制
     },
     resolve: {
       alias: {
@@ -197,18 +198,7 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
     //使用此选项可强制预构建链接的包
     optimizeDeps: {
       // @iconify/iconify: The dependency is dynamically and virtually loaded by @purge-icons/generated, so it needs to be specified explicitly
-      include: [
-        'ant-design-vue/es/locale/zh_CN',
-        'ant-design-vue/es/locale/en_US',
-        '@iconify/iconify',
-        'nprogress',
-        'pinia',
-        'vue',
-        'vue-i18n',
-        'vue-router',
-        '@vueuse/head',
-        '@vueuse/core',
-      ],
+      include: optimizeInclude,
     },
   }
 })

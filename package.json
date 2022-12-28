@@ -158,14 +158,7 @@
         "ant-design-vue/es/space/style",
         "ant-design-vue/es/switch/style",
         "ant-design-vue/es/table/style",
-        "ant-design-vue/es/tag/style",
-        "axios",
-        "dayjs",
-        "dayjs/locale/zh-cn",
-        "ityped",
-        "lodash-es",
-        "store",
-        "vue-request"
+        "ant-design-vue/es/tag/style"
       ]
     }
   }

@@ -107,3 +107,10 @@ export const useUserStore = defineStore('app-user', {
 export function useUserStoreWithOut() {
   return useUserStore(store)
 }
+
+// pinia的多个API
+
+// storeToRefs(store)  仅针对于 state getters可以解构出来 改变数据状态
+// $patch 可以批量修改 state 里面的数据
+// $reset 可以重置 state 里面的数据
+// $subscribe  监听 state 里面的值是否发生了变化
