@@ -2,7 +2,7 @@
   <div class="mb-4">
     <a-card v-if="!isHidden" :body-style="{ padding: '24px 24px 0 24px' }" :bordered="false">
       <a-form name="search_columns" id="search_columns" :model="getSearchParams">
-        <a-row type="flex" :gutter="colGutter">
+        <a-row type="flex" :gutter="colConfig">
           <template v-for="(item, i) in getSearchColumns" :key="item.name">
             <a-col v-show="expand || i <= expandFindIndex" v-bind="getResponsive(item)">
               <a-form-item :label="`${item.label}`" :name="item.name">
@@ -75,7 +75,7 @@ const props = withDefaults(defineProps<TableProps>(), {
 })
 
 // 栅格间隔
-const colGutter = [props?.colConfig, {}]
+// const colGutter = [props?.colConfig, {}]
 // 隐藏查询表单列
 const isHidden = ref<boolean>(true)
 watchEffect(() => {

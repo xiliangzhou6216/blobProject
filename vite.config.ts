@@ -21,7 +21,7 @@ import Legacy from '@vitejs/plugin-legacy'
 import Icons from 'unplugin-icons/vite' //自动按需引入icons
 import { viteMockServe } from 'vite-plugin-mock'
 import PurgeIcons from 'vite-plugin-purge-icons'
-import { configManualChunk } from './config/vite/optimizer'
+// import { configManualChunk } from './config/vite/optimizer'
 import { optimizeInclude } from './config/vite/build/optimize'
 import { configStyleImportPlugin } from './config/vite/plugin/styleImport'
 import { configVisualizerConfig } from './config/vite/plugin/visualizer'
@@ -182,11 +182,23 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
       // Rollup 打包配置 自定义构建
       rollupOptions: {
         output: {
-          manualChunks: configManualChunk,
+          // manualChunks: configManualChunk,
+          // Static resource classification and packaging
+          // 1. [name]: 文件名称，不包括".后缀名"
+          // 2. [hash]: 根据文件名和文件内容生成的 hash 值
+          // 3. [format]: 产物模块格式，如 es、cjs
+          // 4. [extname]: 产物后缀名(带`.`)
+
+          // 代码分割的块。例如使用动态导入，就会被单独打包成一个文件
+          chunkFileNames: 'assets/js/[name]-[hash].js',
+          // 入口文件
+          entryFileNames: 'assets/js/[name]-[hash].js',
+          // 静态资源
+          assetFileNames: 'assets/[ext]/[name]-[hash].[ext]',
         },
       },
       // Turning off brotliSize display can slightly reduce packaging time
-      brotliSize: false,
+      // brotliSize: false,
       chunkSizeWarningLimit: 4000, // 块大小警告的限制
     },
     resolve: {
